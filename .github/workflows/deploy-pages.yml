@@ -23,9 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
-          cache: npm
-          cache-dependency-path: AI_HEP_Japan/package-lock.json
+          node-version: 'lts/*'
 
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
@@ -36,10 +34,7 @@ jobs:
 
       - name: Build
         working-directory: AI_HEP_Japan
-        run: nr build --base /${{ github.event.repository.name }}/
-
-      - name: Disable Jekyll
-        run: touch AI_HEP_Japan/dist/.nojekyll
+        run: nr build --base /${{github.event.repository.name}}/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
