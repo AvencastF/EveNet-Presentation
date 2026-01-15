@@ -47,7 +47,7 @@ jobs:
               echo "Building ${dir}"
               (
                 cd "$dir"
-                nci
+                ni
                 nr build --base "/${{ github.event.repository.name }}/${dir}/" --out "../site/${dir}"
               )
             fi
