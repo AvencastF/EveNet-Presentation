@@ -1,5 +1,10 @@
 <script setup lang="ts">
-type SupportedIcon = 'i-carbon:grid' | 'i-carbon:data-volume'
+type SupportedIcon =
+  | 'i-carbon:grid'
+  | 'i-carbon:data-volume'
+  | 'i-carbon:chart-network'
+  | 'i-carbon:global-filters'
+  | 'i-carbon:intent-request-scale-out'
 type Accent = 'cyan' | 'violet'
 
 const props = withDefaults(defineProps<{
@@ -44,7 +49,10 @@ const chipBorderClass =
       <div class="h-6 w-6 rounded-full border flex items-center justify-center backdrop-blur-sm"
         :class="chipBorderClass">
         <div v-if="icon === 'i-carbon:grid'" i-carbon:grid class="text-white/85 text-sm" />
-        <div v-else i-carbon:data-volume class="text-white/85 text-sm" />
+        <div v-else-if="icon === 'i-carbon:data-volume'" i-carbon:data-volume class="text-white/85 text-sm" />
+        <div v-else-if="icon === 'i-carbon:chart-network'" i-carbon:chart-network class="text-white/85 text-sm" />
+        <div v-else-if="icon === 'i-carbon:global-filters'" i-carbon:global-filters class="text-white/85 text-sm" />
+        <div v-else i-carbon:intent-request-scale-out class="text-white/85 text-sm" />
       </div>
     </div>
   </div>

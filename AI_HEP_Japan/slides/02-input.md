@@ -139,7 +139,7 @@ transition: 'none'
     <!-- Right: model cards -->
     <div class="flex justify-start w-full min-w-0">
       <div
-        class="flex flex-col items-start gap-10 transition duration-800 ease-in-out"
+        class="relative flex flex-col items-start gap-10 transition duration-800 ease-in-out"
         :class="[
           // After inputs 'flow in' and fade, pull encoders to the left side
           ($clicks >= 5 ? 'translate-x--100 delay-700' : ''),
@@ -220,6 +220,96 @@ transition: 'none'
                       class="w-3 h-3 rounded-sm bg-white/70"
                     />
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Outputs: appear after models shift left -->
+        <div
+          class="absolute top-0 left-full ml-10 transition duration-700 ease-in-out"
+          :class="[
+            ($clicks >= 5 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6 pointer-events-none'),
+          ]"
+        >
+          <div class="flex flex-col gap-5">
+            <!-- PET outputs -->
+            <div class="flex items-center gap-6">
+              <div
+                class="w-34 transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-1600' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <DataFlowArrow icon="i-carbon:chart-network" accent="cyan" :count="3" />
+              </div>
+              <div
+                rounded-lg
+                border="2 solid cyan-800" bg="cyan-800/18"
+                backdrop-blur
+                class="w-40 overflow-hidden transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-2400' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <div class="px-4 py-3 flex items-center justify-center">
+                  <div i-carbon:grid class="h-10 w-10 text-cyan-200/90" />
+                </div>
+                <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
+                  particle tokens
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-6">
+              <div
+                class="w-34 transition duration-500 ease-in-out translate-y--6"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-1600' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <DataFlowArrow icon="i-carbon:intent-request-scale-out" accent="cyan" :count="3" />
+              </div>
+              <div
+                rounded-lg
+                border="2 solid cyan-800" bg="cyan-800/18"
+                backdrop-blur
+                class="w-40 overflow-hidden transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-2400' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <div class="px-4 py-3 flex items-center justify-center">
+                  <div i-carbon:intent-request-scale-out class="h-10 w-10 text-cyan-200/90" />
+                </div>
+                <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
+                  time token <span class="text-white/60">(gen only)</span>
+                </div>
+              </div>
+            </div>
+            <!-- GlobalEmbedding output -->
+            <div class="flex items-center gap-6">
+              <div
+                class="w-34 transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-1600' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <DataFlowArrow icon="i-carbon:global-filters" accent="violet" :count="3" />
+              </div>
+              <div
+                rounded-lg
+                border="2 solid violet-800" bg="violet-800/18"
+                backdrop-blur
+                class="w-40 overflow-hidden transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-2400' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <div class="px-4 py-3 flex items-center justify-center">
+                  <div i-carbon:global-filters class="h-10 w-10 text-violet-200/90" />
+                </div>
+                <div bg="violet-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
+                  condition tokens
                 </div>
               </div>
             </div>
