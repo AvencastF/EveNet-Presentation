@@ -20,3 +20,7 @@ src: ./slides/01-cover.md
 ---
 src: ./slides/02-input.md
 ---
+
+---
+src: ./slides/03-discriminative-head.md
+---

@@ -3,7 +3,7 @@
 </div>
 
 <div class="subtitle mt-4">
-  Foundation models for event-level objects (placeholder)
+ Foundation model for Unified Understanding and Generation of Collider Data
 </div>
 
 <div class="mt-10 neon-hr" style="max-width: 720px;" />

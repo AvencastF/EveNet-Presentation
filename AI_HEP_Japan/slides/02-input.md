@@ -4,9 +4,9 @@ clicks: 5
 transition: 'none'
 ---
 
-# Inputs: particle point cloud
+# Inputs and Encoders
 
-<span>Let's start with the basics</span>
+<span>A large body</span>
 
 <div
   v-if="$clicks <= 4"
