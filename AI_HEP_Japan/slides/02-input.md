@@ -21,7 +21,7 @@ transition: 'none'
   transition duration-800 ease-in-out
   translate-x-10 translate-y-38
 >
-  <div class="grid w-full gap-x-6" style="grid-template-columns: 20% 15% 65%;">
+  <div class="grid w-full gap-x-6" style="grid-template-columns: 20% 20% 60%;">
     <!-- Left: inputs -->
     <div class="flex justify-start w-full min-w-0">
       <div class="flex flex-col items-start gap-4">
@@ -123,13 +123,38 @@ transition: 'none'
     </div>
     <!-- Middle: data flow arrows -->
     <div
-      class="flex flex-col items-center gap-10 pt-6 transition duration-700 ease-in-out w-full min-w-0"
+      class="relative flex flex-col items-center gap-10 pt-6 transition duration-700 ease-in-out w-full min-w-0"
       :class="[
-        // disappear with inputs on click5 and appear if click == 4
         ($clicks >= 5 ? 'opacity-0 scale-90 translate-x-6' : ($clicks < 4 ? 'opacity-0 scale-100 translate-x-0' : '')),
       ]"
     >
-      <div class="w-full min-w-0 translate-y-10">
+      <!-- Noise injection (diffusion): goes into PET path -->
+      <div
+        class="absolute left-0 top-0 justify-start translate-y-31 transition duration-500 ease-in-out"
+        :class="[
+          ($clicks >= 5 ? 'opacity-0 translate-x-6' : ($clicks < 4 ? 'opacity-0' : 'opacity-100 delay-800')),
+        ]"
+      >
+        <div
+          rounded-lg
+          border="2 solid cyan-800" bg="cyan-800/14"
+          backdrop-blur
+          class="px-2 py-1 flex items-center gap-2"
+        >
+          <!-- <div i-carbon:intent-request-scale-out class="text-cyan-200/90" /> -->
+          <span class="text-[12px] font-mono text-white/80 animate-pulse">+ noise(t)</span>
+        </div>
+      </div>
+      <!-- Noise arrow (into PET) -->
+      <div
+        class="absolute right-0 top-0 flex justify-end translate-y-30 w-23 transition duration-500 ease-in-out"
+        :class="[
+          ($clicks >= 5 ? 'opacity-0 translate-x-6' : ($clicks < 4 ? 'opacity-0' : 'opacity-100 delay-900')),
+        ]"
+      >
+        <DataFlowArrow icon="i-carbon:intent-request-scale-out" accent="cyan" :count="2" />
+      </div>
+      <div class="w-full min-w-0 translate-y-5">
         <DataFlowArrow icon="i-carbon:grid" accent="cyan" />
       </div>
       <div class="w-full min-w-0 translate-y-50">
@@ -282,7 +307,7 @@ transition: 'none'
                   <div i-carbon:intent-request-scale-out class="h-10 w-10 text-cyan-200/90" />
                 </div>
                 <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
-                  time token <span class="text-white/60">(gen only)</span>
+                 <span class="text-white/60 animate-pulse font-bold underline decoration-wavy decoration-cyan-500">noised</span> particle tokens 
                 </div>
               </div>
             </div>
