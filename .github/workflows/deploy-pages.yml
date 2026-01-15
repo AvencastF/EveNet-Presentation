@@ -53,11 +53,6 @@ jobs:
             fi
           done
 
-          # Simple landing page at repo root: /<repo>/
-          if [ -f "gh-pages/index.html" ]; then
-            cp gh-pages/index.html site/index.html
-          fi
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
