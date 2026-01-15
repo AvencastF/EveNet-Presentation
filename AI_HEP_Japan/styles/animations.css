@@ -1,0 +1,45 @@
+/* Helper entrance classes (use with v-click / v-after) */
+.enter-left {
+  transform: translateX(-18px);
+  opacity: 0;
+}
+
+.enter-right {
+  transform: translateX(18px);
+  opacity: 0;
+}
+
+.enter-pop {
+  transform: scale(0.92);
+  opacity: 0;
+}
+
+.enter-in {
+  transform: none;
+  opacity: 1;
+}
+
+.flow-highlight {
+  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.22), 0 0 22px rgba(0, 229, 255, 0.22), 0 0 40px rgba(255, 61, 242, 0.10);
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.16), 0 0 12px rgba(0, 229, 255, 0.10), 0 0 0 rgba(255, 61, 242, 0.0); }
+  50% { box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.26), 0 0 24px rgba(0, 229, 255, 0.20), 0 0 18px rgba(255, 61, 242, 0.14); }
+  100% { box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.16), 0 0 12px rgba(0, 229, 255, 0.10), 0 0 0 rgba(255, 61, 242, 0.0); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes arrow-drift {
+  0% { transform: translateX(0); opacity: 0.65; }
+  50% { transform: translateX(8px); opacity: 1; }
+  100% { transform: translateX(0); opacity: 0.65; }
+}
+
+.arrow-anim {
+  animation: arrow-drift 1.8s ease-in-out infinite;
+}
+

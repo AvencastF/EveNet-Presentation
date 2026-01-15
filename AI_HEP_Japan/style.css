@@ -2,6 +2,9 @@
   font-size: 1em !important;
   line-height: 1.4em !important;
 } */
+@import './styles/main.css';
+@import './styles/animations.css';
+
 :root {
   --slidev-code-padding: 8px 10px;
   --slidev-code-background: #16161690 !important;
@@ -14,7 +17,7 @@ h6 {
 }
 
 .dark #slide-content {
-  background-color: black !important;
+  background-color: var(--bg-0) !important;
 }
 
 /* Transitions */
@@ -178,3 +181,4 @@ iframe {
 .footnotes > .footnotes-list p {
   margin: 0;
 }
+
