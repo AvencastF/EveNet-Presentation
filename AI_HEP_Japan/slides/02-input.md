@@ -1,7 +1,7 @@
 ---
 class: py-10
 clicks: 5
-transition: 'none'
+transition: 'fade-out'
 ---
 
 # Inputs and Encoders
@@ -224,7 +224,7 @@ transition: 'none'
             <div bg="violet-800/35" px-4 py-2 flex items-center>
               <div i-carbon:global-filters text-violet-300 text-xl mr-2 />
               <span font-bold>GlobalEmbedding</span>
-              <span class="ml-auto text-xs text-violet-200/80 font-mono">Transformer</span>
+              <span class="ml-auto text-xs text-violet-200/80 font-mono">DNN</span>
             </div>
             <div px-4 py-3>
               <div class="flex items-start gap-4">

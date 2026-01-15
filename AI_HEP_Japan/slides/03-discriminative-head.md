@@ -1,6 +1,7 @@
 ---
 class: py-10
-transition: 'none'
+clicks: 3
+transition: 'fade'
 ---
 
 # Decoders: heads
@@ -58,7 +59,8 @@ transition: 'none'
     </div>
     <!-- Arrows into Object Encoder -->
     <div
-      class="relative flex flex-col items-center"
+      class="relative flex flex-col items-center transition duration-500 ease-in-out"
+      :class="[ $clicks >= 1 ? 'opacity-100' : 'opacity-0' ]"
     >
       <div class="w-full min-w-0 translate-y-20">
         <DataFlowArrow icon="i-carbon:grid" accent="cyan" :count="2" />
@@ -73,7 +75,11 @@ transition: 'none'
     <!-- Middle-right: Object Encoder (taller, PET-like styling) -->
     <div class="flex justify-center items-center pt-0">
       <div
-        class="relative w-full rounded-lg overflow-hidden border-2 border-emerald-800 bg-emerald-800/15 transition-all duration-700 ease-in-out evenet-power evenet-power-emerald pulse-glow"
+        class="relative w-full rounded-lg overflow-hidden border-2 border-emerald-800 bg-emerald-800/15 transition-all duration-700 ease-in-out"
+        :class="[
+          ($clicks >= 1 ? 'opacity-100 translate-x-0 delay-1000' : 'opacity-0 translate-x--4'),
+          ($clicks >= 1 ? 'evenet-power evenet-power-emerald pulse-glow' : ''),
+        ]"
       >
         <div bg="emerald-800/35" px-4 py-2 flex items-center>
           <div i-carbon:chart-network text-emerald-300 text-xl mr-2 />
@@ -110,7 +116,10 @@ transition: 'none'
       </div>
     </div>
     <!-- Fan-out arrows (Object Encoder -> heads) -->
-    <div class="flex flex-col items-center gap-6 pt-18">
+    <div
+      class="flex flex-col items-center gap-6 pt-18 transition duration-500 ease-in-out"
+      :class="[ $clicks >= 2 ? 'opacity-100' : 'opacity-0' ]"
+    >
       <div class="w-full min-w-0 translate-y-0">
         <DataFlowArrow icon="i-carbon:chart-network" accent="emerald" :count="1" />
       </div>
@@ -122,17 +131,35 @@ transition: 'none'
       </div>
     </div>
     <!-- Heads -->
-    <div class="flex flex-col gap-1 pt-2 w-fit">
+    <div
+      class="flex flex-col gap-1 pt-2 w-fit transition duration-600 ease-in-out"
+      :class="[ $clicks >= 2 ? 'opacity-100 translate-x-0 delay-1000' : 'opacity-0 translate-x-4' ]"
+    >
       <div class="rounded-lg overflow-hidden border-2 border-sky-800 bg-sky-800/12 min-h-[130px]">
         <div bg="sky-800/30" px-4 py-1.5 flex items-center text-sm>
           <div i-carbon:chart-bar text-sky-300 mr-1 />
           <span font-bold>Classification Head</span>
         </div>
-        <div px-4 py-2 class="text-xs text-white/80 flex items-start justify-between gap-4">
-          <div class="pt-0.5">
-            Predict physics process.
+        <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
+          <div
+            class="pt-0.5 transition-all duration-600 ease-in-out"
+            :class="[ $clicks >= 3 ? 'w-1/2' : 'w-full' ]"
+          >
+            <ul class="list-disc list-inside space-y-0.5">
+              <li>Predict physics process.</li>
+              <li>Multi-class classification.</li>
+            </ul>
           </div>
-          <ClassificationIllustration class="shrink-0" :width="100" :height="75" :points-per-cluster="10" :sigma-frac="0.23" :center-spread="0.9" :grid-step="3"  />
+          <ClassificationIllustration
+            class="shrink-0 transition duration-600 ease-in-out"
+            :class="[ $clicks >= 3 ? 'opacity-100 translate-x-5' : 'opacity-0 translate-x-10 pointer-events-none w-0' ]"
+            :width="100"
+            :height="75"
+            :points-per-cluster="10"
+            :sigma-frac="0.23"
+            :center-spread="0.9"
+            :grid-step="3"
+          />
         </div>
       </div>
       <div class="rounded-lg overflow-hidden border-2 border-rose-800 bg-rose-800/12 min-h-[130px]">
@@ -140,12 +167,18 @@ transition: 'none'
           <div i-carbon:link text-rose-300 mr-2 />
           <span font-bold>Assignment Head</span>
         </div>
-        <div px-4 py-2 class="text-xs text-white/80 flex items-start justify-between gap-4">
-          <div class="pt-0.5">
-            Match reco objects to a fixed decay topology.
+        <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
+          <div
+            class="pt-0.5 transition-all duration-600 ease-in-out"
+            :class="[ $clicks >= 3 ? 'w-1/2' : 'w-full' ]"
+          >
+            <ul class="list-disc list-inside space-y-0.5">
+              <li>Match reconstructed objects to a fixed decay topology.</li>
+            </ul>
           </div>
           <AssignmentIllustration
-            class="shrink-0"
+            class="shrink-0 transition duration-600 ease-in-out"
+            :class="[ $clicks >= 3 ? 'opacity-100 translate-x-2' : 'opacity-0 translate-x-5 pointer-events-none w-0' ]"
             :width="180"
             :height="75"
             :cols="10"
@@ -162,11 +195,23 @@ transition: 'none'
           <div i-carbon:group-objects text-violet-300 mr-2 />
           <span font-bold>Segmentation Head</span>
         </div>
-        <div px-4 py-2 class="text-xs text-white/80 flex items-start justify-between gap-2">
-          <div class="pt-0.5">
-            Query-based masks over particles (SAM-style).
+        <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
+          <div
+            class="pt-0.5 transition-all duration-600 ease-in-out"
+            :class="[ $clicks >= 3 ? 'w-1/2' : 'w-full' ]"
+          >
+            <ul class="list-disc list-inside space-y-0.5">
+              <li>Query-based masks over particles (SAM-style).</li>
+            </ul>
           </div>
-          <SegmentationIllustration class="shrink-0" :width="180" :height="80" :seed="11" :duration="4.5"/>
+          <SegmentationIllustration
+            class="shrink-0 transition duration-600 ease-in-out"
+            :class="[ $clicks >= 3 ? 'opacity-100 translate-x-2' : 'opacity-0 translate-x-5 pointer-events-none w-0' ]"
+            :width="180"
+            :height="80"
+            :seed="11"
+            :duration="4.5"
+          />
         </div>
       </div>
     </div>
