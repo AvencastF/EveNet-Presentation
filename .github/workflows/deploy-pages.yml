@@ -28,20 +28,39 @@ jobs:
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
 
-      - name: Install dependencies
-        working-directory: AI_HEP_Japan
-        run: nci
+      - name: Build all presentations
+        run: |
+          set -euo pipefail
 
-      - name: Build
-        working-directory: AI_HEP_Japan
-        run: nr build --base /${{github.event.repository.name}}/
+          rm -rf site
+          mkdir -p site
+
+          # Build each top-level folder that looks like a Slidev project.
+          # Result URLs:
+          # - https://<user>.github.io/<repo>/<folder>/
+          for dir in */ ; do
+            dir="${dir%/}"
+            if [ -f "$dir/package.json" ]; then
+              echo "Building ${dir}"
+              (
+                cd "$dir"
+                nci
+                nr build --base "/${{ github.event.repository.name }}/${dir}/" --out "../site/${dir}"
+              )
+            fi
+          done
+
+          # Simple landing page at repo root: /<repo>/
+          if [ -f "gh-pages/index.html" ]; then
+            cp gh-pages/index.html site/index.html
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: AI_HEP_Japan/dist
+          path: site
 
   deploy:
     environment:
