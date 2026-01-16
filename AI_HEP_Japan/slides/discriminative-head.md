@@ -4,9 +4,9 @@ clicks: 3
 transition: 'fade'
 ---
 
-# Decoders: heads
+# <span class="gradient-animated">EveNet</span> Decoders
 
-<span>Discriminative branch</span>
+<span>Discriminative Heads</span>
 
 <div class="mt-5">
   <!-- 5 columns: tokens -> arrows -> object encoder -> fan-out -> heads -->
@@ -83,7 +83,7 @@ transition: 'fade'
       >
         <div bg="emerald-800/35" px-4 py-2.5 flex flex-col>
           <div class="flex items-center">
-            <div i-carbon:chart-network text-emerald-300 text-xl mr-2 />
+            <div i-carbon:cross-tab text-emerald-300 text-xl mr-2 />
             <span font-bold>Object Encoder</span>
           </div>
           <div class="text-xs text-emerald-200/80 font-mono mt-0.5 ml-7">Transformer</div>
@@ -122,13 +122,13 @@ transition: 'fade'
       :class="[ $clicks >= 2 ? 'opacity-100' : 'opacity-0' ]"
     >
       <div class="w-full min-w-0 translate-y-0">
-        <DataFlowArrow icon="i-carbon:chart-network" accent="emerald" :count="1" />
+        <DataFlowArrow icon="i-carbon:cross-tab" accent="emerald" :count="1" />
       </div>
       <div class="w-full min-w-0 translate-y-10">
-        <DataFlowArrow icon="i-carbon:chart-network" accent="emerald" :count="1" />
+        <DataFlowArrow icon="i-carbon:cross-tab" accent="emerald" :count="1" />
       </div>
       <div class="w-full min-w-0 translate-y-20">
-        <DataFlowArrow icon="i-carbon:chart-network" accent="emerald" :count="1" />
+        <DataFlowArrow icon="i-carbon:cross-tab" accent="emerald" :count="1" />
       </div>
     </div>
     <!-- Heads -->
@@ -139,7 +139,7 @@ transition: 'fade'
       <div class="rounded-lg overflow-hidden border-2 border-sky-800 bg-sky-800/12 min-h-[130px]">
         <div bg="sky-800/30" px-4 py-1.5 flex items-center text-sm>
           <div i-carbon:chart-bar text-sky-300 mr-1 />
-          <span font-bold>Classification Head</span>
+          <span font-bold>Classification Head (CLS)</span>
         </div>
         <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
           <div
@@ -166,7 +166,7 @@ transition: 'fade'
       <div class="rounded-lg overflow-hidden border-2 border-rose-800 bg-rose-800/12 min-h-[130px]">
         <div bg="rose-800/30" px-4 py-1.5 flex items-center text-sm>
           <div i-carbon:link text-rose-300 mr-2 />
-          <span font-bold>Assignment Head</span>
+          <span font-bold>Assignment Head (ASG)</span>
         </div>
         <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
           <div
@@ -194,7 +194,7 @@ transition: 'fade'
       <div class="rounded-lg overflow-hidden border-2 border-violet-800 bg-violet-800/12 min-h-[130px]">
         <div bg="violet-800/30" px-4 py-1.5 flex items-center text-sm>
           <div i-carbon:group-objects text-violet-300 mr-2 />
-          <span font-bold>Segmentation Head</span>
+          <span font-bold>Segmentation Head (SEG)</span>
         </div>
         <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
           <div

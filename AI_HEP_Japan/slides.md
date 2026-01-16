@@ -44,3 +44,7 @@ src: ./slides/generative-head.md
 ---
 src: ./slides/model-overview.md
 ---
+
+---
+src: ./slides/pretrain.md
+---

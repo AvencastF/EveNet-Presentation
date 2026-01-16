@@ -4,7 +4,7 @@ clicks: 0
 transition: 'fade'
 ---
 
-# Model Overview
+# <span class="gradient-animated">EveNet</span> Model Summary
 
 <div class="mt-5">
   <!-- 4 columns: Input | Arrows | Encoder | Decoder -->

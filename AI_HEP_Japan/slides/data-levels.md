@@ -8,7 +8,7 @@ transition: 'fade-out'
 
 Three levels of data representation in collider experiments
 
-<div class="flex gap-4 mt-12 items-stretch">
+<div class="flex gap-4 mt-8 items-stretch">
   <!-- Card 1: Raw Detector Response -->
   <div v-click class="flex-1 transition-all duration-500 ease-in-out flex">
     <div class="border-2 border-cyan-800 bg-cyan-800/20 rounded-lg overflow-hidden flex flex-col w-full">

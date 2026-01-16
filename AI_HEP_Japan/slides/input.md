@@ -4,7 +4,7 @@ clicks: 5
 transition: 'fade-out'
 ---
 
-# Inputs and Encoders
+# <span class="gradient-animated">EveNet</span> Encoders
 
 <span>A shared representation for all tasks</span>
 

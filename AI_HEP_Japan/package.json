@@ -25,6 +25,7 @@
     "@slidev/theme-default": "^0.25.0",
     "@unocss/extractor-mdc": "^66.6.0",
     "playwright-chromium": "^1.52.0",
+    "plotly.js-dist": "^3.3.0",
     "seedrandom": "^3.0.5",
     "unocss": "^66.6.0"
   }

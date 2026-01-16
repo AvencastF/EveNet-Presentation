@@ -103,3 +103,51 @@ h2 {
   transform: translateY(-1px);
 }
 
+@keyframes model-name-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.model-name-highlight {
+  background: linear-gradient(90deg, #14b8a6, #06b6d4, #22d3ee, #06b6d4, #14b8a6);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: model-name-gradient-flow 3.5s ease-in-out infinite;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.model-name-highlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.3), transparent);
+  border-radius: 2px;
+  opacity: 0;
+  animation: model-name-glow-pulse 3.5s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes model-name-glow-pulse {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(20px);
+  }
+}
+
+
+

@@ -4,9 +4,9 @@ clicks: 1
 transition: 'fade'
 ---
 
-# Decoders: heads
+# <span class="gradient-animated">EveNet</span> Decoders
 
-<span>Generative branch</span>
+<span>Generative Heads</span>
 
 <div class="mt-5">
   <!-- 4 columns: tokens -> arrows -> heads -> prediction visualization -->
@@ -81,7 +81,7 @@ transition: 'fade'
       <div class="mt-8 rounded-lg overflow-hidden border-2 border-indigo-800 bg-indigo-800/12 min-h-[150px]">
         <div bg="indigo-800/30" px-4 py-1.5 flex items-center text-sm>
           <div i-carbon:data-check text-indigo-300 mr-2 />
-          <span font-bold>Supervised Generative Head</span>
+          <span font-bold>Supervised Generative Head (Sup-Gen)</span>
         </div>
         <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
           <div
@@ -105,7 +105,7 @@ transition: 'fade'
       <div class="mt-6 rounded-lg overflow-hidden border-2 border-teal-800 bg-teal-800/12 min-h-[150px]">
         <div bg="teal-800/30" px-4 py-1.5 flex items-center text-sm>
           <div i-carbon:renew text-teal-300 mr-2 />
-          <span font-bold>Self-Supervised Generative Head</span>
+          <span font-bold>Self-Supervised Generative Head (SS-Gen)</span>
         </div>
         <div px-4 py-2 class="text-xs text-white/80 flex items-start gap-4">
           <div
