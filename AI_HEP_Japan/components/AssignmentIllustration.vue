@@ -24,7 +24,6 @@
   const H = props.height
   
   // --- Layout ---
-  const pad = 10
   const nodeR = 8
   
   // token strip (center)

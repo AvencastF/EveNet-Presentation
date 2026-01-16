@@ -81,37 +81,22 @@ transition: 'fade'
           ($clicks >= 1 ? 'evenet-power evenet-power-emerald pulse-glow' : ''),
         ]"
       >
-        <div bg="emerald-800/35" px-4 py-2 flex items-center>
-          <div i-carbon:chart-network text-emerald-300 text-xl mr-2 />
-          <span font-bold>Object Encoder</span>
+        <div bg="emerald-800/35" px-4 py-2.5 flex flex-col>
+          <div class="flex items-center">
+            <div i-carbon:chart-network text-emerald-300 text-xl mr-2 />
+            <span font-bold>Object Encoder</span>
+          </div>
+          <div class="text-xs text-emerald-200/80 font-mono mt-0.5 ml-7">Transformer</div>
         </div>
-        <div px-4 py-3 class="text-xs leading-5 text-white/80">
-          <div class="mt-0 font-semibold text-emerald-200 mb-1">Structure</div>
-          <ul class="space-y-1">
-            <li class="flex items-center gap-2">
-              <div i-carbon:link class="text-emerald-200/90" />
-              <span class="text-emerald-100/90 font-mono">cross-attention</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <div i-carbon:data-volume class="text-emerald-200/90" />
-              <span class="text-emerald-100/90 font-mono">pooling</span>
-            </li>
-          </ul>
-          <div class="mt-3 font-semibold text-emerald-200 mb-1">Outputs</div>
-          <ul class="space-y-1">
-            <li class="flex items-center gap-2">
-              <div i-carbon:global-filters class="text-emerald-200/90" />
-              <span class="text-emerald-100/90 font-mono">event tokens</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <div i-carbon:grid class="text-emerald-200/90" />
-              <span class="text-emerald-100/90 font-mono">particle embeddings</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <div i-carbon:grid class="text-emerald-200/90" />
-              <span class="text-emerald-100/90 font-mono">condition embeddings</span>
-            </li>
-          </ul>
+        <div px-4 py-4 class="text-xs leading-6 text-white/80">
+          <div class="flex items-center gap-3 mb-3">
+            <div i-carbon:link class="text-emerald-300/90 text-lg shrink-0" />
+            <span class="text-emerald-100/90">Bridge: PET → Heads</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div i-carbon:global-filters class="text-emerald-300/90 text-lg shrink-0" />
+            <span class="text-emerald-100/90">Global event-level info</span>
+          </div>
         </div>
       </div>
     </div>
@@ -201,7 +186,7 @@ transition: 'fade'
             :class="[ $clicks >= 3 ? 'w-1/2' : 'w-full' ]"
           >
             <ul class="list-disc list-inside space-y-0.5">
-              <li>Query-based masks over particles (SAM-style).</li>
+              <li>Query-based masks over particles.</li>
             </ul>
           </div>
           <SegmentationIllustration

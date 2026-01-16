@@ -181,7 +181,7 @@ transition: 'fade-out'
           >
             <div bg="cyan-800/35" px-4 py-2 flex items-center>
               <div i-carbon:chart-network text-cyan-300 text-xl mr-2 />
-              <span font-bold>PET body</span>
+              <span font-bold>PET Encoder</span>
               <span class="ml-auto text-xs text-cyan-200/80 font-mono">GNN + Transformer</span>
             </div>
             <div px-4 py-3>
@@ -189,8 +189,18 @@ transition: 'fade-out'
                 <div class="text-xs leading-5 text-white/80">
                   <div class="font-semibold text-cyan-200 mb-1">Structure</div>
                   <ul class="list-disc pl-4 space-y-1">
-                    <li>Point–edge message passing (graph inductive bias)</li>
-                    <li>Attention-style mixing across particles/edges</li>
+                    <li v-if="$clicks < 5">
+                      <span v-mark="{ at: 4, color: 'rgb(18, 104, 189)', type: 'underline' }">Point–edge</span> message passing (graph inductive bias)
+                    </li>
+                    <li v-else>
+                      Point–edge message passing (graph inductive bias)
+                    </li>
+                    <li v-if="$clicks < 5">
+                      Captures both <span v-mark="{ at: 4, color: 'rgb(18, 104, 189)', type: 'underline' }">local and global</span> information
+                    </li>
+                    <li v-else>
+                      Captures both local and global information
+                    </li>
                     <li>Permutation-symmetric over particle order</li>
                   </ul>
                 </div>
@@ -202,8 +212,10 @@ transition: 'fade-out'
                       :key="i"
                       class="w-3 h-3 rounded-sm"
                       :class="[
-                        // deterministic 'random-looking' pattern
-                        [1, 4, 6, 7, 10, 12, 15].includes(i) ? 'bg-zinc-400/40' : 'bg-white/70',
+                        // diagonal terms are all white, rest as before
+                        ([0, 6, 12, 18, 24].includes(i - 1)) 
+                          ? 'bg-white/140' 
+                          : ([2, 3, 6, 8, 18, 20, 24].includes(i) ? 'bg-white/10' : 'bg-white/50'),
                       ]"
                     />
                   </div>
@@ -223,7 +235,7 @@ transition: 'fade-out'
           >
             <div bg="violet-800/35" px-4 py-2 flex items-center>
               <div i-carbon:global-filters text-violet-300 text-xl mr-2 />
-              <span font-bold>GlobalEmbedding</span>
+              <span font-bold>Global Embedding</span>
               <span class="ml-auto text-xs text-violet-200/80 font-mono">DNN</span>
             </div>
             <div px-4 py-3>
@@ -231,20 +243,59 @@ transition: 'fade-out'
                 <div class="text-xs leading-5 text-white/80">
                   <div class="font-semibold text-violet-200 mb-1">Structure</div>
                   <ul class="list-disc pl-4 space-y-1">
-                    <li>Transformer encoder over event-level scalars</li>
-                    <li>Produces compact condition tokens</li>
                     <li>Provides global context to all heads</li>
                   </ul>
                 </div>
-                <!-- Shape: 4×4 matrix (all white) -->
+                <!-- Simple 3-layer DNN -->
                 <div class="ml-auto shrink-0 pt-1">
-                  <div class="grid grid-cols-4 gap-1 p-2 rounded-md bg-black/20 border border-white/10">
-                    <div
-                      v-for="i in 16"
-                      :key="i"
-                      class="w-3 h-3 rounded-sm bg-white/70"
-                    />
-                  </div>
+                  <svg
+                    width="120"
+                    height="80"
+                    viewBox="0 0 120 80"
+                    class="rounded-md bg-black/20 border border-white/10 p-2"
+                  >
+                    <g stroke="rgba(255,255,255,0.22)" stroke-width="0.6" stroke-linecap="round">
+                      <template v-for="(iy, i) in [20, 40, 60]" :key="`ih-row-${i}`">
+                        <line
+                          v-for="(hy, j) in [14, 32, 48, 66]"
+                          :key="`ih-${i}-${j}`"
+                          :x1="18"
+                          :y1="iy"
+                          :x2="55"
+                          :y2="hy"
+                        />
+                      </template>
+                    </g>
+                    <!-- Connections: Hidden -> Output -->
+                    <g stroke="rgba(255,255,255,0.22)" stroke-width="0.6" stroke-linecap="round">
+                      <template v-for="(hy, i) in [14, 32, 48, 66]" :key="`ho-row-${i}`">
+                        <line
+                          v-for="(oy, j) in [10, 22, 34, 46, 58, 70]"
+                          :key="`ho-${i}-${j}`"
+                          :x1="55"
+                          :y1="hy"
+                          :x2="98"
+                          :y2="oy"
+                        />
+                      </template>
+                    </g>
+                    <!-- Nodes: solid white circles -->
+                    <g>
+                      <!-- Input: 3 -->
+                      <circle v-for="(y, i) in [20, 40, 60]" :key="`in-${i}`" :cx="18" :cy="y" r="3.5" fill="#fff" />
+                      <!-- Hidden: 4 -->
+                      <circle v-for="(y, i) in [14, 32, 48, 66]" :key="`hid-${i}`" :cx="55" :cy="y" r="3.5" fill="#fff" />
+                      <!-- Output: 6 -->
+                      <circle
+                        v-for="(y, i) in [10, 22, 34, 46, 58, 70]"
+                        :key="`out-${i}`"
+                        :cx="98"
+                        :cy="y"
+                        r="3.5"
+                        fill="#fff"
+                      />
+                    </g>
+                  </svg>
                 </div>
               </div>
             </div>

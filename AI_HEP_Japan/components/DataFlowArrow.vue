@@ -5,7 +5,8 @@ type SupportedIcon =
   | 'i-carbon:chart-network'
   | 'i-carbon:global-filters'
   | 'i-carbon:intent-request-scale-out'
-type Accent = 'cyan' | 'violet' | 'emerald'
+  | 'i-carbon:time'
+type Accent = 'cyan' | 'violet' | 'emerald' | 'amber'
 
 const props = withDefaults(defineProps<{
   icon: SupportedIcon
@@ -23,14 +24,18 @@ const lineClass =
     ? 'from-violet-400/10 via-violet-300/70 to-violet-200/10'
     : props.accent === 'emerald'
       ? 'from-emerald-400/10 via-emerald-300/70 to-emerald-200/10'
-      : 'from-cyan-400/10 via-cyan-300/70 to-cyan-200/10'
+      : props.accent === 'amber'
+        ? 'from-amber-400/10 via-amber-300/70 to-amber-200/10'
+        : 'from-cyan-400/10 via-cyan-300/70 to-cyan-200/10'
 
 const chipBorderClass =
   props.accent === 'violet'
     ? 'border-violet-300/40 bg-violet-900/25'
     : props.accent === 'emerald'
       ? 'border-emerald-300/40 bg-emerald-900/25'
-      : 'border-cyan-300/40 bg-cyan-900/25'
+      : props.accent === 'amber'
+        ? 'border-amber-300/40 bg-amber-900/25'
+        : 'border-cyan-300/40 bg-cyan-900/25'
 </script>
 
 <template>
@@ -42,7 +47,7 @@ const chipBorderClass =
     <!-- Arrow head -->
     <div
       class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rotate-45 border-t-2 border-r-2 opacity-80"
-      :class="accent === 'violet' ? 'border-violet-200/70' : (accent === 'emerald' ? 'border-emerald-200/70' : 'border-cyan-200/70')"
+      :class="accent === 'violet' ? 'border-violet-200/70' : (accent === 'emerald' ? 'border-emerald-200/70' : (accent === 'amber' ? 'border-amber-200/70' : 'border-cyan-200/70'))"
     />
 
     <!-- Flowing icon chips -->
@@ -59,6 +64,7 @@ const chipBorderClass =
         <div v-else-if="icon === 'i-carbon:data-volume'" i-carbon:data-volume class="text-white/85 text-sm" />
         <div v-else-if="icon === 'i-carbon:chart-network'" i-carbon:chart-network class="text-white/85 text-sm" />
         <div v-else-if="icon === 'i-carbon:global-filters'" i-carbon:global-filters class="text-white/85 text-sm" />
+        <div v-else-if="icon === 'i-carbon:time'" i-carbon:time class="text-white/85 text-sm" />
         <div v-else i-carbon:intent-request-scale-out class="text-white/85 text-sm" />
       </div>
     </div>
@@ -75,6 +81,7 @@ const chipBorderClass =
         <div v-else-if="icon === 'i-carbon:data-volume'" i-carbon:data-volume class="text-white/85 text-sm" />
         <div v-else-if="icon === 'i-carbon:chart-network'" i-carbon:chart-network class="text-white/85 text-sm" />
         <div v-else-if="icon === 'i-carbon:global-filters'" i-carbon:global-filters class="text-white/85 text-sm" />
+        <div v-else-if="icon === 'i-carbon:time'" i-carbon:time class="text-white/85 text-sm" />
         <div v-else i-carbon:intent-request-scale-out class="text-white/85 text-sm" />
       </div>
     </div>

@@ -24,3 +24,11 @@ src: ./slides/02-input.md
 ---
 src: ./slides/03-discriminative-head.md
 ---
+
+---
+src: ./slides/04-generative-head.md
+---
+
+---
+src: ./slides/05-model-overview.md
+---
