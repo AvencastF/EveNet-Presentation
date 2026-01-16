@@ -6,7 +6,7 @@ transition: 'fade-out'
 
 # Inputs and Encoders
 
-<span>A large body</span>
+<span>A shared representation for all tasks</span>
 
 <div
   v-if="$clicks <= 4"
@@ -358,7 +358,7 @@ transition: 'fade-out'
                   <div i-carbon:intent-request-scale-out class="h-10 w-10 text-cyan-200/90" />
                 </div>
                 <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
-                 <span class="text-white/60 animate-pulse font-bold underline decoration-wavy decoration-cyan-500">noised</span> particle tokens 
+                 <span class="text-white/60 animate-pulse font-bold">noised</span> particle tokens 
                 </div>
               </div>
             </div>

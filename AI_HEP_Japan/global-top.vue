@@ -12,11 +12,19 @@ const totalPages = computed(() => total?.value ?? slides.value.length)
 
 // Hide on the first slide (title page)
 const isTitlePage = computed(() => currentPage.value === 1)
+
+// Check if current slide has no-page-number class
+const shouldHidePageNumber = computed(() => {
+  const currentSlide = slides.value[currentSlideNo.value - 1]
+  if (!currentSlide) return false
+  const classes = currentSlide.class || ''
+  return classes.includes('no-page-number')
+})
 </script>
 
 <template>
   <div
-    v-if="!isTitlePage"
+    v-if="!isTitlePage && !shouldHidePageNumber"
     class="page-number"
     aria-label="Page number"
   >

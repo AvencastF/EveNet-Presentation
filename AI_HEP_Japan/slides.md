@@ -14,21 +14,33 @@ preload: false
 glowSeed: 229
 routerMode: hash
 
-src: ./slides/01-cover.md
+src: ./slides/cover.md
 ---
 
 ---
-src: ./slides/02-input.md
+src: ./slides/ml-tasks.md
 ---
 
 ---
-src: ./slides/03-discriminative-head.md
+src: ./slides/data-levels.md
 ---
 
 ---
-src: ./slides/04-generative-head.md
+src: ./slides/unified-model-intro.md
 ---
 
 ---
-src: ./slides/05-model-overview.md
+src: ./slides/input.md
+---
+
+---
+src: ./slides/discriminative-head.md
+---
+
+---
+src: ./slides/generative-head.md
+---
+
+---
+src: ./slides/model-overview.md
 ---

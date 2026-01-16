@@ -1,7 +1,7 @@
 ---
 class: py-10
 clicks: 0
-transition: "fade-out"
+transition: 'fade'
 ---
 
 # Model Overview

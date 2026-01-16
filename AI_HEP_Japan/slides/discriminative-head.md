@@ -38,7 +38,7 @@ transition: 'fade'
           <div i-carbon:intent-request-scale-out class="h-10 w-10 text-cyan-200/90" />
         </div>
         <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
-          <span class="text-white/60 animate-pulse font-bold underline decoration-wavy decoration-cyan-500">noised</span><br/>
+          <span class="text-white/60 animate-pulse font-bold ">noised</span><br/>
           particle tokens
         </div>
       </div>
@@ -75,7 +75,7 @@ transition: 'fade'
     <!-- Middle-right: Object Encoder (taller, PET-like styling) -->
     <div class="flex justify-center items-center pt-0">
       <div
-        class="relative w-full rounded-lg overflow-hidden border-2 border-emerald-800 bg-emerald-800/15 transition-all duration-700 ease-in-out"
+        class="relative w-full rounded-lg overflow-hidden border-2 border-emerald-800 bg-emerald-800/15 transition-all duration-700 ease-in-out min-h-[300px]"
         :class="[
           ($clicks >= 1 ? 'opacity-100 translate-x-0 delay-1000' : 'opacity-0 translate-x--4'),
           ($clicks >= 1 ? 'evenet-power evenet-power-emerald pulse-glow' : ''),
@@ -97,6 +97,22 @@ transition: 'fade'
             <div i-carbon:global-filters class="text-emerald-300/90 text-lg shrink-0" />
             <span class="text-emerald-100/90">Global event-level info</span>
           </div>
+          <!-- Shape: 4×4 matrix (mixed) -->
+                <div class="ml-auto shrink-0 pt-6">
+                  <div class="grid grid-cols-6 gap-1 p-2 rounded-md bg-black/20 border border-white/10">
+                    <div
+                      v-for="i in 36"
+                      :key="i"
+                      class="w-3 h-3 rounded-sm"
+                      :class="[
+                        // diagonal terms are all white, rest as before
+                        ([0, 6, 12, 18, 24].includes(i - 1)) 
+                          ? 'bg-white/140' 
+                          : ([2, 3, 6, 8, 18, 20, 24].includes(i) ? 'bg-white/10' : 'bg-white/50'),
+                      ]"
+                    />
+                  </div>
+                </div>
         </div>
       </div>
     </div>
