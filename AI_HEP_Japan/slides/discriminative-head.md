@@ -148,7 +148,7 @@ transition: 'fade'
           >
             <ul class="list-disc list-inside space-y-0.5">
               <li>Predict physics process.</li>
-              <li>Multi-class classification.</li>
+              <li>Noise-tolarence training.</li>
             </ul>
           </div>
           <ClassificationIllustration

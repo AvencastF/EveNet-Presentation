@@ -10,7 +10,7 @@ Current landscape of discriminative and generative modeling in collider physics 
 
 [^1]: [HEP ML Living Review](https://iml-wg.github.io/HEPML-LivingReview/)
 
-<div class="mt-4 grid w-full gap-x-8" style="grid-template-columns: 1fr 1fr;">
+<div class="mt-10 grid w-full gap-x-8" style="grid-template-columns: 1fr 1fr;">
   <!-- Left Card: Discriminative Tasks -->
   <div
     class="relative rounded-lg border-2 border-cyan-800/60 bg-cyan-800/12 backdrop-blur overflow-hidden transition duration-700 ease-in-out opacity-100 scale-100"

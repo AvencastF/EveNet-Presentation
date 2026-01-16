@@ -13,7 +13,8 @@ clicks: 0
 preload: false
 glowSeed: 229
 routerMode: hash
-
+aspectRatio: 16/9
+canvasWidth: 980
 src: ./slides/cover.md
 ---
 
@@ -47,4 +48,8 @@ src: ./slides/model-overview.md
 
 ---
 src: ./slides/pretrain.md
+---
+
+---
+src: ./slides/downstream-overview.md
 ---

@@ -1,5 +1,34 @@
 <script setup lang="ts">
 import { normalize } from '../composable/math.ts'
+import LaTeX from './LaTeX.vue'
+
+// Map feature/condition names to LaTeX formulas
+const featureNameToLaTeX: Record<string, string> = {
+  'log(E)': '\\log(E)',
+  'log(pT)': '\\log(p_T)',
+  'eta': '\\eta',
+  'phi': '\\phi',
+  'isBtag': '\\text{isBtag}',
+  'isLepton': '\\text{isLepton}',
+  'Q': 'Q',
+}
+
+const conditionNameToLaTeX: Record<string, string> = {
+  'met': 'E_T^{\\text{miss}}',
+  'met_phi': '\\phi_{E_T^{\\text{miss}}}',
+  'nLepton': 'N_\\ell',
+  'nbJet': 'N_b',
+  'nJet': 'N_j',
+  'HT': 'H_T',
+  'HT_lep': 'H_T^{\\ell}',
+  'M_all': 'M_{\\text{all}}',
+  'M_leps': 'M_{\\ell}',
+  'M_bjets': 'M_b',
+}
+
+function getLaTeXFormula(name: string, mapping: Record<string, string>): string | null {
+  return mapping[name] || null
+}
 
 const colors = [
   { text: 'text-sky-300', bg: 'bg-sky-800/30', border: 'border-sky-800' },
@@ -44,9 +73,9 @@ const dataHead = [
   { type: 'b', label: 'b-jet', features: [7.4, 5.1, -0.63, -1.32, 1, 0, 0] },
   { type: 'l', label: 'lep', features: [5.8, 3.9, 0.27, 0.91, 0, 1, +1] },
   { type: 'j', label: 'jet', features: [6.5, 4.6, 1.73, 1.14, 0, 0, +1] },
-  { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, -1] },
-  { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, -1] },
-  { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, -1] },
+  { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, 0] },
+  { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, 0] },
+  { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, 0] },
   { type: 'b', label: 'b-jet', features: [7.1, 5.0, -0.22, -0.58, 1, 0, 0] },
 ] as const
 
@@ -101,13 +130,14 @@ const conditionNames = [
             <!-- No outer bracket for feature-name column -->
             <div class="relative mx-1 flex flex-col px-1">
               <div v-for="(name, i) in featureNames" :key="i" class="py-0.3">
-                <span class="border-2 rounded-md border-solid px-1.5 py-0.5 text-xs min-w-18 text-center text-white/90"
+                <span class="border-2 rounded-md border-solid px-1.5 py-0.5 text-xs min-w-18 text-center text-white/90 flex items-center justify-center"
                   :class="[
                     i < 4
                       ? 'bg-sky-300/10 border-sky-500/15 text-sky-100/85'
                       : 'bg-amber-200/10 border-amber-500/15 text-amber-100/90',
                   ]">
-                  {{ name }}
+                  <LaTeX v-if="getLaTeXFormula(name, featureNameToLaTeX)" :formula="getLaTeXFormula(name, featureNameToLaTeX)!" />
+                  <span v-else>{{ name }}</span>
                 </span>
               </div>
             </div>
@@ -209,7 +239,7 @@ const conditionNames = [
           <!-- Feature names (aligned to the 1xN vector entries) -->
           <div class="mb-2 grid grid-cols-10 gap-x-2 px-2 place-items-center">
             <div v-for="(name, i) in conditionNames" :key="name" class="w-18 flex justify-center">
-              <span class="border-2 rounded-md border-solid px-1.5 py-0.5 text-xs w-18 text-center text-white/90"
+              <span class="border-2 rounded-md border-solid px-1.5 py-0.5 text-xs w-18 text-center text-white/90 flex items-center justify-center"
                 :class="[
                   i < 2
                     ? 'bg-sky-300/10 border-sky-500/15 text-sky-100/85'
@@ -219,7 +249,8 @@ const conditionNames = [
                         ? 'bg-green-200/10 border-green-500/15 text-green-100/90'
                         : 'bg-purple-200/10 border-purple-500/15 text-purple-100/90',
                 ]">
-                {{ name }}
+                <LaTeX v-if="getLaTeXFormula(name, conditionNameToLaTeX)" :formula="getLaTeXFormula(name, conditionNameToLaTeX)!" />
+                <span v-else>{{ name }}</span>
               </span>
             </div>
           </div>

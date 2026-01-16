@@ -231,7 +231,7 @@ transition: 'fade'
           <div px-3 py-1.5 class="text-xs text-white/80 flex gap-2 items-center h-full">
             <div class="flex items-center text-xs shrink-0">
               <div i-carbon:data-check class="text-indigo-300 mr-1.5" />
-              <span font-semibold>Sup-Gen.</span>
+              <span font-semibold>Sup-Gen</span>
             </div>
             <div class="flex-1 flex items-center justify-end" style="width: 160px; height: 65px; overflow: hidden;">
               <div style="transform: scale(0.56); transform-origin: center right;">
@@ -251,7 +251,7 @@ transition: 'fade'
           <div px-3 py-1.5 class="text-xs text-white/80 flex gap-2 items-center h-full">
             <div class="flex items-center text-xs shrink-0">
               <div i-carbon:renew class="text-teal-300 mr-1.5" />
-              <span font-semibold>SS-Gen.</span>
+              <span font-semibold>SS-Gen</span>
             </div>
             <div class="flex-1 flex items-center justify-end">
               <SelfSupervisedGenIllustration
@@ -270,7 +270,7 @@ transition: 'fade'
           <div px-3 py-1.5 class="text-xs text-white/80 flex gap-2 items-center justify-between h-full">
             <div class="flex items-center text-xs shrink-0">
               <div i-carbon:chart-bar class="text-sky-300 mr-1.5" />
-              <span font-semibold>CLS.</span>
+              <span font-semibold>CLS</span>
             </div>
             <div class="flex-1 flex items-center justify-end">
               <ClassificationIllustration
@@ -290,7 +290,7 @@ transition: 'fade'
           <div px-3 py-1.5 class="text-xs text-white/80 flex gap-2 items-center justify-between h-full">
             <div class="flex items-center text-xs shrink-0">
               <div i-carbon:link class="text-rose-300 mr-1.5" />
-              <span font-semibold>ASG.</span>
+              <span font-semibold>ASG</span>
             </div>
             <div class="flex-1 flex items-center justify-end" style="width: 160px; height: 65px; overflow: hidden;">
               <div style="transform: scale(0.775); transform-origin: center right;">
@@ -314,7 +314,7 @@ transition: 'fade'
           <div px-3 py-1.5 class="text-xs text-white/80 flex gap-2 items-center justify-between h-full">
             <div class="flex items-center text-xs shrink-0">
               <div i-carbon:group-objects class="text-violet-300 mr-1.5" />
-              <span font-semibold>SEG.</span>
+              <span font-semibold>SEG</span>
             </div>
             <div class="flex-1 flex items-center justify-end" style="width: 160px; height: 65px; overflow: hidden;">
               <div style="transform: scale(0.725); transform-origin: center right;">
