@@ -14,7 +14,7 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   <div class="plot-wrapper">
     <div class="plot-title">Individual Training</div>
     <ZoomablePlot 
-      src="/results/grid_sic_individual.svg" 
+      src="/grid_sic_individual.svg" 
       alt="Grid SIC Individual Results"
     />
   </div>
@@ -22,7 +22,7 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   <div class="plot-wrapper">
     <div class="plot-title">Paramertized Training</div>
     <ZoomablePlot 
-      src="/results/grid_sic_mixed.svg" 
+      src="/grid_sic_mixed.svg" 
       alt="Grid SIC Mixed Results"
     />
   </div>
