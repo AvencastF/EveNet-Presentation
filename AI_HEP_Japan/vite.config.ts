@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs'
+import { copyFileSync, existsSync, mkdirSync, readdirSync } from 'fs'
 import { join } from 'path'
 
 export default defineConfig({
@@ -11,8 +11,8 @@ export default defineConfig({
   plugins: [
     {
       name: 'copy-results-assets',
-      writeBundle() {
-        // Ensure results subdirectory is copied
+      closeBundle() {
+        // Ensure results subdirectory is copied after bundle is complete
         const resultsSource = join(process.cwd(), 'public', 'results')
         const resultsDest = join(process.cwd(), 'dist', 'results')
         
@@ -41,6 +41,7 @@ export default defineConfig({
           }
           
           copyRecursive(resultsSource, resultsDest)
+          console.log(`✓ Copied results directory from ${resultsSource} to ${resultsDest}`)
         }
       }
     }
