@@ -67,5 +67,9 @@ src: ./slides/systematics-robustness.md
 ---
 
 ---
+src: ./slides/summary.md
+---
+
+---
 src: ./slides/thank-you.md
 ---

@@ -10,6 +10,12 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
 
 # <span class="gradient-animated">EveNet</span> Grid Study Results
 
+<!-- Hidden img tags to ensure Vite includes these assets in the build -->
+<div style="display: none;">
+  <img src="/grid_sic_individual.svg" alt="" />
+  <img src="/grid_sic_mixed.svg" alt="" />
+</div>
+
 <div class="plots-container pt-4">
   <div class="plot-wrapper">
     <div class="plot-title">Individual Training</div>
