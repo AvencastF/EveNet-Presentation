@@ -59,5 +59,9 @@ src: ./slides/grid-study-intro.md
 ---
 
 ---
+src: ./slides/grid-study-results.md
+---
+
+---
 src: ./slides/thank-you.md
 ---

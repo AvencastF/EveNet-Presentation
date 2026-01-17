@@ -168,7 +168,7 @@ import LaTeX from '../components/LaTeX.vue'
               <div class="result-row">
                 <div class="result-name result-name-ref">SPANet</div>
                 <div class="result-bar-container">
-                  <div class="result-bar result-bar-ref" style="width: 21.1%;">
+                  <div class="result-bar result-bar-ref" style="width: 19.0%;">
                     <span class="result-bar-text result-bar-text-ref">1.4</span>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ import LaTeX from '../components/LaTeX.vue'
                   <span class="gradient-animated" style="font-variant: small-caps;">SSL</span>
                 </div>
                 <div class="result-bar-container">
-                  <div class="result-bar result-bar-ssl" style="width: 54.0%;">
+                  <div class="result-bar result-bar-ssl" style="width: 48.6%;">
                     <span class="result-bar-text result-bar-text-ssl">3.7</span>
                   </div>
                   <div class="result-improvement result-improvement-ssl">
@@ -193,7 +193,7 @@ import LaTeX from '../components/LaTeX.vue'
                   <span class="gradient-animated" style="font-variant: small-caps;">Full</span>
                 </div>
                 <div class="result-bar-container">
-                  <div class="result-bar result-bar-full" style="width: 60%;">
+                  <div class="result-bar result-bar-full" style="width: 54.0%;">
                     <span class="result-bar-text result-bar-text-full">4.1</span>
                   </div>
                   <div class="result-improvement result-improvement-full">
@@ -315,7 +315,7 @@ import LaTeX from '../components/LaTeX.vue'
               <div class="result-row">
                 <div class="result-name result-name-ref">Ref.</div>
                 <div class="result-bar-container">
-                  <div class="result-bar result-bar-ref" style="width: 50.5%;">
+                  <div class="result-bar result-bar-ref" style="width: 45.5%;">
                     <span class="result-bar-text result-bar-text-ref">6.4</span>
                   </div>
                 </div>
@@ -326,11 +326,11 @@ import LaTeX from '../components/LaTeX.vue'
                   <span class="gradient-animated" style="font-variant: small-caps;">SSL</span>
                 </div>
                 <div class="result-bar-container">
-                  <div class="result-bar result-bar-ssl" style="width: 58.5%;">
+                  <div class="result-bar result-bar-ssl" style="width: 52.7%;">
                     <span class="result-bar-text result-bar-text-ssl">7.4</span>
                   </div>
                   <!-- Error bar: 7.412 -0.4561 +0.4401 -->
-                  <div class="result-error-bar result-error-bar-ssl" style="left: 54.9%; width: 7.0%;">
+                  <div class="result-error-bar result-error-bar-ssl" style="left: 49.4%; width: 6.3%;">
                     <div class="result-error-line"></div>
                     <div class="result-error-tick result-error-tick-left"></div>
                     <div class="result-error-tick result-error-tick-right"></div>
@@ -346,11 +346,11 @@ import LaTeX from '../components/LaTeX.vue'
                   <span class="gradient-animated" style="font-variant: small-caps;">Full</span>
                 </div>
                 <div class="result-bar-container">
-                  <div class="result-bar result-bar-full" style="width: 60%;">
+                  <div class="result-bar result-bar-full" style="width: 54.0%;">
                     <span class="result-bar-text result-bar-text-full">7.6</span>
                   </div>
                   <!-- Error bar: 7.608 -0.4268 +0.4268 -->
-                  <div class="result-error-bar result-error-bar-full" style="left: 56.6%; width: 6.8%;">
+                  <div class="result-error-bar result-error-bar-full" style="left: 50.9%; width: 6.1%;">
                     <div class="result-error-line"></div>
                     <div class="result-error-tick result-error-tick-left"></div>
                     <div class="result-error-tick result-error-tick-right"></div>
@@ -373,7 +373,7 @@ import LaTeX from '../components/LaTeX.vue'
 
 <style>
 .card-title {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .h-dataset-badge {
@@ -385,7 +385,7 @@ import LaTeX from '../components/LaTeX.vue'
 }
 
 .h-illustration {
-  height: 8.1rem; /* 80px - equivalent to h-20 */
+  height: 8.3rem; /* 80px - equivalent to h-20 */
 }
 
 /* Unified result display styles - 3 column layout */
