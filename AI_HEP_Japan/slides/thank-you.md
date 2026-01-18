@@ -31,7 +31,10 @@ transition: fade
 
 <div class="thank-you-evenet-wrap">
   <img src="/evenet-logo-color.svg" alt="" class="thank-you-evenet-logo" />
-  <span class="thank-you-evenet-text">EveNet</span>
+  <div class="thank-you-evenet-text-col">
+    <span class="thank-you-evenet-text">EveNet</span>
+    <span class="thank-you-evenet-sub">For HEP</span>
+  </div>
 </div>
 
 <div w-full absolute bottom-0 left-0 flex items-center transform="translate-x translate-y--5">
@@ -63,11 +66,23 @@ transition: fade
   flex-shrink: 0;
 }
 
+.thank-you-evenet-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
 .thank-you-evenet-text {
   font-size: 2rem;
   line-height: 1;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
+}
+.thank-you-evenet-sub {
+  font-size: 0.85rem;
+  line-height: 1;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .school-logo {
