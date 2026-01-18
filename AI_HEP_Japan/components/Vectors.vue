@@ -72,7 +72,7 @@ const dataHead = [
   { type: 'l', label: 'lep', features: [6.1, 4.2, 1.12, 2.48, 0, 1, -1] },
   { type: 'b', label: 'b-jet', features: [7.4, 5.1, -0.63, -1.32, 1, 0, 0] },
   { type: 'l', label: 'lep', features: [5.8, 3.9, 0.27, 0.91, 0, 1, +1] },
-  { type: 'j', label: 'jet', features: [6.5, 4.6, 1.73, 1.14, 0, 0, +1] },
+  { type: 'j', label: 'jet', features: [6.5, 4.6, 1.73, 1.14, 0, 0, 0] },
   { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, 0] },
   { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, 0] },
   { type: 'j', label: 'jet', features: [7.1, 5.0, -0.22, -0.58, 0, 0, 0] },
