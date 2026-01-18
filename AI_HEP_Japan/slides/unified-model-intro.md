@@ -24,7 +24,8 @@ transition: fade-out
       </div>
       <!-- A -->
       <div v-click class="line in mt-20">
-        <div class="answer">
+        <div class="answer flex items-center gap-3">
+          <div class="answer-logo gradient-animated-svg" role="img" aria-label="EveNet"></div>
           <span class="gradient-animated">EveNet</span>
         </div>
       </div>
@@ -54,5 +55,21 @@ transition: fade-out
   letter-spacing: -0.04em;
   font-weight: 420;
   color: rgba(255,255,255,0.90);
+}
+.answer-logo{
+  height: 1em;
+  width: auto;
+  flex-shrink: 0;
+  aspect-ratio: 390 / 392;
+}
+/* Gradient animation for SVG via mask — same colors as .gradient-animated */
+.gradient-animated-svg {
+  -webkit-mask: url(/evenet-logo-white.svg) no-repeat center / contain;
+  mask: url(/evenet-logo-white.svg) no-repeat center / contain;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background: linear-gradient(90deg, #00e5ff, #ff3df2, #00e5ff);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
 }
 </style>

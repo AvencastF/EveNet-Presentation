@@ -29,6 +29,11 @@ transition: fade
   </div>
 </div>
 
+<div class="thank-you-evenet-wrap">
+  <img src="/evenet-logo-color.svg" alt="" class="thank-you-evenet-logo" />
+  <span class="thank-you-evenet-text">EveNet</span>
+</div>
+
 <div w-full absolute bottom-0 left-0 flex items-center transform="translate-x translate-y--5">
   <div w-full flex items-center justify-end gap-1>
     <a href="https://www.nersc.gov" class="logo-link"><img src="/nersc-logo.svg" h-10 translate-y></a>
@@ -40,6 +45,29 @@ transition: fade
 .logo-link {
   text-decoration: none !important;
   border-bottom: none !important;
+}
+
+.thank-you-evenet-wrap {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 3.0rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.thank-you-evenet-logo {
+  height: 3.5rem;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.thank-you-evenet-text {
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .school-logo {
