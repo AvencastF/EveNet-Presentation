@@ -1,7 +1,7 @@
 <template>
   <div class="zoomable-plot-container">
     <img 
-      :src="src" 
+      :src="imageSrc" 
       :alt="alt" 
       class="zoomable-plot-image"
       @click="openFullscreen"
@@ -19,7 +19,7 @@
             <div i-carbon:close class="close-icon" />
           </button>
           <img 
-            :src="src" 
+            :src="imageSrc" 
             :alt="alt" 
             class="fullscreen-image"
           />
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const props = defineProps({
   src: {
@@ -41,6 +41,23 @@ const props = defineProps({
     type: String,
     default: 'Plot'
   }
+})
+
+// Get the base URL from Vite (handles GitHub Pages subpath)
+const baseUrl = import.meta.env.BASE_URL
+
+// Compute the correct src path with base URL
+const imageSrc = computed(() => {
+  // If src already starts with baseUrl, use as is
+  if (props.src.startsWith(baseUrl)) {
+    return props.src
+  }
+  // If src starts with /, prepend baseUrl
+  if (props.src.startsWith('/')) {
+    return baseUrl + props.src.slice(1)
+  }
+  // Otherwise, prepend baseUrl
+  return baseUrl + props.src
 })
 
 const isFullscreen = ref(false)
