@@ -21,7 +21,7 @@ transition: fade-out
         A unified ML model
       </div>
       <div class="q-sub">
-        across detectors and tasks.
+        across detectors and tasks
       </div>
     </div>
     <!-- A: appears on first click, centered -->
@@ -43,6 +43,8 @@ transition: fade-out
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: min(90vw, 48rem);
   transition:
     top 0.7s cubic-bezier(0.4, 0, 0.2, 1),
     left 0.7s cubic-bezier(0.4, 0, 0.2, 1),
