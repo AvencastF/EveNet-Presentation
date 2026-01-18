@@ -87,8 +87,8 @@ transition: 'fade'
             class="pt-0.5 transition-all duration-600 ease-in-out"
           >
             <ul class="list-disc list-inside space-y-0.5">
-              <li>Predict object features.</li>
-              <li>Neutrino kinematics.</li>
+              <li>Predict object features</li>
+              <li>Neutrino kinematics</li>
             </ul>
           </div>
           <SupervisedGenIllustration
@@ -111,8 +111,8 @@ transition: 'fade'
             class="pt-0.5 transition-all duration-600 ease-in-out"
           >
             <ul class="list-disc list-inside space-y-0.5">
-              <li>Diffuse backward to recon masked particles.</li>
-              <li>Learn latent event structure without labels.</li>
+              <li>Diffuse backward to recon masked particles</li>
+              <li>Learn latent event structure</li>
             </ul>
           </div>
           <SelfSupervisedGenIllustration

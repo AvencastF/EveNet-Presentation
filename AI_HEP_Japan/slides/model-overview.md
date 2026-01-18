@@ -222,8 +222,9 @@ transition: 'fade'
         class="relative rounded-lg overflow-hidden border-2 border-cyan-800 bg-cyan-800/15"
       >
         <div bg="cyan-800/35" px-4 py-1.5 flex items-center text-sm>
-          <div i-carbon:chart-network class="text-cyan-300 mr-2" />
-          <span font-bold>Decoders</span>
+          <div i-carbon:apps class="text-cyan-300 mr-2" />
+          <span class="font-bold">Decoders</span>
+          <span class="ml-1 text-xs"><i>(modular analysis primitives)</i></span>
         </div>
         <!-- Sup-Gen -->
         <div class="mx-3 mt-1.5 mb-1.5 rounded-lg overflow-hidden border-2 border-indigo-800 bg-indigo-800/12 h-[65px]">

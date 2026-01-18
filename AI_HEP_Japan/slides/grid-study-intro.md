@@ -326,7 +326,7 @@ const plotLayout = computed(() => ({
           <span class="highlight-orange">Background-dominated</span> training <br/>→ <span class="highlight-orange">slow convergence</span>
         </div>
         <div class="content-line challenge-line">
-          <span class="highlight-orange">Signal kinematics</span> can be <span class="highlight-orange underline">very different</span> across masses
+          <span class="highlight-orange underline">Signal kinematics</span> can be <span class="highlight-orange">very different</span> across masses
         </div>
         <div class="content-line challenge-line">
           <span class="highlight-orange">Scratch models</span> <span class="highlight-orange">fail</span> to converge quickly and stably

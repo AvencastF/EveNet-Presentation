@@ -61,17 +61,26 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- Results Card (Click 1) -->
         <div v-click="1" class="w-full flex flex-col justify-center result-card-reveal">
             <!-- Title -->
-            <div class="text-[14px] text-green-300 font-bold mb-2 flex items-center gap-0.1 mt--1">
+            <div class="text-[14px] text-green-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
               Precision on D [%]
             </div>
             <!-- Chart bars -->
-            <div class="space-y-2 result-bars-container">
+            <div class="space-y-1 result-bars-container">
               <!-- Reference Paper -->
               <div class="result-row">
                 <div class="result-name result-name-ref">Ref.</div>
                 <div class="result-bar-container">
                   <div class="result-bar result-bar-ref" style="width: 100%;">
                     <span class="result-bar-text result-bar-text-ref">5.26</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Scratch -->
+              <div class="result-row">
+                <div class="result-name result-name-scratch">Scratch</div>
+                <div class="result-bar-container">
+                  <div class="result-bar result-bar-scratch" style="width: 31.2%;">
+                    <span class="result-bar-text result-bar-text-scratch">1.64</span>
                   </div>
                 </div>
               </div>
@@ -84,12 +93,9 @@ import LaTeX from '../components/LaTeX.vue'
                   <div class="result-bar result-bar-ssl" style="width: 32.1%;">
                     <span class="result-bar-text result-bar-text-ssl">1.69</span>
                   </div>
-                  <div class="result-improvement result-improvement-ssl">
-                    <div class="result-improvement-badge">68% ↓</div>
-                  </div>
                 </div>
               </div>
-              <!-- EveNet-Full -->
+              <!-- EveNet-Full (improvement vs Ref) -->
               <div class="result-row">
                 <div class="result-name result-name-full">
                   <span class="gradient-animated" style="font-variant: small-caps;">Full</span>
@@ -150,7 +156,7 @@ import LaTeX from '../components/LaTeX.vue'
           <div class="ml-6 mt-1">Out-of-distribution</div>
         </div>
         <div class="text-xs text-amber-200/80 mt-2 italic">
-          Bkg not so far from pretrain
+          Unseen decay topology
         </div>
       </div>
       <!-- Illustration Placeholder - Fixed Height -->
@@ -158,17 +164,26 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- Results Card (Click 1) -->
         <div v-click="1" class="w-full flex flex-col justify-center result-card-reveal">
             <!-- Title -->
-            <div class="text-[14px] text-amber-300 font-bold mb-2 flex items-center gap-0.1 mt--1">
+            <div class="text-[14px] text-amber-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
               Max SIC
             </div>
             <!-- Chart bars -->
-            <div class="space-y-2 result-bars-container">
+            <div class="space-y-1 result-bars-container">
               <!-- Reference: SPANet CLS -->
               <div class="result-row">
                 <div class="result-name result-name-ref">SPANet</div>
                 <div class="result-bar-container">
                   <div class="result-bar result-bar-ref" style="width: 19.0%;">
                     <span class="result-bar-text result-bar-text-ref">1.4</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Scratch -->
+              <div class="result-row">
+                <div class="result-name result-name-scratch">Scratch</div>
+                <div class="result-bar-container">
+                  <div class="result-bar result-bar-scratch" style="width: 21.3%;">
+                    <span class="result-bar-text result-bar-text-scratch">1.6</span>
                   </div>
                 </div>
               </div>
@@ -180,9 +195,6 @@ import LaTeX from '../components/LaTeX.vue'
                 <div class="result-bar-container">
                   <div class="result-bar result-bar-ssl" style="width: 48.6%;">
                     <span class="result-bar-text result-bar-text-ssl">3.7</span>
-                  </div>
-                  <div class="result-improvement result-improvement-ssl">
-                    <div class="result-improvement-badge">157% ↑</div>
                   </div>
                 </div>
               </div>
@@ -246,7 +258,7 @@ import LaTeX from '../components/LaTeX.vue'
           <div class="ml-6 mt-1">Out-of-distribution</div>
         </div>
         <div class="text-xs text-orange-200/80 mt-2 italic">
-          Full simulation, pile-up
+          Full simulation with pile-up
         </div>
       </div>
       <!-- Illustration Placeholder - Fixed Height -->
@@ -305,11 +317,11 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- Results Card (Click 1) -->
         <div v-click="1" class="w-full flex flex-col justify-center result-card-reveal">
             <!-- Title -->
-            <div class="text-[14px] text-rose-300 font-bold mb-2 flex items-center gap-0.1 mt--1">
+            <div class="text-[14px] text-rose-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
               Observed Significance
             </div>
             <!-- Chart bars -->
-            <div class="space-y-2 result-bars-container">
+            <div class="space-y-1 result-bars-container">
               <!-- Reference -->
               <div class="result-row">
                 <div class="result-name result-name-ref">Ref.</div>
@@ -317,6 +329,21 @@ import LaTeX from '../components/LaTeX.vue'
                   <div class="result-bar result-bar-ref" style="width: 45.5%;">
                     <span class="result-bar-text result-bar-text-ref">6.4</span>
                   </div>
+                </div>
+              </div>
+              <!-- Scratch -->
+              <div class="result-row">
+                <div class="result-name result-name-scratch">Scratch</div>
+                <div class="result-bar-container">
+                  <div class="result-bar result-bar-scratch" style="width: 10.3%;">
+                    <span class="result-bar-text result-bar-text-scratch ml-4">1.5</span>
+                  </div>
+                  <!-- Error bar: 1.451 -0.2184 +0.2378 -->
+                  <!-- <div class="result-error-bar result-error-bar-scratch" style="left: 8.8%; width: 3.2%;">
+                    <div class="result-error-line"></div>
+                    <div class="result-error-tick result-error-tick-left"></div>
+                    <div class="result-error-tick result-error-tick-right"></div>
+                  </div> -->
                 </div>
               </div>
               <!-- SSL -->
@@ -333,9 +360,6 @@ import LaTeX from '../components/LaTeX.vue'
                     <div class="result-error-line"></div>
                     <div class="result-error-tick result-error-tick-left"></div>
                     <div class="result-error-tick result-error-tick-right"></div>
-                  </div>
-                  <div class="result-improvement result-improvement-ssl">
-                    <div class="result-improvement-badge">1.0σ ↑</div>
                   </div>
                 </div>
               </div>
@@ -380,11 +404,11 @@ import LaTeX from '../components/LaTeX.vue'
 }
 
 .h-task-details {
-  height: 9.75rem; /* 80px - equivalent to h-20 */
+  height: 9.5rem; /* 80px - equivalent to h-20 */
 }
 
 .h-illustration {
-  height: 8.3rem; /* 80px - equivalent to h-20 */
+  height: 8.9rem; /* 80px - equivalent to h-20 */
 }
 
 /* Unified result display styles - 3 column layout */
@@ -395,7 +419,7 @@ import LaTeX from '../components/LaTeX.vue'
 .result-row {
   display: grid;
   grid-template-columns: 0.33fr 1fr;
-  gap: 0.5rem;
+  gap: 0.375rem;
   align-items: center;
 }
 
@@ -412,7 +436,7 @@ import LaTeX from '../components/LaTeX.vue'
 }
 
 .result-bar {
-  height: 1rem;
+  height: 1.0rem;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -455,23 +479,39 @@ import LaTeX from '../components/LaTeX.vue'
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Full bar styles */
+/* Scratch bar styles - weakest in the hierarchy */
+.result-name-scratch {
+  color: rgba(134, 239, 172, 0.5);
+}
+
+.result-bar-scratch {
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  background: rgba(34, 197, 94, 0.1);
+  animation-delay: 0.4s;
+}
+
+.result-bar-text-scratch {
+  color: rgba(134, 239, 172, 0.65);
+}
+
+/* Full bar styles - most highlighted */
 .result-name-full {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(187, 247, 208, 1);
 }
 
 .result-value-full {
-  color: rgba(34, 197, 94, 0.9);
+  color: rgba(34, 197, 94, 0.95);
 }
 
 .result-bar-full {
-  border: 1px solid rgba(34, 197, 94, 0.4);
-  background: rgba(34, 197, 94, 0.25);
-  animation-delay: 0.5s;
+  border: 1px solid rgba(34, 197, 94, 0.55);
+  background: rgba(34, 197, 94, 0.35);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.25);
+  animation-delay: 0.6s;
 }
 
 .result-bar-text-full {
-  color: rgba(187, 247, 208, 0.9);
+  color: rgba(187, 247, 208, 1);
 }
 
 .result-improvement-full {
@@ -492,23 +532,23 @@ import LaTeX from '../components/LaTeX.vue'
   opacity: 0;
 }
 
-/* SSL bar styles - muted/weaker than Full */
+/* SSL bar styles - stronger than Scratch, weaker than Full */
 .result-name-ssl {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(134, 239, 172, 0.8);
 }
 
 .result-value-ssl {
-  color: rgba(22, 163, 74, 0.6);
+  color: rgba(34, 197, 94, 0.75);
 }
 
 .result-bar-ssl {
-  border: 1px solid rgba(22, 163, 74, 0.25);
-  background: rgba(22, 163, 74, 0.15);
-  animation-delay: 0.7s;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(34, 197, 94, 0.2);
+  animation-delay: 0.5s;
 }
 
 .result-bar-text-ssl {
-  color: rgba(187, 247, 208, 0.7);
+  color: rgba(187, 247, 208, 0.85);
 }
 
 .result-improvement-ssl {
@@ -585,16 +625,20 @@ import LaTeX from '../components/LaTeX.vue'
   right: 0;
 }
 
-/* Error bar colors for SSL */
-.result-error-bar-ssl .result-error-line,
-.result-error-bar-ssl .result-error-tick {
-  background: rgba(187, 247, 208, 0.7);
+/* Error bar colors - Scratch weakest, SSL medium, Full strongest */
+.result-error-bar-scratch .result-error-line,
+.result-error-bar-scratch .result-error-tick {
+  background: rgba(134, 239, 172, 0.5);
 }
 
-/* Error bar colors for Full */
+.result-error-bar-ssl .result-error-line,
+.result-error-bar-ssl .result-error-tick {
+  background: rgba(187, 247, 208, 0.75);
+}
+
 .result-error-bar-full .result-error-line,
 .result-error-bar-full .result-error-tick {
-  background: rgba(187, 247, 208, 0.8);
+  background: rgba(187, 247, 208, 0.95);
 }
 
 /* Animation for result reveals - single click with ease-in-out */

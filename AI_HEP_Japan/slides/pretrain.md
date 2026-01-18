@@ -126,7 +126,7 @@ const pieChartLayout = computed(() => ({
             </div>
             <div class="flex items-start gap-2">
               <div i-carbon:checkmark-outline class="text-teal-300 mt-0.5 shrink-0" />
-              <span>Learns unlabeled point cloud representation</span>
+              <span>Learns ulderlying point cloud representation</span>
             </div>
             <div class="flex items-start gap-2">
               <div i-carbon:chart-line class="text-teal-300 mt-0.5 shrink-0" />
