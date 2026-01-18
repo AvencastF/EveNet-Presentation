@@ -43,22 +43,68 @@ const props = defineProps({
   }
 })
 
-// Get the base URL from Vite (handles GitHub Pages subpath)
-const baseUrl = import.meta.env.BASE_URL
+// Debug: Log environment variables
+console.log('ZoomablePlot Debug:', {
+  'import.meta.env.BASE_URL': import.meta.env.BASE_URL,
+  'import.meta.env': import.meta.env,
+  'props.src': props.src,
+  'window.location.pathname': typeof window !== 'undefined' ? window.location.pathname : 'N/A',
+  'window.location.href': typeof window !== 'undefined' ? window.location.href : 'N/A'
+})
+
+// Try multiple methods to get the base path
+function getBasePath() {
+  // Method 1: Use import.meta.env.BASE_URL
+  if (import.meta.env.BASE_URL) {
+    return import.meta.env.BASE_URL
+  }
+  
+  // Method 2: Extract from window.location if available
+  if (typeof window !== 'undefined') {
+    const pathname = window.location.pathname
+    // Extract base path (e.g., /EveNet-Presentation/AI_HEP_Japan/)
+    const match = pathname.match(/^(\/[^\/]+\/[^\/]+\/)/)
+    if (match) {
+      return match[1]
+    }
+    // Fallback: get directory path
+    const pathParts = pathname.split('/').filter(p => p)
+    if (pathParts.length >= 2) {
+      return '/' + pathParts.slice(0, 2).join('/') + '/'
+    }
+  }
+  
+  // Method 3: Default to root
+  return '/'
+}
+
+const baseUrl = getBasePath()
+console.log('Computed baseUrl:', baseUrl)
 
 // Compute the correct src path with base URL
 const imageSrc = computed(() => {
+  let finalSrc = props.src
+  
   // If src already starts with baseUrl, use as is
-  if (props.src.startsWith(baseUrl)) {
-    return props.src
+  if (finalSrc.startsWith(baseUrl)) {
+    console.log('Path already has baseUrl, using as is:', finalSrc)
+    return finalSrc
   }
-  // If src starts with /, prepend baseUrl
-  if (props.src.startsWith('/')) {
-    return baseUrl + props.src.slice(1)
+  
+  // If src starts with /, prepend baseUrl (removing the leading /)
+  if (finalSrc.startsWith('/')) {
+    finalSrc = baseUrl + finalSrc.slice(1)
+    console.log('Prepending baseUrl to absolute path:', finalSrc)
+    return finalSrc
   }
+  
   // Otherwise, prepend baseUrl
-  return baseUrl + props.src
+  finalSrc = baseUrl + finalSrc
+  console.log('Prepending baseUrl to relative path:', finalSrc)
+  return finalSrc
 })
+
+console.log('Final imageSrc:', imageSrc.value)
 
 const isFullscreen = ref(false)
 
