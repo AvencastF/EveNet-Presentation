@@ -66,7 +66,7 @@ transition: fade-out
 }
 .q-sub {
   margin-top: 14px;
-  font-size: 38px;
+  font-size: 32px;
   line-height: 1.05;
   letter-spacing: -0.03em;
   font-weight: 360;
