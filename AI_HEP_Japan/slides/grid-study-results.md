@@ -15,7 +15,7 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   <img src="/grid_sic_mixed.svg" alt="" />
 </div>
 
-<div class="plots-container pt-4">
+<div class="plots-container pt-3">
   <div class="plot-wrapper">
     <div class="plot-title">Individual Training</div>
     <ZoomablePlot 
@@ -26,6 +26,10 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   
   <div class="plot-wrapper">
     <div class="plot-title">Paramertized Training</div>
+    <div class="plot-subtitle pb-1">
+      Conditioned on (<i>m</i><sub>X</sub>, <i>m</i><sub>Y</sub>) by concatenating all signal grid points.<br>
+      Backgrounds are injected with randomly sampled (<i>m</i><sub>X</sub>, <i>m</i><sub>Y</sub>).
+    </div>
     <ZoomablePlot 
       src="/grid_sic_mixed.svg" 
       alt="Grid SIC Mixed Results"
@@ -90,11 +94,21 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   font-weight: 500;
 }
 
+.plot-subtitle {
+  font-size: 13px;
+  color: rgba(148, 163, 184, 0.7);
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  text-align: center;
+  font-weight: 400;
+  font-style: italic;
+}
+
 .plot-wrapper :deep(.zoomable-plot-container) {
-  width: 100%;
-  height: 35vh;
-  min-height: 200px;
-  max-height: 22vh;
+  width: 95%;
+  /* height: 35vh; */
+  /* min-height: 200px; */
+  /* max-height: 22vh; */
   margin: 0;
   padding: 0;
 }
