@@ -1,10 +1,10 @@
 ---
 layout: full
-class: p-0 no-page-number
+class: no-page-number
 transition: fade-out
 ---
 
-<div class="h-full w-full relative overflow-hidden bg-slate-950 text-white">
+<div class="h-full w-full relative overflow-hidden text-white">
   <!-- subtle hi-tech glow, very light -->
   <div class="absolute inset-0 pointer-events-none">
     <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[980px] h-[980px] glow"></div>

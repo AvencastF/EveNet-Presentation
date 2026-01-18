@@ -1,5 +1,4 @@
 ---
-class: py-10 no-page-number
 transition: fade
 ---
 

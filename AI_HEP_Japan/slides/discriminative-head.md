@@ -1,5 +1,4 @@
 ---
-class: py-10
 clicks: 3
 transition: 'fade'
 ---

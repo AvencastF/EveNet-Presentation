@@ -1,5 +1,5 @@
 ---
-class: py-10
+transition: fade
 ---
 
 # To bring them all...
