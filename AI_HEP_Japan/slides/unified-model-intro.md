@@ -12,18 +12,21 @@ transition: fade-out
   </div>
 
   <div class="relative h-full w-full flex items-center justify-center px-14">
-    <div class="max-w-5xl w-full">
-      <!-- Q -->
-      <div class="max-w-5xl">
-        <div class="q-main">
-          A unified ML model
-        </div>
-        <div class="q-sub">
-          across detectors and tasks.
-        </div>
+    <!-- Q: starts large and centered; on click animates smaller to top-left -->
+    <div
+      :class="{ 'q-collapsed': $clicks > 0 }"
+      class="q-block"
+    >
+      <div class="q-main">
+        A unified ML model
       </div>
-      <!-- A -->
-      <div v-click class="line in mt-20">
+      <div class="q-sub">
+        across detectors and tasks.
+      </div>
+    </div>
+    <!-- A: appears on first click, centered -->
+    <div class="max-w-5xl w-full flex flex-col items-center justify-center">
+      <div v-click class="line in answer-reveal">
         <div class="answer flex items-center gap-3">
           <div class="answer-logo gradient-animated-svg" role="img" aria-label="EveNet"></div>
           <span class="gradient-animated">EveNet</span>
@@ -34,29 +37,58 @@ transition: fade-out
 </div>
 
 <style>
-.q-main{
-  font-size: 64px;
+/* Q block: absolute so we can animate from center to top-left */
+.q-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    top 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    left 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.q-block.q-collapsed {
+  top: 2rem;
+  left: 2rem;
+  transform: none;
+}
+/* Initially larger; collapsed stays readable, not too small */
+.q-main {
+  font-size: 52px;
   line-height: 1.02;
   letter-spacing: -0.04em;
   font-weight: 420;
   color: rgba(255,255,255,0.95);
+  transition: font-size 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.q-sub{
+.q-sub {
   margin-top: 14px;
-  font-size: 42px;
+  font-size: 38px;
   line-height: 1.05;
   letter-spacing: -0.03em;
   font-weight: 360;
   color: rgba(226,232,240,0.75);
+  transition: font-size 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.answer{
-  font-size: 75px;
+.q-block.q-collapsed .q-main {
+  font-size: 48px;
+}
+.q-block.q-collapsed .q-sub {
+  font-size: 28px;
+}
+.answer-reveal {
+  transition: opacity 0.5s ease 0.5s;
+}
+.answer {
+  font-size: 100px;
   line-height: 1.05;
   letter-spacing: -0.04em;
   font-weight: 420;
+  padding-top: 5rem;
   color: rgba(255,255,255,0.90);
 }
-.answer-logo{
+.answer-logo {
   height: 1em;
   width: auto;
   flex-shrink: 0;
