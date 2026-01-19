@@ -18,6 +18,9 @@ transition: fade
     <div mt-10 text-base text="zinc-400">
       For more details, please check talks at <a href="https://indico.physics.brown.edu/event/18/contributions/399/" class="talk-link">BOOST</a>, <a href="https://indico.cern.ch/event/1526677/contributions/6549544/" class="talk-link">ML4Jets</a>, <a href="https://indico.cern.ch/event/1493037/contributions/6610476/" class="talk-link">LeptonPhoton</a>.
     </div>
+    <div mt-4 text-base text="zinc-400">
+      For more information, please check our <a href="https://github.com/orgs/EveNet-HEP/repositories" class="talk-link"><div inline-block mr-1 translate-y-0.5 i-ri:github-fill />GitHub repository</a> and <a href="https://evenet-hep.github.io/EveNet-Full/" class="talk-link">documentation</a>.
+    </div>
   </div>
   <div text-sm text="zinc-300" text-right flex flex-col gap-3 mt-3>
     <div>
