@@ -28,9 +28,6 @@ jobs:
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
 
-      - name: Install Slidev CLI
-        run: npm i -g @slidev/cli
-
       - name: Build all presentations
         run: |
           set -euo pipefail
