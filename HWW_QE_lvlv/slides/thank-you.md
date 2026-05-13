@@ -3,6 +3,9 @@ class: no-page-number
 transition: fade
 ---
 
+<div class="thank-you-root h-full w-full min-h-0 relative overflow-hidden flex flex-col box-border">
+<div class="thanks-main flex-1 min-h-0 flex flex-col justify-end items-center w-full box-border pb-1 px-1">
+
 <div class="thanks-layout">
   <div class="thanks-copy">
     <div class="thanks-title gradient-animated">Thank you</div>
@@ -38,6 +41,8 @@ transition: fade
   </div>
 </div>
 
+</div>
+
 <div class="slide-meta">
   <div>
     Slides open sourced at <a href="https://github.com/AvencastF/EveNet-Presentation/tree/main/HWW_QE_lvlv"><div inline-block mr-1 translate-y-0.8 i-ri:github-fill />HWW_QE_lvlv</a>
@@ -55,11 +60,13 @@ transition: fade
   </div>
 </div>
 
-<div w-full absolute bottom-0 left-0 flex items-center transform="translate-x translate-y--5">
+<div class="thanks-bottom-logos" w-full absolute bottom-2 left-0 right-0 flex items-end justify-end gap-1 px-3 pb-1>
   <div w-full flex items-center justify-end gap-1>
     <a href="https://www.nersc.gov" class="logo-link"><img src="/nersc-logo.svg" h-10 translate-y></a>
     <a href="https://www.nersc.gov/what-we-do/computing-for-science/perlmutter" class="logo-link"><img src="/perlmutter-logo.svg" h-10></a>
   </div>
+</div>
+
 </div>
 
 <style>
@@ -73,7 +80,8 @@ transition: fade
   grid-template-columns: minmax(0, 1fr) 270px;
   gap: 2.25rem;
   align-items: center;
-  min-height: 72vh;
+  width: 100%;
+  max-width: 100%;
 }
 
 .thanks-copy {
