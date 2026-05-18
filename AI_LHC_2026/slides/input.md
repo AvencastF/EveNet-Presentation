@@ -1,0 +1,512 @@
+---
+clicks: 5
+transition: 'fade-out'
+---
+
+# <span class="gradient-animated">EveNet</span> Encoders
+
+<span>A shared representation for all tasks</span>
+
+<div
+  v-if="$clicks <= 4"
+  transition duration-500 ease-out
+  :class="[ $clicks <= 2 ? '' : 'scale-0 opacity-0 translate-x--100 translate-y--20']"
+>
+  <Vectors />
+</div>
+<div
+  v-if="$clicks >= 2"
+  absolute top-0 left-0 w-full
+  transition duration-800 ease-in-out
+  translate-x-10 translate-y-38
+>
+  <div class="grid w-full gap-x-6" style="grid-template-columns: 20% 20% 60%;">
+    <!-- Left: inputs -->
+    <div class="flex justify-start w-full min-w-0">
+      <div class="flex flex-col items-start gap-4">
+      <!-- Card: PC -->
+      <div
+        class="relative px-4 py-3 w-full origin-top-left transition duration-700 ease-in-out"
+        :class="[
+          ($clicks >= 5 ? 'opacity-0 scale-20 translate-x-100 translate-y-10' : ''),
+        ]"
+      >
+        <div
+          class="absolute inset-0 pointer-events-none transition duration-700 ease-out bg-white/5 rounded-lg"
+          :class="[
+            ($clicks <= 2 ? 'opacity-0' : 'opacity-100 delay-1400'),
+          ]"
+        />
+        <div
+          class="relative text-sm font-semibold text-white/80 mb-3 transition duration-700 ease-out"
+          :class="[
+            ($clicks <= 2 ? 'opacity-0' : 'opacity-100 delay-1400'),
+          ]"
+        >
+          <div class="flex items-center gap-2">
+            <div i-carbon:grid class="text-white/70" />
+            <span>Point-cloud input</span>
+          </div>
+        </div>
+        <div class="relative flex flex-col gap-2">
+          <div
+            v-for="e in 3"
+            :key="e"
+            class="transition duration-700 ease-in-out"
+            :class="[
+              ($clicks <= 2 ? 'opacity-0 scale-110' : 'opacity-100 scale-100'),
+              e === 1 ? 'delay-400' : (e === 2 ? 'delay-800' : 'delay-1200'),
+            ]"
+          >
+            <div class="grid grid-cols-18 gap-1">
+              <div
+                v-for="i in 126"
+                :key="i"
+                class="w-1.5 h-1.5 rounded-full"
+                :class="[
+                // pad last N columns (of 18) for each event
+                (((i - 1) % 18) + 1) > (18 - (e === 1 ? 7 : (e === 2 ? 9 : 4)))
+                    ? 'bg-zinc-500/35'
+                    : 'bg-white/70',
+                ]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card: Conditions -->
+      <div
+        class="relative px-4 py-3 w-full origin-top-left transition duration-700 ease-in-out"
+        :class="[
+          ($clicks >= 5 ? 'opacity-0 scale-20 translate-x-100 translate-y-0' : ''),
+        ]"
+      >
+        <div
+          class="absolute inset-0 pointer-events-none transition duration-700 ease-out  bg-white/5 rounded-lg"
+          :class="[
+            ($clicks <= 2 ? 'opacity-0' : 'opacity-100 delay-1400'),
+          ]"
+        />
+        <div
+          class="relative text-sm font-semibold text-white/80 mb-3 transition duration-700 ease-out"
+          :class="[
+            ($clicks <= 2 ? 'opacity-0' : 'opacity-100 delay-1400'),
+          ]"
+        >
+          <div class="flex items-center gap-2">
+            <div i-carbon:data-volume class="text-white/70" />
+            <span>Global Conditions</span>
+          </div>
+        </div>
+        <div class="relative flex flex-col gap-1">
+          <div
+            v-for="e in 3"
+            :key="e"
+            class="transition duration-700 ease-in-out"
+            :class="[
+              ($clicks <= 2 ? 'opacity-0 scale-110' : 'opacity-100 scale-100'),
+              e === 1 ? 'delay-400' : (e === 2 ? 'delay-800' : 'delay-1200'),
+            ]"
+          >
+            <div class="grid grid-cols-10 gap-2">
+              <div
+                v-for="i in 10"
+                :key="i"
+                class="w-1.5 h-1.5 rounded-full bg-white/60"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Middle: data flow arrows -->
+    <div
+      class="relative flex flex-col items-center gap-10 pt-6 transition duration-700 ease-in-out w-full min-w-0"
+      :class="[
+        ($clicks >= 5 ? 'opacity-0 scale-90 translate-x-6' : ($clicks < 4 ? 'opacity-0 scale-100 translate-x-0' : '')),
+      ]"
+    >
+      <!-- Noise injection (diffusion): goes into PET path -->
+      <div
+        class="absolute left-0 top-0 justify-start translate-y-31 transition duration-500 ease-in-out"
+        :class="[
+          ($clicks >= 5 ? 'opacity-0 translate-x-6' : ($clicks < 4 ? 'opacity-0' : 'opacity-100 delay-800')),
+        ]"
+      >
+        <div
+          rounded-lg
+          border="2 solid cyan-800" bg="cyan-800/14"
+          backdrop-blur
+          class="px-2 py-1 flex items-center gap-2"
+        >
+          <!-- <div i-carbon:intent-request-scale-out class="text-cyan-200/90" /> -->
+          <span class="text-[12px] font-mono text-white/80 animate-pulse">+ noise(t)</span>
+        </div>
+      </div>
+      <!-- Noise arrow (into PET) -->
+      <div
+        class="absolute right-0 top-0 flex justify-end translate-y-30 w-23 transition duration-500 ease-in-out"
+        :class="[
+          ($clicks >= 5 ? 'opacity-0 translate-x-6' : ($clicks < 4 ? 'opacity-0' : 'opacity-100 delay-900')),
+        ]"
+      >
+        <DataFlowArrow icon="i-carbon:intent-request-scale-out" accent="cyan" :count="2" />
+      </div>
+      <div class="w-full min-w-0 translate-y-5">
+        <DataFlowArrow icon="i-carbon:grid" accent="cyan" />
+      </div>
+      <div class="w-full min-w-0 translate-y-50">
+        <DataFlowArrow icon="i-carbon:data-volume" accent="violet" />
+      </div>
+    </div>
+    <!-- Right: model cards -->
+    <div class="flex justify-start w-full min-w-0">
+      <div
+        class="relative flex flex-col items-start gap-10 transition duration-800 ease-in-out"
+        :class="[
+          // After inputs 'flow in' and fade, pull encoders to the left side
+          ($clicks >= 5 ? 'translate-x--100 delay-700' : ''),
+        ]"
+      >
+        <!-- Card: PET body -->
+        <div v-click="4" class="transition duration-400 ease-in-out">
+          <div
+            class="relative min-w-[260px] rounded-lg overflow-hidden border-2 border-cyan-800 bg-cyan-800/15 transition-all duration-700 ease-in-out"
+            :class="[
+              // after moving left: 'powered up' (gradient flow + neon)
+              ($clicks >= 5 ? 'evenet-power evenet-power-cyan pulse-glow delay-1000' : ''),
+            ]"
+          >
+            <div bg="cyan-800/35" px-4 py-2 flex items-center>
+              <div i-carbon:chart-network text-cyan-300 text-xl mr-2 />
+              <span font-bold>PET Encoder</span>
+              <span class="ml-auto text-xs text-cyan-200/80 font-mono">GNN + Transformer</span>
+            </div>
+            <div px-4 py-3>
+              <div class="flex items-start gap-4">
+                <div class="text-xs leading-5 text-white/80">
+                  <div class="font-semibold text-cyan-200 mb-1">Structure</div>
+                  <ul class="list-disc pl-4 space-y-1">
+                    <li v-if="$clicks < 5">
+                      <span v-mark="{ at: 4, color: 'rgb(18, 104, 189)', type: 'underline' }">Point–edge</span> message passing (graph inductive bias)
+                    </li>
+                    <li v-else>
+                      Point–edge message passing (graph inductive bias)
+                    </li>
+                    <li v-if="$clicks < 5">
+                      Captures both <span v-mark="{ at: 4, color: 'rgb(18, 104, 189)', type: 'underline' }">local and global</span> information
+                    </li>
+                    <li v-else>
+                      Captures both local and global information
+                    </li>
+                    <li>Permutation-symmetric over particle order</li>
+                  </ul>
+                </div>
+                <!-- Shape: 4×4 matrix (mixed) -->
+                <div class="ml-auto shrink-0 pt-1">
+                  <div class="grid grid-cols-5 gap-1 p-2 rounded-md bg-black/20 border border-white/10">
+                    <div
+                      v-for="i in 25"
+                      :key="i"
+                      class="w-3 h-3 rounded-sm"
+                      :class="[
+                        // diagonal terms are all white, rest as before
+                        ([0, 6, 12, 18, 24].includes(i - 1)) 
+                          ? 'bg-white/140' 
+                          : ([2, 3, 6, 8, 18, 20, 24].includes(i) ? 'bg-white/10' : 'bg-white/50'),
+                      ]"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Card: GlobalEmbedding -->
+        <div v-click="4" class="transition duration-800 ease-in-out">
+          <div
+            class="relative min-w-[260px] rounded-lg overflow-hidden border-2 border-violet-800 bg-violet-800/15 transition-all duration-700 ease-in-out"
+            :class="[
+              // after moving left: 'powered up' (gradient flow + neon)
+              ($clicks >= 5 ? 'evenet-power evenet-power-violet pulse-glow delay-1000' : ''),
+            ]"
+          >
+            <div bg="violet-800/35" px-4 py-2 flex items-center>
+              <div i-carbon:global-filters text-violet-300 text-xl mr-2 />
+              <span font-bold>Global Embedding</span>
+              <span class="ml-auto text-xs text-violet-200/80 font-mono">DNN</span>
+            </div>
+            <div px-4 py-3>
+              <div class="flex items-start gap-4">
+                <div class="text-xs leading-5 text-white/80">
+                  <div class="font-semibold text-violet-200 mb-1">Structure</div>
+                  <ul class="list-disc pl-4 space-y-1">
+                    <li>Provides global context to all heads</li>
+                  </ul>
+                </div>
+                <!-- Simple 3-layer DNN -->
+                <div class="ml-auto shrink-0 pt-1">
+                  <svg
+                    width="120"
+                    height="80"
+                    viewBox="0 0 120 80"
+                    class="rounded-md bg-black/20 border border-white/10 p-2"
+                  >
+                    <g stroke="rgba(255,255,255,0.22)" stroke-width="0.6" stroke-linecap="round">
+                      <template v-for="(iy, i) in [20, 40, 60]" :key="`ih-row-${i}`">
+                        <line
+                          v-for="(hy, j) in [14, 32, 48, 66]"
+                          :key="`ih-${i}-${j}`"
+                          :x1="18"
+                          :y1="iy"
+                          :x2="55"
+                          :y2="hy"
+                        />
+                      </template>
+                    </g>
+                    <!-- Connections: Hidden -> Output -->
+                    <g stroke="rgba(255,255,255,0.22)" stroke-width="0.6" stroke-linecap="round">
+                      <template v-for="(hy, i) in [14, 32, 48, 66]" :key="`ho-row-${i}`">
+                        <line
+                          v-for="(oy, j) in [10, 22, 34, 46, 58, 70]"
+                          :key="`ho-${i}-${j}`"
+                          :x1="55"
+                          :y1="hy"
+                          :x2="98"
+                          :y2="oy"
+                        />
+                      </template>
+                    </g>
+                    <!-- Nodes: solid white circles -->
+                    <g>
+                      <!-- Input: 3 -->
+                      <circle v-for="(y, i) in [20, 40, 60]" :key="`in-${i}`" :cx="18" :cy="y" r="3.5" fill="#fff" />
+                      <!-- Hidden: 4 -->
+                      <circle v-for="(y, i) in [14, 32, 48, 66]" :key="`hid-${i}`" :cx="55" :cy="y" r="3.5" fill="#fff" />
+                      <!-- Output: 6 -->
+                      <circle
+                        v-for="(y, i) in [10, 22, 34, 46, 58, 70]"
+                        :key="`out-${i}`"
+                        :cx="98"
+                        :cy="y"
+                        r="3.5"
+                        fill="#fff"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Outputs: appear after models shift left -->
+        <div
+          class="absolute top-0 left-full ml-10 transition duration-700 ease-in-out"
+          :class="[
+            ($clicks >= 5 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6 pointer-events-none'),
+          ]"
+        >
+          <div class="flex flex-col gap-5">
+            <!-- PET outputs -->
+            <div class="flex items-center gap-6">
+              <div
+                class="w-34 transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-1600' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <DataFlowArrow icon="i-carbon:chart-network" accent="cyan" :count="3" />
+              </div>
+              <div
+                rounded-lg
+                border="2 solid cyan-800" bg="cyan-800/18"
+                backdrop-blur
+                class="w-40 overflow-hidden transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-2400' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <div class="px-4 py-3 flex items-center justify-center">
+                  <div i-carbon:grid class="h-10 w-10 text-cyan-200/90" />
+                </div>
+                <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
+                  particle tokens
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-6">
+              <div
+                class="w-34 transition duration-500 ease-in-out translate-y--6"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-1600' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <DataFlowArrow icon="i-carbon:intent-request-scale-out" accent="cyan" :count="3" />
+              </div>
+              <div
+                rounded-lg
+                border="2 solid cyan-800" bg="cyan-800/18"
+                backdrop-blur
+                class="w-40 overflow-hidden transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-2400' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <div class="px-4 py-3 flex items-center justify-center">
+                  <div i-carbon:intent-request-scale-out class="h-10 w-10 text-cyan-200/90" />
+                </div>
+                <div bg="cyan-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
+                 <span class="text-white/60 animate-pulse font-bold">noised</span> particle tokens 
+                </div>
+              </div>
+            </div>
+            <!-- GlobalEmbedding output -->
+            <div class="flex items-center gap-6">
+              <div
+                class="w-34 transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-1600' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <DataFlowArrow icon="i-carbon:global-filters" accent="violet" :count="3" />
+              </div>
+              <div
+                rounded-lg
+                border="2 solid violet-800" bg="violet-800/18"
+                backdrop-blur
+                class="w-40 overflow-hidden transition duration-500 ease-in-out"
+                :class="[
+                  ($clicks >= 5 ? 'opacity-100 translate-x-0 delay-2400' : 'opacity-0 translate-x-4'),
+                ]"
+              >
+                <div class="px-4 py-3 flex items-center justify-center">
+                  <div i-carbon:global-filters class="h-10 w-10 text-violet-200/90" />
+                </div>
+                <div bg="violet-800/30" w-full px-3 py-2 class="text-xs text-center text-white/85">
+                  condition tokens
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+To recap for everyone what is distributed training. Let's start with the basics.
+
+[click] In machine learning field, model is basically a set of matrix and vectors, which is used to predict the output based on the input data. Say, we have a set of vectors
+
+[click] That's not the whole picture, so let's zoom out a little bit.
+-->
+
+<style>
+@keyframes evenet-gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes evenet-neon-breathe {
+  0% { opacity: 0.55; filter: none; }
+  50% { opacity: 0.90; filter: none; }
+  100% { opacity: 0.55; filter: none; }
+}
+
+.evenet-power {
+  background-size: 220% 220%;
+  animation: evenet-gradient-flow 2.6s ease-in-out infinite;
+  /* avoid "double border" (base border + neon border) */
+  border-color: transparent !important;
+}
+
+.evenet-power > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cleaner "neon border" instead of big blurry halo */
+.evenet-power::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px; /* border thickness */
+  border-radius: 10px;
+  z-index: 1;
+  opacity: 0.75;
+  animation: evenet-neon-breathe 2.8s ease-in-out infinite;
+  pointer-events: none;
+
+  /* show gradient ONLY on border */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.evenet-power::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(120px 80px at 20% 10%, rgba(255,255,255,0.10), rgba(255,255,255,0) 60%),
+              radial-gradient(140px 90px at 90% 20%, rgba(255,255,255,0.08), rgba(255,255,255,0) 55%);
+  mix-blend-mode: overlay;
+  opacity: 0.14;
+}
+
+.evenet-power-cyan {
+  background-image: linear-gradient(
+    115deg,
+    rgba(34, 211, 238, 0.22),
+    rgba(14, 116, 144, 0.16),
+    rgba(59, 130, 246, 0.12),
+    rgba(34, 211, 238, 0.22)
+  );
+  border-color: rgba(34, 211, 238, 0.70);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.18),
+    0 0 10px rgba(34, 211, 238, 0.12),
+    0 0 18px rgba(59, 130, 246, 0.08);
+}
+
+.evenet-power-cyan::before {
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.85),
+    rgba(59, 130, 246, 0.55),
+    rgba(255, 61, 242, 0.32),
+    rgba(34, 211, 238, 0.85)
+  );
+}
+
+.evenet-power-violet {
+  background-image: linear-gradient(
+    115deg,
+    rgba(167, 139, 250, 0.20),
+    rgba(124, 58, 237, 0.14),
+    rgba(236, 72, 153, 0.10),
+    rgba(167, 139, 250, 0.20)
+  );
+  border-color: rgba(167, 139, 250, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.18),
+    0 0 10px rgba(167, 139, 250, 0.12),
+    0 0 18px rgba(236, 72, 153, 0.08);
+}
+
+.evenet-power-violet::before {
+  background: linear-gradient(
+    90deg,
+    rgba(167, 139, 250, 0.82),
+    rgba(124, 58, 237, 0.55),
+    rgba(236, 72, 153, 0.34),
+    rgba(167, 139, 250, 0.82)
+  );
+}
+</style>
