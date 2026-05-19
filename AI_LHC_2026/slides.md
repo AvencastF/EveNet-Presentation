@@ -79,6 +79,15 @@ src: ./slides/systematics-robustness.md
 ---
 
 ---
+src: ./slides/preference-generation.md
+---
+
+---
+src: ./slides/preference-top-mass.md
+---
+
+
+---
 src: ./slides/summary.md
 ---
 

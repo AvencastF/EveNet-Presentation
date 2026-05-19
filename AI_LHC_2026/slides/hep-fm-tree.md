@@ -31,7 +31,7 @@ glowOpacity: 0.30
       maxLeafW: 140
     }"
     :typography="{ year: 8.5, leafName: 7, label: 8.5 }"
-    :theme="{ fontScale: 1.0 }"
+    :theme="{ fontScale: 1.2 }"
     :animate="true"
   />
 </div>

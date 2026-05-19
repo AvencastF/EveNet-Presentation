@@ -119,7 +119,7 @@ glowOpacity: 0.34
     <span class="highlight-num">2</span>
     <div class="highlight-body">
       <div class="highlight-title">Shared representation helps every task</div>
-      <div class="highlight-desc">Pretrained <em>z</em> transfers knowledge — typically stronger than training each task alone.</div>
+      <div class="highlight-desc">Pretrained <em>z</em> transfers knowledge: typically stronger than training each task alone.</div>
     </div>
   </div>
 </div>

@@ -12,10 +12,10 @@
         </span>
       </div>
       <div class="legend">
-        <span><b>D</b> discriminative</span>
-        <span><b>G</b> generative</span>
-        <span><b>SSL</b> self-supervised</span>
-        <span><b>R</b> real / public data</span>
+        <span><b class="legend-d">D</b> discriminative</span>
+        <span><b class="legend-g">G</b> generative</span>
+        <span><b class="legend-ssl">SSL</b> self-supervised</span>
+        <span><b class="legend-real">R</b> real / public data</span>
       </div>
     </div>
 
@@ -27,8 +27,8 @@
         :style="{ '--level-color': level.color }"
       >
         <div class="lane-header">
-          <div class="lane-icon" :class="level.icon"></div>
-          <div>
+          <div class="lane-icon" :class="level.icon" />
+          <div class="lane-header-copy">
             <h3>{{ level.label }}</h3>
             <p>{{ level.description }}</p>
           </div>
@@ -43,6 +43,7 @@
             role="button"
             tabindex="0"
             class="model-card"
+            :style="{ '--avatar-color': model.color }"
             :class="[`rarity-${model.rarity}`, { featured: model.featured }]"
             @click.stop="openModel(model)"
             @keydown.enter.prevent="openModel(model)"
@@ -56,7 +57,7 @@
               <div class="card-meta">
                 <div class="model-name">
                   {{ model.cardTitle ?? model.name }}
-                  <sup v-if="model.summarizedTitle" class="summary-marker" title="summarized title">*</sup>
+                  <!-- <sup v-if="model.summarizedTitle" class="summary-marker" title="summarized title">*</sup> -->
                 </div>
               </div>
             </div>
@@ -97,94 +98,14 @@
       </section>
     </div>
 
-    <Teleport to="body">
-      <div
-        v-if="selected"
-        class="fm-detail-overlay"
-        @click.self="closeModel"
-      >
-        <article class="fm-detail-card" :style="{ '--accent': selected.color }">
-          <button
-            type="button"
-            class="detail-close"
-            aria-label="Close paper details"
-            @click.stop="closeModel"
-          >
-            <div class="i-carbon:close"></div>
-          </button>
-          <div class="detail-hero">
-            <div class="detail-avatar">
-              <span>{{ selected.initials }}</span>
-            </div>
-            <div>
-              <div class="detail-level">{{ levelLabel(selected.level) }}</div>
-              <h2>{{ selected.name }}</h2>
-              <p>{{ selected.title }}</p>
-            </div>
-          </div>
-          <div class="detail-body">
-            <div class="detail-summary">
-              <h3>What it contributes</h3>
-              <p>{{ selected.summary }}</p>
-              <h3>Highlights</h3>
-              <ul>
-                <li v-for="item in selected.highlights" :key="item">{{ item }}</li>
-              </ul>
-            </div>
-            <div class="detail-sidebar">
-              <div class="stat-block">
-                <span>Representation</span>
-                <strong>{{ selected.representation }}</strong>
-              </div>
-              <div class="stat-block">
-                <span>Architecture</span>
-                <strong>{{ selected.architecture }}</strong>
-              </div>
-              <div class="stat-block">
-                <span>Domain</span>
-                <strong>{{ selected.domain }}</strong>
-              </div>
-              <div class="stat-block">
-                <span>Data signal</span>
-                <strong>{{ selected.data }}</strong>
-              </div>
-              <div class="detail-sources">
-                <span>Source links</span>
-                <div>
-                  <a
-                    v-for="source in linksFor(selected)"
-                    :key="source.url"
-                    :href="source.url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    @click.stop
-                  >
-                    <span class="source-date">{{ source.date }}</span>
-                    <div
-                      v-if="isArxiv(source)"
-                      class="source-icon source-icon--arxiv i-simple-icons:arxiv"
-                    ></div>
-                    <div v-else class="source-icon i-carbon:document"></div>
-                    <span class="source-ref">{{ source.label }}</span>
-                    <div class="source-launch i-carbon:launch"></div>
-                  </a>
-                </div>
-              </div>
-              <div class="detail-tags">
-                <span v-for="tag in selected.tags" :key="tag">{{ tag }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="detail-hint">Esc or click outside to close</div>
-        </article>
-      </div>
-    </Teleport>
+    <FoundationModelDetail :model="selected" @close="closeModel" />
   </div>
 </template>
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { cardRef, compactLinksFor, isArxiv, levels, linksFor, models } from '../data/foundationModels.js'
+import { cardRef, compactLinksFor, isArxiv, levels, models } from '../data/foundationModels.js'
+import FoundationModelDetail from './FoundationModelDetail.vue'
 
 const props = defineProps({
   group: {
@@ -258,10 +179,6 @@ function handleEscape(event) {
   }
 }
 
-function levelLabel(key) {
-  return levels.find(level => level.key === key)?.label ?? key
-}
-
 function badgeClass(tag) {
   return {
     'badge-g': tag === 'G',
@@ -325,10 +242,6 @@ onUnmounted(() => {
   color: rgba(226, 232, 240, 0.58);
   font-size: calc(10.5px * var(--fm-font-scale));
   line-height: 1;
-}
-
-.legend b {
-  color: rgba(255, 255, 255, 0.90);
 }
 
 .level-board {
@@ -506,22 +419,14 @@ onUnmounted(() => {
 }
 
 .source-row {
-  min-height: 15px;
+  min-height: 14px;
   display: grid;
   grid-template-columns: 52px 10px minmax(0, 1fr);
   gap: 3px;
   align-items: center;
-  border-radius: 5px;
-  border: 1px solid color-mix(in srgb, var(--avatar-color), transparent 68%);
-  background: color-mix(in srgb, var(--avatar-color), transparent 91%);
-  padding: 0 5px;
+  padding: 0;
   line-height: 1;
   min-width: 0;
-}
-
-.model-card:hover .source-row {
-  border-color: color-mix(in srgb, var(--avatar-color), white 8%);
-  background: color-mix(in srgb, var(--avatar-color), transparent 84%);
 }
 
 .source-rows.long-source-list {
@@ -531,7 +436,6 @@ onUnmounted(() => {
 .source-rows.long-source-list .source-row {
   grid-template-columns: 36px 9px minmax(0, 1fr);
   gap: 3px;
-  padding: 0 3px;
 }
 
 .source-rows.long-source-list .source-date {
@@ -543,19 +447,19 @@ onUnmounted(() => {
 }
 
 .source-date {
-  color: rgba(226, 232, 240, 0.52);
+  color: rgba(255, 255, 255, 0.72);
   font-size: calc(6.8px * var(--fm-font-scale));
   line-height: 1;
-  font-weight: 760;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .source-ref {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.88);
   font-size: calc(7.2px * var(--fm-font-scale));
   line-height: 1;
-  font-weight: 850;
+  font-weight: 650;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -565,11 +469,11 @@ onUnmounted(() => {
 .source-icon {
   width: 9px;
   height: 9px;
-  color: rgba(226, 232, 240, 0.58);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .source-icon--arxiv {
-  color: color-mix(in srgb, var(--avatar-color), white 12%);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .mini-tags {
@@ -671,10 +575,9 @@ onUnmounted(() => {
 }
 
 .card-grid.many-cards .source-row {
-  min-height: 13px;
+  min-height: 12px;
   grid-template-columns: 45px 8px minmax(0, 1fr);
   gap: 2px;
-  padding: 0 3px;
 }
 
 .card-grid.many-cards .source-rows.long-source-list .source-row {
@@ -711,295 +614,47 @@ onUnmounted(() => {
   color: var(--avatar-color);
 }
 
-.fm-detail-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.86);
-  backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 34px;
-  animation: detail-fade 160ms ease-out;
-}
 
-.fm-detail-card {
-  position: relative;
-  width: min(1040px, 94vw);
-  min-height: 560px;
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--accent), transparent 48%);
-  background:
-    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent), transparent 74%), transparent 34%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.090), rgba(255, 255, 255, 0.030)),
-    rgba(5, 10, 22, 0.96);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.54), 0 0 40px color-mix(in srgb, var(--accent), transparent 84%);
-  padding: 34px;
-  color: rgba(255, 255, 255, 0.92);
-  overflow: hidden;
-  animation: detail-rise 220ms ease-out;
-}
-
-.fm-detail-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.10;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.20) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.20) 1px, transparent 1px);
-  background-size: 34px 34px;
-}
-
-.detail-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 2;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.88);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.detail-close div {
-  width: 21px;
-  height: 21px;
-}
-
-.detail-hero,
-.detail-body {
-  position: relative;
-  z-index: 1;
-}
-
-.detail-hero {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 20px;
-  align-items: center;
-  padding-right: 58px;
-}
-
-.detail-avatar {
-  width: 82px;
-  height: 82px;
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--accent), white 18%);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent), white 8%), rgba(255, 255, 255, 0.12)),
-    rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 26px rgba(255, 255, 255, 0.10);
-}
-
-.detail-avatar span {
-  color: rgba(5, 10, 22, 0.92);
-  font-size: 30px;
-  line-height: 1;
-  font-weight: 950;
-}
-
-.detail-level {
-  color: var(--accent);
-  font-size: 12px;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
+.legend b {
   font-weight: 900;
+  letter-spacing: 0.04em;
 }
 
-.detail-hero h2 {
-  margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.96);
-  font-size: 42px;
-  line-height: 1;
-  letter-spacing: 0;
+.legend-d { color: #67e8f9; }
+.legend-g { color: #fcd34d; }
+.legend-ssl { color: #c4b5fd; }
+.legend-real { color: #6ee7b7; }
+
+.lane-header {
+  padding-bottom: 2px;
+  border-bottom: 1px solid color-mix(in srgb, var(--level-color), transparent 78%);
+  margin-bottom: 2px;
 }
 
-.detail-hero p {
-  margin: 10px 0 0;
-  color: rgba(226, 232, 240, 0.68);
-  font-size: 16px;
-  line-height: 1.32;
+.lane-header h3 {
+  color: color-mix(in srgb, var(--level-color), white 10%);
+  font-weight: 950;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--level-color), transparent 72%);
 }
 
-.detail-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
-  gap: 28px;
-  margin-top: 28px;
+.lane-header p {
+  color: color-mix(in srgb, var(--level-color), rgba(226, 232, 240, 0.55) 35%);
+  font-weight: 600;
 }
 
-.detail-summary h3 {
-  margin: 0 0 9px;
-  color: rgba(255, 255, 255, 0.90);
-  font-size: 17px;
-  line-height: 1;
-  letter-spacing: 0;
+.model-name {
+  color: color-mix(in srgb, var(--avatar-color), white 62%);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-shadow: none;
 }
 
-.detail-summary p {
-  margin: 0 0 22px;
-  color: rgba(226, 232, 240, 0.72);
-  font-size: 16px;
-  line-height: 1.42;
+.model-card.featured .model-name {
+  color: color-mix(in srgb, var(--avatar-color), white 78%);
 }
 
-.detail-summary ul {
-  margin: 0;
-  padding-left: 20px;
-  color: rgba(226, 232, 240, 0.72);
-  font-size: 15px;
-  line-height: 1.42;
-}
-
-.detail-summary li + li {
-  margin-top: 8px;
-}
-
-.detail-sidebar {
-  display: grid;
-  gap: 10px;
-  align-content: start;
-}
-
-.stat-block {
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  background: rgba(0, 0, 0, 0.18);
-  padding: 10px 12px;
-}
-
-.stat-block span {
-  display: block;
-  color: rgba(226, 232, 240, 0.46);
-  font-size: 10.5px;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 800;
-}
-
-.stat-block strong {
-  display: block;
-  margin-top: 7px;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: 13px;
-  line-height: 1.25;
-}
-
-.detail-sources {
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  background: rgba(0, 0, 0, 0.18);
-  padding: 10px 12px;
-}
-
-.detail-sources > span {
-  display: block;
-  color: rgba(226, 232, 240, 0.46);
-  font-size: 10.5px;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 800;
-}
-
-.detail-sources > div {
-  display: grid;
-  gap: 5px;
-  margin-top: 8px;
-}
-
-.detail-sources a {
-  min-height: 25px;
-  display: grid;
-  grid-template-columns: 72px 13px minmax(0, 1fr) 12px;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--accent), transparent 58%);
-  background: color-mix(in srgb, var(--accent), transparent 90%);
-  padding: 0 8px;
-  line-height: 1;
-  text-decoration: none;
-  min-width: 0;
-}
-
-.detail-sources a:hover {
-  border-color: color-mix(in srgb, var(--accent), white 10%);
-  background: color-mix(in srgb, var(--accent), transparent 82%);
-}
-
-.detail-sources .source-date {
-  font-size: 9.2px;
-  color: rgba(226, 232, 240, 0.58);
-}
-
-.detail-sources .source-ref {
-  font-size: 10.5px;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.detail-sources .source-icon {
-  width: 13px;
-  height: 13px;
-  color: color-mix(in srgb, var(--accent), white 18%);
-}
-
-.detail-sources .source-launch {
-  width: 12px;
-  height: 12px;
-  color: var(--accent);
-}
-
-.detail-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.detail-tags span {
-  min-height: 24px;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--accent), transparent 62%);
-  background: color-mix(in srgb, var(--accent), transparent 90%);
-  color: rgba(255, 255, 255, 0.80);
-  padding: 0 8px;
-  font-size: 11px;
-  line-height: 1;
-  font-weight: 700;
-}
-
-.detail-hint {
-  position: absolute;
-  right: 26px;
-  bottom: 18px;
-  color: rgba(226, 232, 240, 0.42);
-  font-size: 11px;
-}
-
-@keyframes detail-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes detail-rise {
-  from { opacity: 0; transform: translateY(12px) scale(0.98); }
-  to { opacity: 1; transform: none; }
+.level-tab {
+  box-shadow: 0 0 14px color-mix(in srgb, var(--level-color), transparent 82%);
 }
 </style>

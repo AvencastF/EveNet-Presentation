@@ -266,7 +266,7 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- New Result Badge (Click 1) -->
         <div v-click="1" class="h-full flex items-center justify-center result-card-reveal">
           <div class="new-result-badge rounded-lg px-4 py-2 bg-gradient-to-r from-orange-600/30 to-orange-500/30 border-2 border-orange-400/50 shadow-[0_0_12px_rgba(251,146,60,0.4)]">
-            <div class="text-sm font-bold text-orange-200" style="font-variant: small-caps;">New Result!</div>
+            <div class="text-sm font-bold text-orange-200" style="font-variant: small-caps;">Details Later!</div>
           </div>
         </div>
       </div>
