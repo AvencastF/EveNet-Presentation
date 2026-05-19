@@ -25,7 +25,7 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   </div>
   
   <div class="plot-wrapper">
-    <div class="plot-title">Paramertized Training</div>
+    <div class="plot-title">Parameterized Training</div>
     <div class="plot-subtitle pb-1">
       Conditioned on (<i>m</i><sub>X</sub>, <i>m</i><sub>Y</sub>) by concatenating all signal grid points.<br>
       Backgrounds are injected with randomly sampled (<i>m</i><sub>X</sub>, <i>m</i><sub>Y</sub>).

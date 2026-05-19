@@ -62,7 +62,7 @@ transition: fade
     <div class="outlook-flow">
       <div class="outlook-main">
         <span class="gradient-animated" style="font-variant: small-caps;">EveNet</span>
-        is moving beyond benchmarks into <span class="key-emphasis key-emphasis--pink">real experimental workflows</span>, including ongoing <span class="key-emphasis key-emphasis--pink">ATLAS</span> analyses and reconstruction studies.
+        is being explored beyond benchmarks in <span class="key-emphasis key-emphasis--pink">experimental workflows</span>, including ongoing <span class="key-emphasis key-emphasis--pink">ATLAS</span> analyses and reconstruction studies.
       </div>
       <div class="outlook-subgrid">
         <div>

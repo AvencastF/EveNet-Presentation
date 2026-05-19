@@ -12,6 +12,10 @@ export default mergeConfigs([
     safelist: [
       ...Array.from({ length: 30 }, (_, i) => `delay-${(i + 1) * 100}`),
       'animate-pulse',
+      'i-carbon:data-vis-1',
+      'i-carbon:chart-bubble-packed',
+      'i-carbon:network-4',
+      'i-carbon:earth-filled',
     ],
     presets: [
       presetWind3({

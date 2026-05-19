@@ -79,6 +79,10 @@ src: ./slides/systematics-robustness.md
 ---
 
 ---
+src: ./slides/preference-transition.md
+---
+
+---
 src: ./slides/preference-generation.md
 ---
 

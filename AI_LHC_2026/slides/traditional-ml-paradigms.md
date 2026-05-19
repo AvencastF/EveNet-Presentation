@@ -10,7 +10,7 @@ glowOpacity: 0.34
 <div class="paradigm-kicker">
   <span v-if="$clicks === 0">Two major ML workflows in collider physics — each with many specialized use cases.</span>
   <span v-else-if="$clicks === 1">Traditionally, <strong>one model per task</strong> — trained and deployed in isolation.</span>
-  <span v-else-if="$clicks === 2"><strong>One foundation model</strong> replaces many task-specific models.</span>
+  <span v-else-if="$clicks === 2"><strong>One foundation model</strong> can reduce reliance on many task-specific models.</span>
   <span v-else>A <strong>shared representation</strong> transfers across tasks.</span>
 </div>
 
@@ -119,7 +119,7 @@ glowOpacity: 0.34
     <span class="highlight-num">2</span>
     <div class="highlight-body">
       <div class="highlight-title">Shared representation helps every task</div>
-      <div class="highlight-desc">Pretrained <em>z</em> transfers knowledge: typically stronger than training each task alone.</div>
+      <div class="highlight-desc">Pretrained <em>z</em> transfers knowledge: can improve downstream tasks when transfer is validated.</div>
     </div>
   </div>
 </div>

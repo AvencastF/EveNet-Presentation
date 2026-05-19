@@ -49,7 +49,7 @@ import ZoomablePlot from '../components/ZoomablePlot.vue'
   <div class="result-item result-item-1">
     <span i-carbon:settings-adjust class="icon-svg icon-svg-1" />
     <div class="result-content result-content-1">
-      Models are <span class="result-highlight-1">evaluated directly</span> on systematically varied data <span class="result-highlight-1">without retraining</span>, demonstrating genuine robustness to detector-level uncertainties
+      Models are <span class="result-highlight-1">evaluated directly</span> on systematically varied data <span class="result-highlight-1">without retraining</span>, showing robustness under the tested detector-level variations
     </div>
   </div>
 

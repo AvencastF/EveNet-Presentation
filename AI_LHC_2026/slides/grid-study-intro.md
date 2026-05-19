@@ -329,7 +329,7 @@ const plotLayout = computed(() => ({
           <span class="highlight-orange underline">Signal kinematics</span> can be <span class="highlight-orange">very different</span> across masses
         </div>
         <div class="content-line challenge-line">
-          <span class="highlight-orange">Scratch models</span> <span class="highlight-orange">fail</span> to converge quickly and stably
+          <span class="highlight-orange">Scratch models</span> converge <span class="highlight-orange">slowly or unstably</span> in this setting
         </div>
       </div>
     </div>
@@ -346,7 +346,7 @@ const plotLayout = computed(() => ({
 <!-- Key Takeaway -->
 <div v-click="3" class="key-takeaway">
   <div class="takeaway-main">
-    Foundation models excel in large parameter-space searches
+    Foundation-model pretraining is promising for large parameter-space searches
   </div>
   <div class="takeaway-sub">
     Transfer learning → strong performance + faster convergence
