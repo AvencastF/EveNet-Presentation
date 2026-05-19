@@ -17,12 +17,12 @@ glowOpacity: 0.32
   :detail-typography="{
     title: 34,
     paperTitle: 13,
-    summary: 14,
-    highlight: 12,
-    tag: 9,
-    sourceRef: 9.5,
-    statValue: 11,
-    seriesHighlight: 11
+    summary: 16,
+    highlight: 14,
+    tag: 12,
+    sourceRef: 11.5,
+    statValue: 13,
+    seriesHighlight: 12.5
   }"
   :detail-layout="{
     cardWidth: 1280,
