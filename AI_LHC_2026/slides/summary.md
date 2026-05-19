@@ -6,316 +6,392 @@ transition: fade
 
 <span>Summary of EveNet</span>
 
-<div class="summary-content">
-  <v-clicks>
-    <!-- First bullet point -->
-    <div class="summary-item">
-      <div class="summary-bullet">•</div>
-      <div class="summary-text">
-        Trained <span class="gradient-animated" style="font-variant: small-caps;">EveNet</span> encoder–decoder with 5 task-specific heads on <span text="[#00e5ff]">500M fast-simulated events</span>
+<div class="summary-stage">
+  <div class="model-strip summary-reveal">
+    <div class="model-icon i-carbon:network-4"></div>
+    <div class="model-main">
+      <span class="model-kicker">Foundation-model candidate</span>
+      <strong><span class="gradient-animated" style="font-variant: small-caps;">EveNet</span> encoder–decoder</strong>
+    </div>
+    <div class="model-metrics">
+      <span><b>500M</b> fast-sim events</span>
+      <span><b>5</b> task heads</span>
+    </div>
+  </div>
+  <div class="evidence-grid summary-reveal delay-1">
+    <div class="evidence-card evidence-card--performance">
+      <div class="card-top">
+        <span class="card-icon i-carbon:chart-line"></span>
+        <span class="card-kicker">Evidence</span>
+      </div>
+      <h3>Performance</h3>
+      <p><span class="key-emphasis key-emphasis--cyan">Outperforms</span> <span text="[#67e8f9]">scratch</span>, <span text="[#67e8f9]">task-specific</span>, and <span text="[#67e8f9]">tabular FM</span> baselines.</p>
+      <div class="mini-note">Strong in low-statistics classification and generation.</div>
+    </div>
+    <div class="evidence-card evidence-card--efficiency">
+      <div class="card-top">
+        <span class="card-icon i-carbon:time"></span>
+        <span class="card-kicker">Supporting evidence</span>
+      </div>
+      <h3>Efficiency</h3>
+      <p>Pretraining gives <span class="key-emphasis key-emphasis--amber">fast convergence</span> and reaches target performance up to <span class="key-emphasis key-emphasis--amber">3× faster</span>.</p>
+      <div class="mini-note">A practical route to repeated downstream studies.</div>
+    </div>
+    <div class="evidence-card evidence-card--transfer">
+      <div class="card-top">
+        <span class="card-icon i-carbon:flow"></span>
+        <span class="card-kicker">Transfer evidence</span>
+      </div>
+      <h3>Transfer</h3>
+      <p>Evidence across <span class="key-emphasis key-emphasis--green">4 tasks</span>, from in-distribution to <span class="key-emphasis key-emphasis--green">out-of-distribution</span> settings.</p>
+      <div class="tag-row">
+        <span>detectors</span>
+        <span>kinematics</span>
+        <span>pile-up</span>
+        <span>real data</span>
+        <span>systematics</span>
       </div>
     </div>
-    <!-- Key Aspects -->
-    <div class="key-aspects">
-      <!-- General Performance -->
-      <div class="aspect-block">
-        <div class="aspect-label performance-label">
-          Overall Performance
-        </div>
-        <div class="aspect-content">
-          <div class="aspect-line performance-line">
-            Outperforms <span text="[#67e8f9]">scratch</span> and <span text="[#67e8f9]">task-specific models</span>, including <span text="[#67e8f9]">tabular foundation models</span>
-          </div>
-          <div class="aspect-line performance-line">
-            Effective in <span text="[#67e8f9]">low-statistics regimes</span> for both <span text="[#67e8f9]">classification</span> and <span text="[#67e8f9]">generative tasks</span>
-          </div>
-        </div>
+  </div>
+  <div class="outlook-panel summary-reveal delay-2">
+    <div class="outlook-label">
+      <span class="outlook-icon i-carbon:deploy"></span>
+      <span>Next step</span>
+      <strong>Outlook: Real Physics Deployment</strong>
+    </div>
+    <div class="outlook-flow">
+      <div class="outlook-main">
+        <span class="gradient-animated" style="font-variant: small-caps;">EveNet</span>
+        is moving beyond benchmarks into <span class="key-emphasis key-emphasis--pink">real experimental workflows</span>, including ongoing <span class="key-emphasis key-emphasis--pink">ATLAS</span> analyses and reconstruction studies.
       </div>
-      <!-- Computational Efficiency -->
-      <div class="aspect-block">
-        <div class="aspect-label efficiency-label">
-          Computational Efficiency
+      <div class="outlook-subgrid">
+        <div>
+          <span class="sub-icon i-carbon:locked"></span>
+          <p>Most ATLAS applications remain <span text="[#f0abfc]">internal and active</span>, serving as an early deployment testbed.</p>
         </div>
-        <div class="aspect-content">
-          <div class="aspect-line efficiency-line">
-            The pretrained full model shows <span text="[#fdb874]">fast convergence</span>, reaching downstream performance up to <span text="[#fdb874]">3× faster</span> than scratch training.
-          </div>
+        <div>
+          <span class="sub-icon i-carbon:presentation-file"></span>
+          <p>Public showcase: <span text="[#f0abfc]">LEP Z → ττ</span> full spin density matrix and quantum effects at <a href="https://indi.to/T232V" target="_blank" rel="noopener" class="talk-link">CHEP</a>, later <a href="https://indi.to/FXBv7" target="_blank" rel="noopener" class="talk-link">ICHEP</a>.</p>
         </div>
-      </div>
-      <!-- Transfer Learning -->
-      <div class="aspect-block">
-        <div class="aspect-label transfer-label">
-          Transfer Learning
-        </div>
-        <div class="aspect-content">
-          <div class="aspect-line transfer-line">
-            EveNet gives transfer evidence across 4 downstream tasks, from <i>in-distribution</i> to <span text="[#22c55e]" font-semibold><i>out-of-distribution</i></span> settings.
-          </div>
-          <div class="aspect-line transfer-line">
-            It generalizes across <span text="[#4ade80]">detectors</span>, <span text="[#4ade80]">kinematic regimes</span>, <span text="[#4ade80]">pile-up simulations</span>, and <span text="[#4ade80]">real data</span>.
-          </div>
-          <div class="aspect-line transfer-line">
-            It demonstrates <span text="[#4ade80]">robustness to systematic variations</span>.
-          </div>
-        </div>
-      </div>
-      <!-- Real Analysis Application -->
-      <div class="aspect-divider">
-        <span class="aspect-divider-text">Next gate</span>
-      </div>
-      <div class="gate-block">
-        <div class="gate-head">
-          <div class="gate-title application-label">
-            Towards Real Physics Analysis
-          </div>
-          <p class="gate-lead">
-            <span class="gradient-animated" style="font-variant: small-caps;">EveNet</span>
-            is now moving beyond benchmark studies into
-            <span text="[#f0abfc]">real experimental workflows</span>,
-            including multiple ongoing
-            <span text="[#f0abfc]">ATLAS</span>
-            analyses and reconstruction studies.
-          </p>
-        </div>
-        <ul class="gate-subbullets">
-          <li class="gate-subbullet">
-            Most ATLAS applications remain
-            <span text="[#f0abfc]">internal and under active development</span>,
-            serving as an early deployment testbed for event-level foundation models.
-          </li>
-          <li class="gate-subbullet">
-            The first public-facing showcase is our
-            <span text="[#f0abfc]">LEP Z → ττ</span>
-            study on full spin density matrix reconstruction and quantum effects,
-            to be presented at
-            <a href="https://indi.to/T232V" target="_blank" rel="noopener" class="talk-link">CHEP</a>
-            and later
-            <a href="https://indi.to/FXBv7" target="_blank" rel="noopener" class="talk-link">ICHEP</a>.
-          </li>
-        </ul>
       </div>
     </div>
-  </v-clicks>
+  </div>
 </div>
 
 <style>
-.summary-content {
-  margin-top: 0.45rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.34rem;
-  max-height: calc(100vh - 7.5rem);
-}
-
-.summary-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  margin-bottom: 0.02rem;
-}
-
-.summary-bullet {
-  font-size: 16px;
-  color: rgba(196, 181, 253, 0.8);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.summary-text {
-  font-size: 14.5px;
-  line-height: 1.38;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.key-aspects {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin-top: 0.1rem;
-}
-
-.aspect-block {
+.summary-stage {
+  margin-top: 0.78rem;
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  column-gap: 1.1rem;
-  align-items: flex-start;
-  padding-bottom: 0.2rem;
+  gap: 0.72rem;
 }
 
-.aspect-label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  font-size: 14.5px;
-  line-height: 1.15;
-  font-weight: 600;
-  padding-bottom: 4px;
+.summary-reveal {
+  animation: summaryFadeUp 620ms ease both;
 }
 
-.performance-label {
-  color: rgba(103, 232, 249, 0.95);
-  border-bottom: 1.5px solid rgba(103, 232, 249, 0.4);
+.summary-reveal.delay-1 {
+  animation-delay: 90ms;
 }
 
-.efficiency-label {
-  color: rgba(253, 186, 116, 0.95);
-  border-bottom: 1.5px solid rgba(253, 186, 116, 0.4);
+.summary-reveal.delay-2 {
+  animation-delay: 180ms;
 }
 
-.transfer-label {
-  color: rgba(74, 222, 128, 0.95);
-  border-bottom: 1.5px solid rgba(74, 222, 128, 0.4);
+@keyframes summaryFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.application-label {
-  color: rgba(240, 171, 252, 0.95);
-  border-bottom: 1.5px solid rgba(240, 171, 252, 0.4);
-}
-
-.label-kicker {
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.55);
-}
-
-.aspect-divider {
+.model-strip {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  column-gap: 1.1rem;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
   align-items: center;
-  margin: 0.08rem 0 0.06rem;
+  gap: 0.9rem;
+  max-width: 930px;
+  padding: 0.62rem 0.82rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.28);
 }
 
-.aspect-divider-text {
-  grid-column: 1 / -1;
-  display: flex;
+.model-icon,
+.card-icon,
+.outlook-icon,
+.sub-icon {
+  display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(240, 171, 252, 0.72);
+  justify-content: center;
 }
 
-.aspect-divider-text::before,
-.aspect-divider-text::after {
-  content: "";
-  flex: 1;
-  height: 2.5px;
-  background: linear-gradient(90deg, transparent, rgba(240, 171, 252, 0.45), transparent);
+.model-icon {
+  width: 34px;
+  height: 34px;
+  color: rgba(103, 232, 249, 0.88);
+  font-size: 28px;
 }
 
-.aspect-content {
+.model-main {
   display: flex;
   flex-direction: column;
-  gap: 0.26rem;
-  color: rgba(255, 255, 255, 0.85);
+  gap: 0.12rem;
   min-width: 0;
 }
 
-.aspect-line {
-  font-size: 13.5px;
-  line-height: 1.42;
-  position: relative;
-  padding-left: 0.95rem;
+.model-kicker,
+.card-kicker {
+  color: rgba(226, 232, 240, 0.52);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
-.gate-block {
+.model-main strong {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 19px;
+  line-height: 1.1;
+}
+
+.model-metrics {
   display: flex;
-  flex-direction: column;
-  gap: 0.28rem;
-  padding-top: 0.04rem;
+  gap: 0.45rem;
 }
 
-.gate-head {
+.model-metrics span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.26rem;
+  padding: 0.32rem 0.46rem;
+  border-radius: 6px;
+  color: rgba(226, 232, 240, 0.74);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.model-metrics b {
+  color: #00e5ff;
+  font-size: 15px;
+}
+
+.evidence-grid {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  column-gap: 1.1rem;
-  align-items: start;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.78rem;
+  max-width: 930px;
 }
 
-.gate-title {
-  margin: 0;
-  padding-bottom: 4px;
+.evidence-card {
+  min-height: 148px;
+  padding: 0.74rem 0.82rem 0.68rem;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+    rgba(15, 23, 42, 0.20);
 }
 
-.gate-lead {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.42;
-  color: rgba(255, 255, 255, 0.88);
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-.gate-subbullets {
-  list-style: none;
+.card-icon {
+  font-size: 24px;
+  opacity: 0.88;
+}
+
+.evidence-card h3 {
+  margin: 0.42rem 0 0.34rem;
+  font-size: 18px;
+  line-height: 1.05;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.evidence-card p {
   margin: 0;
-  padding: 0.1rem 0 0 0;
+  color: rgba(226, 232, 240, 0.82);
+  font-size: 13px;
+  line-height: 1.36;
+}
+
+.key-emphasis {
+  font-size: 1.13em;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.key-emphasis--cyan {
+  color: #67e8f9;
+}
+
+.key-emphasis--amber {
+  color: #fdb874;
+}
+
+.key-emphasis--green {
+  color: #4ade80;
+}
+
+.key-emphasis--pink {
+  color: #f0abfc;
+}
+
+.mini-note {
+  margin-top: 0.5rem;
+  padding-top: 0.42rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(226, 232, 240, 0.58);
+  font-size: 11.5px;
+  line-height: 1.28;
+}
+
+.evidence-card--performance {
+  box-shadow: inset 0 2px 0 rgba(103, 232, 249, 0.42);
+}
+
+.evidence-card--performance .card-icon,
+.evidence-card--performance h3 {
+  color: rgba(103, 232, 249, 0.94);
+}
+
+.evidence-card--efficiency {
+  box-shadow: inset 0 2px 0 rgba(253, 186, 116, 0.42);
+}
+
+.evidence-card--efficiency .card-icon,
+.evidence-card--efficiency h3 {
+  color: rgba(253, 186, 116, 0.94);
+}
+
+.evidence-card--transfer {
+  box-shadow: inset 0 2px 0 rgba(74, 222, 128, 0.42);
+}
+
+.evidence-card--transfer .card-icon,
+.evidence-card--transfer h3 {
+  color: rgba(74, 222, 128, 0.94);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin-top: 0.58rem;
+}
+
+.tag-row span {
+  padding: 0.16rem 0.34rem;
+  border-radius: 999px;
+  color: rgba(187, 247, 208, 0.82);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  background: rgba(74, 222, 128, 0.06);
+  font-size: 10.5px;
+  line-height: 1.1;
+}
+
+.outlook-panel {
+  max-width: 930px;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 0.76rem 0.9rem;
+  border: 1px solid rgba(240, 171, 252, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(240, 171, 252, 0.08), rgba(15, 23, 42, 0.12) 42%),
+    rgba(15, 23, 42, 0.24);
+}
+
+.outlook-label {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 0.5rem;
+  align-content: start;
+  color: rgba(240, 171, 252, 0.9);
+}
+
+.outlook-icon {
+  grid-row: 1 / span 2;
+  font-size: 25px;
+  opacity: 0.88;
+}
+
+.outlook-label span:not(.outlook-icon) {
+  color: rgba(226, 232, 240, 0.50);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+.outlook-label strong {
+  margin-top: 0.15rem;
+  color: rgba(240, 171, 252, 0.94);
+  font-size: 17px;
+  line-height: 1.14;
+}
+
+.outlook-flow {
   display: flex;
   flex-direction: column;
-  gap: 0.28rem;
+  gap: 0.52rem;
 }
 
-.gate-subbullet {
-  position: relative;
+.outlook-main {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  line-height: 1.38;
+}
+
+.outlook-main .key-emphasis {
+  font-size: 1.09em;
+}
+
+.outlook-subgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.58rem;
+}
+
+.outlook-subgrid > div {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 0.42rem;
+  align-items: start;
+  padding: 0.46rem 0.54rem;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.065);
+}
+
+.sub-icon {
+  color: rgba(240, 171, 252, 0.80);
+  font-size: 18px;
+  margin-top: 0.06rem;
+}
+
+.outlook-subgrid p {
   margin: 0;
-  padding: 0 0 0 1.35rem;
-  font-size: 13.5px;
-  line-height: 1.42;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.gate-subbullet::before {
-  content: "";
-  position: absolute;
-  left: 0.55rem;
-  top: 0.55em;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(240, 171, 252, 0.95);
-  box-shadow: 0 0 8px rgba(240, 171, 252, 0.85);
-  transform: translateY(-50%);
-}
-
-.aspect-line::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.48em;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  transform: translateY(-50%);
-  box-shadow: 0 0 8px currentColor;
-}
-
-.performance-line::before {
-  color: rgba(103, 232, 249, 0.85);
-  background: rgba(103, 232, 249, 0.95);
-}
-
-.efficiency-line::before {
-  color: rgba(253, 186, 116, 0.85);
-  background: rgba(253, 186, 116, 0.95);
-}
-
-.transfer-line::before {
-  color: rgba(74, 222, 128, 0.85);
-  background: rgba(74, 222, 128, 0.95);
-}
-
-.application-line::before {
-  color: rgba(240, 171, 252, 0.85);
-  background: rgba(240, 171, 252, 0.95);
+  color: rgba(226, 232, 240, 0.78);
+  font-size: 11.7px;
+  line-height: 1.28;
 }
 
 .talk-link {
   color: #f0abfc;
-  font-weight: 700;
+  font-weight: 750;
   text-decoration: none;
-  border-bottom: 1px solid rgba(240, 171, 252, 0.45);
+  border-bottom: 1px solid rgba(240, 171, 252, 0.42);
 }
 </style>
