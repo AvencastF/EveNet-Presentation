@@ -98,7 +98,12 @@
       </section>
     </div>
 
-    <FoundationModelDetail :model="selected" @close="closeModel" />
+    <FoundationModelDetail
+      :model="selected"
+      :typography="detailTypography"
+      :layout="detailLayout"
+      @close="closeModel"
+    />
   </div>
 </template>
 
@@ -126,6 +131,16 @@ const props = defineProps({
   fontScale: {
     type: Number,
     default: 1
+  },
+  /** Per-part typography controls for the detail modal. */
+  detailTypography: {
+    type: Object,
+    default: () => ({})
+  },
+  /** Layout controls for the detail modal, e.g. sidebar/source columns. */
+  detailLayout: {
+    type: Object,
+    default: () => ({})
   }
 })
 

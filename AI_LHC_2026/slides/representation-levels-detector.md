@@ -14,6 +14,23 @@ glowOpacity: 0.32
   group="detector"
   :lane-widths="{ raw: 0.72, jet: 1.48 }"
   :scale="1.0"
+  :detail-typography="{
+    title: 34,
+    paperTitle: 13,
+    summary: 14,
+    highlight: 12,
+    tag: 9,
+    sourceRef: 9.5,
+    statValue: 11,
+    seriesHighlight: 11
+  }"
+  :detail-layout="{
+    cardWidth: 1280,
+    sidebarWidth: 380,
+    seriesSidebarWidth: 410,
+    seriesSourceColumns: 3,
+    seriesHighlightColumns: 3
+  }"
 />
 
 <div class="gallery-note">

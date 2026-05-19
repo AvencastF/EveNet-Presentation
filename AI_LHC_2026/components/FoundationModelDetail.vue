@@ -7,10 +7,8 @@
     >
       <article
         class="fm-detail-card"
-        :style="{
-          '--accent': model.color,
-          '--level-color': levelMeta?.color ?? model.color
-        }"
+        :class="{ 'fm-detail-card--series': isSeriesDetail }"
+        :style="detailStyle"
       >
         <button
           type="button"
@@ -18,7 +16,7 @@
           aria-label="Close paper details"
           @click.stop="emit('close')"
         >
-          <div class="i-carbon:close" />
+          <div class="i-carbon:close"></div>
         </button>
 
         <div class="detail-hero">
@@ -27,7 +25,7 @@
           </div>
           <div class="detail-hero-copy">
             <div class="detail-level-pill">
-              <span class="detail-level-dot" />
+              <span class="detail-level-dot"></span>
               {{ levelMeta?.label ?? levelLabel(model.level) }}
             </div>
             <h2 class="detail-name">{{ model.name }}</h2>
@@ -49,13 +47,13 @@
         <div class="detail-body">
           <div class="detail-summary">
             <h3 class="detail-section-heading">
-              <span class="detail-section-icon i-carbon:idea" />
+              <span class="detail-section-icon i-carbon:idea"></span>
               What it contributes
             </h3>
             <p class="detail-summary-text">{{ model.summary }}</p>
 
             <h3 class="detail-section-heading detail-section-heading--spaced">
-              <span class="detail-section-icon i-carbon:star-filled" />
+              <span class="detail-section-icon i-carbon:star-filled"></span>
               Highlights
             </h3>
             <ul class="detail-highlights">
@@ -66,41 +64,41 @@
           <aside class="detail-sidebar">
             <div class="stat-block stat-block--representation">
               <span class="stat-label">
-                <span class="stat-label-icon i-carbon:data-vis-1" />
+                <span class="stat-label-icon i-carbon:data-vis-1"></span>
                 Representation
               </span>
               <strong>{{ model.representation }}</strong>
             </div>
             <div class="stat-block stat-block--architecture">
               <span class="stat-label">
-                <span class="stat-label-icon i-carbon:model" />
+                <span class="stat-label-icon i-carbon:model"></span>
                 Architecture
               </span>
               <strong>{{ model.architecture }}</strong>
             </div>
             <div class="stat-block stat-block--domain">
               <span class="stat-label">
-                <span class="stat-label-icon i-carbon:earth" />
+                <span class="stat-label-icon i-carbon:earth"></span>
                 Domain
               </span>
               <strong>{{ model.domain }}</strong>
             </div>
             <div class="stat-block stat-block--data">
               <span class="stat-label">
-                <span class="stat-label-icon i-carbon:data-base" />
+                <span class="stat-label-icon i-carbon:data-base"></span>
                 Data signal
               </span>
               <strong>{{ model.data }}</strong>
             </div>
 
-            <div class="detail-sources">
+            <div v-if="!isSeriesDetail" class="detail-sources">
               <span class="stat-label">
-                <span class="stat-label-icon i-carbon:link" />
+                <span class="stat-label-icon i-carbon:link"></span>
                 Source links
               </span>
               <div class="detail-source-list">
                 <a
-                  v-for="source in linksFor(model)"
+                  v-for="source in sourceLinks"
                   :key="source.url"
                   :href="source.url"
                   target="_blank"
@@ -112,10 +110,10 @@
                   <div
                     v-if="isArxiv(source)"
                     class="source-icon source-icon--arxiv i-simple-icons:arxiv"
-                  />
-                  <div v-else class="source-icon i-carbon:document" />
+                  ></div>
+                  <div v-else class="source-icon i-carbon:document"></div>
                   <span class="source-ref">{{ source.label }}</span>
-                  <div class="source-launch i-carbon:launch" />
+                  <div class="source-launch i-carbon:launch"></div>
                 </a>
               </div>
             </div>
@@ -124,6 +122,33 @@
               <span v-for="tag in model.tags" :key="tag">{{ tag }}</span>
             </div>
           </aside>
+        </div>
+
+        <div v-if="isSeriesDetail" class="detail-sources detail-sources--wide">
+          <span class="stat-label">
+            <span class="stat-label-icon i-carbon:link"></span>
+            Source links
+          </span>
+          <div class="detail-source-list">
+            <a
+              v-for="source in sourceLinks"
+              :key="source.url"
+              :href="source.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              :class="{ 'source-row--active': source.date === highlightDate }"
+              @click.stop
+            >
+              <span class="source-date">{{ source.date }}</span>
+              <div
+                v-if="isArxiv(source)"
+                class="source-icon source-icon--arxiv i-simple-icons:arxiv"
+              ></div>
+              <div v-else class="source-icon i-carbon:document"></div>
+              <span class="source-ref">{{ source.label }}</span>
+              <div class="source-launch i-carbon:launch"></div>
+            </a>
+          </div>
         </div>
 
         <div class="detail-hint">Esc or click outside to close</div>
@@ -138,7 +163,11 @@ import { isArxiv, levels, linksFor } from '../data/foundationModels.js'
 
 const props = defineProps({
   model: { type: Object, default: null },
-  highlightDate: { type: String, default: null }
+  highlightDate: { type: String, default: null },
+  /** Per-part typography controls. Numbers are treated as px; strings can use any CSS unit. */
+  typography: { type: Object, default: () => ({}) },
+  /** Detail modal layout controls such as sourceColumns/sidebarWidth. */
+  layout: { type: Object, default: () => ({}) }
 })
 
 const emit = defineEmits(['close'])
@@ -147,9 +176,63 @@ const levelMeta = computed(() =>
   props.model ? levels.find(l => l.key === props.model.level) : null
 )
 
+const sourceLinks = computed(() => (props.model ? linksFor(props.model) : []))
+
+const isSeriesDetail = computed(() =>
+  sourceLinks.value.length > 5 || props.model?.detailLayout === 'series'
+)
+
+const typographyConfig = computed(() => ({
+  ...props.typography,
+  ...(props.model?.detailTypography ?? {})
+}))
+
+const layoutConfig = computed(() => ({
+  ...props.layout,
+  ...(props.model?.detailLayoutOptions ?? {})
+}))
+
+const detailStyle = computed(() => ({
+  '--accent': props.model?.color ?? '#c4b5fd',
+  '--level-color': levelMeta.value?.color ?? props.model?.color ?? '#c4b5fd',
+  '--detail-font-family': typographyConfig.value.fontFamily ?? 'inherit',
+  '--detail-avatar-size': cssSize(typographyConfig.value.avatar, '30px'),
+  '--detail-series-avatar-size': cssSize(typographyConfig.value.seriesAvatar, '25px'),
+  '--detail-level-size': cssSize(typographyConfig.value.level, '10.5px'),
+  '--detail-title-size': cssSize(typographyConfig.value.title, '40px'),
+  '--detail-series-title-size': cssSize(typographyConfig.value.seriesTitle, '35px'),
+  '--detail-paper-title-size': cssSize(typographyConfig.value.paperTitle, '15.5px'),
+  '--detail-series-paper-title-size': cssSize(typographyConfig.value.seriesPaperTitle, '14px'),
+  '--detail-focus-size': cssSize(typographyConfig.value.focus, '13px'),
+  '--detail-series-focus-size': cssSize(typographyConfig.value.seriesFocus, '12px'),
+  '--detail-focus-label-size': cssSize(typographyConfig.value.focusLabel, '9.5px'),
+  '--detail-badge-size': cssSize(typographyConfig.value.badge, '10.5px'),
+  '--detail-heading-size': cssSize(typographyConfig.value.heading, '14px'),
+  '--detail-series-heading-size': cssSize(typographyConfig.value.seriesHeading, '12px'),
+  '--detail-summary-size': cssSize(typographyConfig.value.summary, '16px'),
+  '--detail-series-summary-size': cssSize(typographyConfig.value.seriesSummary, '14.5px'),
+  '--detail-highlight-size': cssSize(typographyConfig.value.highlight, '14.5px'),
+  '--detail-series-highlight-size': cssSize(typographyConfig.value.seriesHighlight, '12.2px'),
+  '--detail-stat-label-size': cssSize(typographyConfig.value.statLabel, '9.5px'),
+  '--detail-series-stat-label-size': cssSize(typographyConfig.value.seriesStatLabel, '8.3px'),
+  '--detail-stat-value-size': cssSize(typographyConfig.value.statValue, '13.2px'),
+  '--detail-series-stat-value-size': cssSize(typographyConfig.value.seriesStatValue, '11.2px'),
+  '--detail-source-date-size': cssSize(typographyConfig.value.sourceDate, '9px'),
+  '--detail-source-ref-size': cssSize(typographyConfig.value.sourceRef, '10.5px'),
+  '--detail-tag-size': cssSize(typographyConfig.value.tag, '10.5px'),
+  '--detail-series-tag-size': cssSize(typographyConfig.value.seriesTag, '9.3px'),
+  '--detail-hint-size': cssSize(typographyConfig.value.hint, '11px'),
+  '--detail-card-width': cssSize(layoutConfig.value.cardWidth, '1300px'),
+  '--detail-sidebar-width': cssSize(layoutConfig.value.sidebarWidth, '398px'),
+  '--detail-series-sidebar-width': cssSize(layoutConfig.value.seriesSidebarWidth, '410px'),
+  '--detail-source-columns': cssCount(layoutConfig.value.sourceColumns, 1),
+  '--detail-series-source-columns': cssCount(layoutConfig.value.seriesSourceColumns, 3),
+  '--detail-series-highlight-columns': cssCount(layoutConfig.value.seriesHighlightColumns, 3)
+}))
+
 const highlightSource = computed(() => {
   if (!props.model || !props.highlightDate) return null
-  return linksFor(props.model).find(s => s.date === props.highlightDate) ?? null
+  return sourceLinks.value.find(s => s.date === props.highlightDate) ?? null
 })
 
 function levelLabel(key) {
@@ -165,6 +248,16 @@ function badgeClass(tag) {
     'hero-badge--real': tag === 'R' || tag === 'LHC',
     'hero-badge--llm': tag === 'LLM'
   }
+}
+
+function cssSize(value, fallback) {
+  if (value === undefined || value === null || value === '') return fallback
+  return typeof value === 'number' ? `${value}px` : String(value)
+}
+
+function cssCount(value, fallback) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed > 0 ? String(Math.floor(parsed)) : String(fallback)
 }
 </script>
 
@@ -184,7 +277,7 @@ function badgeClass(tag) {
 
 .fm-detail-card {
   position: relative;
-  width: min(1300px, 96vw);
+  width: min(var(--detail-card-width), 96vw);
   min-height: 560px;
   border-radius: 10px;
   border: 1px solid color-mix(in srgb, var(--accent), transparent 38%);
@@ -199,8 +292,15 @@ function badgeClass(tag) {
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   padding: 34px 36px 30px;
   color: rgba(255, 255, 255, 0.92);
+  font-family: var(--detail-font-family);
   overflow: hidden;
   animation: detail-rise 220ms ease-out;
+}
+
+.fm-detail-card--series {
+  min-height: auto;
+  max-height: min(850px, calc(100vh - 48px));
+  padding: 26px 34px 24px;
 }
 
 .fm-detail-card::before {
@@ -259,6 +359,13 @@ function badgeClass(tag) {
   border-bottom: 1px solid color-mix(in srgb, var(--accent), transparent 72%);
 }
 
+.fm-detail-card--series .detail-hero {
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 18px;
+  padding-right: 48px;
+  padding-bottom: 16px;
+}
+
 .detail-avatar {
   width: 82px;
   height: 82px;
@@ -275,11 +382,20 @@ function badgeClass(tag) {
     0 8px 24px color-mix(in srgb, var(--accent), transparent 78%);
 }
 
+.fm-detail-card--series .detail-avatar {
+  width: 70px;
+  height: 70px;
+}
+
 .detail-avatar span {
   color: rgba(5, 10, 22, 0.92);
-  font-size: 30px;
+  font-size: var(--detail-avatar-size);
   line-height: 1;
   font-weight: 950;
+}
+
+.fm-detail-card--series .detail-avatar span {
+  font-size: var(--detail-series-avatar-size);
 }
 
 .detail-level-pill {
@@ -292,7 +408,7 @@ function badgeClass(tag) {
   border: 1px solid color-mix(in srgb, var(--level-color), transparent 42%);
   background: color-mix(in srgb, var(--level-color), transparent 86%);
   color: color-mix(in srgb, var(--level-color), white 18%);
-  font-size: 10.5px;
+  font-size: var(--detail-level-size);
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.09em;
@@ -309,7 +425,7 @@ function badgeClass(tag) {
 
 .detail-name {
   margin: 10px 0 0;
-  font-size: 40px;
+  font-size: var(--detail-title-size);
   line-height: 1.02;
   font-weight: 950;
   letter-spacing: -0.02em;
@@ -324,20 +440,37 @@ function badgeClass(tag) {
   color: transparent;
 }
 
+.fm-detail-card--series .detail-name {
+  margin-top: 8px;
+  font-size: var(--detail-series-title-size);
+  line-height: 1;
+}
+
 .detail-paper-title {
   margin: 11px 0 0;
   color: rgba(226, 232, 240, 0.78);
-  font-size: 15.5px;
+  font-size: var(--detail-paper-title-size);
   line-height: 1.38;
   font-weight: 500;
   max-width: 54em;
 }
 
+.fm-detail-card--series .detail-paper-title {
+  margin-top: 8px;
+  font-size: var(--detail-series-paper-title-size);
+  line-height: 1.28;
+}
+
 .detail-source-focus {
   margin: 12px 0 0;
-  font-size: 13px;
+  font-size: var(--detail-focus-size);
   line-height: 1.35;
   color: rgba(226, 232, 240, 0.72);
+}
+
+.fm-detail-card--series .detail-source-focus {
+  margin-top: 9px;
+  font-size: var(--detail-series-focus-size);
 }
 
 .detail-focus-label {
@@ -348,7 +481,7 @@ function badgeClass(tag) {
   background: color-mix(in srgb, var(--accent), transparent 82%);
   border: 1px solid color-mix(in srgb, var(--accent), transparent 55%);
   color: var(--accent);
-  font-size: 9.5px;
+  font-size: var(--detail-focus-label-size);
   font-weight: 900;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -362,6 +495,10 @@ function badgeClass(tag) {
   margin-top: 12px;
 }
 
+.fm-detail-card--series .detail-hero-badges {
+  margin-top: 9px;
+}
+
 .hero-badge {
   min-height: 22px;
   display: inline-flex;
@@ -370,7 +507,7 @@ function badgeClass(tag) {
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(0, 0, 0, 0.22);
   padding: 0 8px;
-  font-size: 10.5px;
+  font-size: var(--detail-badge-size);
   font-weight: 850;
   letter-spacing: 0.03em;
 }
@@ -383,9 +520,15 @@ function badgeClass(tag) {
 
 .detail-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 398px;
+  grid-template-columns: minmax(0, 1fr) var(--detail-sidebar-width);
   gap: 28px;
   margin-top: 26px;
+}
+
+.fm-detail-card--series .detail-body {
+  grid-template-columns: minmax(0, 1fr) var(--detail-series-sidebar-width);
+  gap: 20px;
+  margin-top: 18px;
 }
 
 .detail-section-heading {
@@ -394,7 +537,7 @@ function badgeClass(tag) {
   gap: 9px;
   margin: 0 0 11px;
   color: color-mix(in srgb, var(--accent), white 12%);
-  font-size: 14px;
+  font-size: var(--detail-heading-size);
   line-height: 1;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -403,6 +546,15 @@ function badgeClass(tag) {
 
 .detail-section-heading--spaced {
   margin-top: 24px;
+}
+
+.fm-detail-card--series .detail-section-heading {
+  margin-bottom: 9px;
+  font-size: var(--detail-series-heading-size);
+}
+
+.fm-detail-card--series .detail-section-heading--spaced {
+  margin-top: 16px;
 }
 
 .detail-section-icon {
@@ -415,9 +567,14 @@ function badgeClass(tag) {
 .detail-summary-text {
   margin: 0;
   color: rgba(226, 232, 240, 0.80);
-  font-size: 16px;
+  font-size: var(--detail-summary-size);
   line-height: 1.48;
   font-weight: 450;
+}
+
+.fm-detail-card--series .detail-summary-text {
+  font-size: var(--detail-series-summary-size);
+  line-height: 1.36;
 }
 
 .detail-highlights {
@@ -428,6 +585,11 @@ function badgeClass(tag) {
   gap: 10px;
 }
 
+.fm-detail-card--series .detail-highlights {
+  grid-template-columns: repeat(var(--detail-series-highlight-columns), minmax(0, 1fr));
+  gap: 8px;
+}
+
 .detail-highlights li {
   position: relative;
   padding: 10px 12px 10px 30px;
@@ -435,9 +597,16 @@ function badgeClass(tag) {
   border: 1px solid color-mix(in srgb, var(--accent), transparent 78%);
   background: color-mix(in srgb, var(--accent), transparent 92%);
   color: rgba(226, 232, 240, 0.84);
-  font-size: 14.5px;
+  font-size: var(--detail-highlight-size);
   line-height: 1.38;
   font-weight: 500;
+}
+
+.fm-detail-card--series .detail-highlights li {
+  min-height: 66px;
+  padding: 9px 10px 9px 27px;
+  font-size: var(--detail-series-highlight-size);
+  line-height: 1.26;
 }
 
 .detail-highlights li::before {
@@ -459,6 +628,11 @@ function badgeClass(tag) {
   align-content: start;
 }
 
+.fm-detail-card--series .detail-sidebar {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
 .stat-block {
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.10);
@@ -469,16 +643,24 @@ function badgeClass(tag) {
   padding: 10px 12px 11px;
 }
 
+.fm-detail-card--series .stat-block {
+  padding: 8px 10px 9px;
+}
+
 .stat-label {
   display: flex;
   align-items: center;
   gap: 6px;
   color: color-mix(in srgb, var(--accent), white 4%);
-  font-size: 9.5px;
+  font-size: var(--detail-stat-label-size);
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.09em;
   font-weight: 900;
+}
+
+.fm-detail-card--series .stat-label {
+  font-size: var(--detail-series-stat-label-size);
 }
 
 .stat-label-icon {
@@ -491,9 +673,15 @@ function badgeClass(tag) {
   display: block;
   margin-top: 8px;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 13.2px;
+  font-size: var(--detail-stat-value-size);
   line-height: 1.32;
   font-weight: 700;
+}
+
+.fm-detail-card--series .stat-block strong {
+  margin-top: 6px;
+  font-size: var(--detail-series-stat-value-size);
+  line-height: 1.22;
 }
 
 .detail-sources {
@@ -506,8 +694,21 @@ function badgeClass(tag) {
 
 .detail-source-list {
   display: grid;
+  grid-template-columns: repeat(var(--detail-source-columns), minmax(0, 1fr));
   gap: 5px;
   margin-top: 9px;
+}
+
+.detail-sources--wide {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  padding: 10px 12px 12px;
+}
+
+.detail-sources--wide .detail-source-list {
+  grid-template-columns: repeat(var(--detail-series-source-columns), minmax(0, 1fr));
+  gap: 7px;
 }
 
 .detail-sources a {
@@ -526,6 +727,11 @@ function badgeClass(tag) {
   transition: border-color 140ms ease, background 140ms ease;
 }
 
+.detail-sources--wide a {
+  min-height: 31px;
+  grid-template-columns: 74px 14px minmax(0, 1fr) 12px;
+}
+
 .detail-sources a.source-row--active {
   border-color: color-mix(in srgb, var(--accent), white 18%);
   background: color-mix(in srgb, var(--accent), transparent 72%);
@@ -538,16 +744,22 @@ function badgeClass(tag) {
 }
 
 .detail-sources .source-date {
-  font-size: 9px;
+  font-size: var(--detail-source-date-size);
   color: rgba(226, 232, 240, 0.55);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
 .detail-sources .source-ref {
-  font-size: 10.5px;
+  font-size: var(--detail-source-ref-size);
   color: rgba(255, 255, 255, 0.90);
   font-weight: 800;
+}
+
+.detail-sources--wide .source-ref {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .detail-sources .source-icon {
@@ -569,6 +781,11 @@ function badgeClass(tag) {
   margin-top: 2px;
 }
 
+.fm-detail-card--series .detail-tags {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
 .detail-tags span {
   min-height: 24px;
   display: inline-flex;
@@ -578,9 +795,15 @@ function badgeClass(tag) {
   background: color-mix(in srgb, var(--accent), transparent 88%);
   color: color-mix(in srgb, var(--accent), white 22%);
   padding: 0 10px;
-  font-size: 10.5px;
+  font-size: var(--detail-tag-size);
   line-height: 1;
   font-weight: 750;
+}
+
+.fm-detail-card--series .detail-tags span {
+  min-height: 21px;
+  padding: 0 8px;
+  font-size: var(--detail-series-tag-size);
 }
 
 .detail-hint {
@@ -588,8 +811,18 @@ function badgeClass(tag) {
   right: 26px;
   bottom: 18px;
   color: rgba(226, 232, 240, 0.38);
-  font-size: 11px;
+  font-size: var(--detail-hint-size);
   letter-spacing: 0.02em;
+}
+
+.fm-detail-card--series .detail-hint {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .detail-sources--wide .detail-source-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @keyframes detail-fade {
