@@ -5,6 +5,10 @@
       :alt="alt" 
       class="zoomable-plot-image"
       @click="openFullscreen"
+      @keydown.enter="openFullscreen"
+      @keydown.space.prevent="openFullscreen"
+      role="button"
+      tabindex="0"
     />
     
     <!-- Fullscreen Modal -->
@@ -43,15 +47,6 @@ const props = defineProps({
   }
 })
 
-// Debug: Log environment variables
-console.log('ZoomablePlot Debug:', {
-  'import.meta.env.BASE_URL': import.meta.env.BASE_URL,
-  'import.meta.env': import.meta.env,
-  'props.src': props.src,
-  'window.location.pathname': typeof window !== 'undefined' ? window.location.pathname : 'N/A',
-  'window.location.href': typeof window !== 'undefined' ? window.location.href : 'N/A'
-})
-
 // Try multiple methods to get the base path
 function getBasePath() {
   // Method 1: Use import.meta.env.BASE_URL
@@ -79,7 +74,6 @@ function getBasePath() {
 }
 
 const baseUrl = getBasePath()
-console.log('Computed baseUrl:', baseUrl)
 
 // Compute the correct src path with base URL
 const imageSrc = computed(() => {
@@ -87,24 +81,19 @@ const imageSrc = computed(() => {
   
   // If src already starts with baseUrl, use as is
   if (finalSrc.startsWith(baseUrl)) {
-    console.log('Path already has baseUrl, using as is:', finalSrc)
     return finalSrc
   }
   
   // If src starts with /, prepend baseUrl (removing the leading /)
   if (finalSrc.startsWith('/')) {
     finalSrc = baseUrl + finalSrc.slice(1)
-    console.log('Prepending baseUrl to absolute path:', finalSrc)
     return finalSrc
   }
   
   // Otherwise, prepend baseUrl
   finalSrc = baseUrl + finalSrc
-  console.log('Prepending baseUrl to relative path:', finalSrc)
   return finalSrc
 })
-
-console.log('Final imageSrc:', imageSrc.value)
 
 const isFullscreen = ref(false)
 
@@ -166,8 +155,11 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(8px);
+  background:
+    radial-gradient(circle at 24% 18%, rgba(0, 229, 255, 0.18), transparent 34%),
+    radial-gradient(circle at 78% 76%, rgba(124, 92, 255, 0.2), transparent 38%),
+    rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(10px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -177,26 +169,34 @@ onUnmounted(() => {
 
 .fullscreen-content {
   position: relative;
-  width: 95%;
-  height: 95%;
+  width: min(96vw, 1680px);
+  height: min(94vh, 1120px);
+  padding: clamp(16px, 2vw, 28px);
   display: flex;
   align-items: center;
   justify-content: center;
   animation: zoomIn 0.3s ease-out;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(7, 13, 26, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(103, 232, 249, 0.09),
+    0 28px 90px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .fullscreen-image {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  display: block;
+  border-radius: 10px;
 }
 
 .close-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 14px;
+  right: 14px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
