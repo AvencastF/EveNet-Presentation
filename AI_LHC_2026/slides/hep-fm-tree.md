@@ -15,7 +15,7 @@ glowOpacity: 0.30
   (Foundation models, LLMs &amp; agents); Only FM papers are included.
 </div>
 
-<div class="hep-fm-tree-canvas absolute left-5 right-5 top-[4.75rem] bottom-3">
+<div class="hep-fm-tree-canvas absolute left-5 right-5 top-[4.55rem] bottom-3">
   <HEPFMTree
     date-start="2023-12-01"
     :layout="{

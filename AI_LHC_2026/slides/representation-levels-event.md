@@ -10,7 +10,10 @@ glowOpacity: 0.30
   <span>TL;DR</span> Event-level FMs are fewer; transfer studies test whether jet-pretrained embeddings survive across analyses and domains.
 </div>
 
-<FoundationModelGallery group="event" />
+<FoundationModelGallery
+  group="event"
+  :lane-widths="{ event: 1.18, transfer: 0.82 }"
+/>
 
 <style>
 .slide-tldr {

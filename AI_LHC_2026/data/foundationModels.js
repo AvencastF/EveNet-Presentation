@@ -33,7 +33,7 @@ export const levels = [
   }
 ]
 
-export const models = [
+const baseModels = [
   {
     id: 'panda',
     name: 'Panda',
@@ -73,8 +73,8 @@ export const models = [
     published: 'Apr 2026',
     summarizedTitle: true,
     representation: 'Raw detector response: sparse 3D calorimeter voxels',
-    architecture: 'Sparse vision transformer with masked reconstruction and relational voxel objectives',
-    data: 'Simulation across detector geometries',
+    architecture: 'Sparse ViT-like detector encoder with masked reconstruction, relational objectives, and Perceiver-style fusion',
+    data: 'FASERCal GENIE/PYTHIA8/Geant4 simulation; cross-dataset transfer tested downstream',
     summary: 'This line tests whether self-supervised detector pretraining can transfer across heterogeneous neutrino detector designs and improve downstream energy/classification tasks.',
     highlights: [
       'Combines masked autoencoding with relational voxel-level objectives.',
@@ -100,7 +100,7 @@ export const models = [
     representation: 'Raw calorimeter energy deposition patterns',
     architecture: 'Next-token transformer with mixture-of-experts modules and parameter-efficient fine-tuning',
     data: 'Simulated calorimeter showers',
-    summary: 'A generative calorimeter foundation model that starts from shower simulation, then adds adaptation paths for new materials, particle types, and regression-style downstream use.',
+    summary: 'A generative calorimeter fast-simulation model that starts from shower simulation, then tests MoE and PEFT adaptation across absorber materials and particle species.',
     highlights: [
       'Pretrains on electromagnetic showers and adapts to new materials.',
       'Uses MoE and PEFT to avoid full retraining for each detector condition.',
@@ -118,7 +118,7 @@ export const models = [
     rarity: 'epic',
     badges: ['G', 'D', 'MoE'],
     short: 'Mixed discrete/continuous readout foundation model.',
-    arch: 'causal transformer',
+    arch: 'next-token transformer',
     title: 'Foundation models for experimental readout systems combining discrete and continuous data',
     published: 'May 2025',
     representation: 'Raw readout: photon pixel/time sequences with kinematic conditioning',
@@ -165,14 +165,14 @@ export const models = [
     color: '#7dd3fc',
     rarity: 'uncommon',
     badges: ['D', 'VLM'],
-    short: 'Vision-language adaptation for neutrino events.',
+    short: 'Vision-language adaptation for neutrino events (two related works).',
     arch: 'vision-language transformer',
     title: 'Pretrained vision-language models for neutrino event classification',
     published: 'Aug/Sep 2025',
     summarizedTitle: true,
-    representation: 'Raw detector images with text prompts',
-    architecture: 'Vision-language transformer adapted to neutrino event classification',
-    data: 'Pixelated neutrino interaction samples',
+    representation: 'Derived LArTPC event-display pixel maps with text prompts',
+    architecture: 'QLoRA fine-tuning of Llama-3.2-11B-Vision-Instruct on event-display images',
+    data: 'GENIE/Geant4 simulated modular LArTPC event-display pixel maps',
     summary: 'A multimodal branch of detector-level foundation modeling that tests whether pretrained vision-language representations help neutrino classification and interpretability.',
     highlights: [
       'Combines detector images with text embeddings.',
@@ -239,7 +239,7 @@ export const models = [
     domain: 'LHC boosted jets',
     color: '#9f7aea',
     rarity: 'epic',
-    badges: ['D', 'SSL', 'LHC'],
+    badges: ['D', 'LHC'],
     short: '188-class signature-oriented jet pretraining.',
     arch: 'Particle Transformer',
     title: 'Accelerating Resonance Searches via Signature-Oriented Pre-training',
@@ -359,21 +359,21 @@ export const models = [
     domain: 'jets',
     color: '#b794f4',
     rarity: 'uncommon',
-    badges: ['D', 'SSL', 'EBM'],
-    short: 'Energy-based predictive embedding for jets.',
-    arch: 'JEPA / energy-based',
-    title: 'Generative energy-based models for particle jets',
+    badges: ['D', 'SSL'],
+    short: 'Latent-prediction SSL for jets.',
+    arch: 'JEPA SSL',
+    title: 'HEP-JEPA latent-prediction self-supervision for particle jets',
     published: 'Feb 2025',
     representation: 'Jet / constituent-level inputs',
-    architecture: 'Joint embedding predictive architecture with energy-based training',
+    architecture: 'Joint embedding predictive architecture with context and EMA target encoders; latent prediction, not data-space generation',
     data: 'Jet benchmarks',
     summary: 'HEP-JEPA is another path to reusable jet embeddings, using predictive latent objectives instead of pure supervised tagging.',
     highlights: [
       'Learns latent jet representations through predictive coding.',
-      'Supports downstream classification and anomaly-detection-style use.',
+      'Supports few-shot JetClass learning and modest top/QG transfer.',
       'Broadens the jet FM architecture menu beyond plain transformers.'
     ],
-    tags: ['jet constituents', 'JEPA', 'energy-based', 'anomaly detection']
+    tags: ['jet constituents', 'JEPA', 'latent prediction', 'self-supervised', 'few-shot transfer']
   },
   {
     id: 'joint-opt',
@@ -409,19 +409,19 @@ export const models = [
     color: '#34d399',
     rarity: 'rare',
     badges: ['D', 'multi-task'],
-    short: 'Foundational transformer methodology for collider events.',
-    arch: 'multi-task transformer',
+    short: 'Preliminary event-transformer methodology.',
+    arch: 'preliminary transformer',
     title: 'A methodology for developing foundational transformer models in collider analysis',
     published: 'Nov 2025',
     summarizedTitle: true,
     representation: 'Event-level top-quark final states',
-    architecture: 'Multi-task transformer with adaptive attention',
-    data: 'Collider event benchmarks',
-    summary: 'An event-level foundation-model methodology that processes multiple top-quark final-state signatures and looks for reusable patterns across processes.',
+    architecture: 'Small tabular/event transformer with masked-variable reconstruction and top-multiplicity classification',
+    data: 'Custom Delphes CMS-like top-multiplicity simulation',
+    summary: 'A preliminary event-level transformer methodology that demonstrates masked reconstruction and top-count classification, but does not yet establish broad FM transfer.',
     highlights: [
       'Works directly with event-level analysis objects.',
-      'Targets classification/regression across several processes.',
-      'Useful stepping stone between jet FMs and full event-analysis FMs.'
+      'Targets masked-variable reconstruction and top-multiplicity classification.',
+      'Useful stepping stone only; broad event-FM transfer remains future work.'
     ],
     tags: ['event level', 'multi-task', 'transformer', 'top physics']
   },
@@ -433,7 +433,7 @@ export const models = [
     domain: 'LHC event analysis',
     color: '#4ade80',
     rarity: 'epic',
-    badges: ['D', 'SSL', 'LHC'],
+    badges: ['D', 'LHC'],
     short: 'GNN event FM on 120M collision events.',
     arch: 'graph neural network',
     title: 'Pretrained Event Classification Model for High Energy Physics Analysis',
@@ -484,14 +484,14 @@ export const models = [
     domain: 'theory / collider observables',
     color: '#86efac',
     rarity: 'rare',
-    badges: ['D', 'retrieval'],
+    badges: ['D', 'SSL', 'retrieval'],
     short: 'Reusable theory-space representations for colliders.',
-    arch: 'contrastive transformer',
+    arch: 'MLP contrastive encoder',
     title: 'Reusable theory representations for colliders: a demonstrator SMEFT foundation model',
     published: 'Dec 2025',
-    representation: 'Event/theory-level Drell-Yan cross sections and SMEFT deformations',
-    architecture: 'Contrastive transformer encoder over theory variations',
-    data: 'Theory-level collider observables',
+    representation: 'Fixed vectors of binned Drell-Yan cross sections and SMEFT deformations',
+    architecture: 'Feed-forward contrastive MLP encoder over binned theory cross-section vectors',
+    data: 'MadGraph5 theory-level neutral-current Drell-Yan SMEFT universes',
     summary: 'This model shifts the “representation” question from detector data to theory space, learning latent directions corresponding to SMEFT deformations.',
     highlights: [
       'Builds a latent manifold for SMEFT deformations.',
@@ -509,21 +509,21 @@ export const models = [
     color: '#00e5ff',
     rarity: 'legendary',
     featured: true,
-    badges: ['G', 'D', 'LHC'],
+    badges: ['R', 'G', 'D', 'SSL'],
     short: 'Reusable representations at event-analysis level.',
-    arch: 'graph transformer',
+    arch: 'Point-Edge Transformer',
     title: 'A foundation model for particle collision data analysis',
     published: 'Jan 2026',
     representation: 'Event-level objects: jets, leptons, MET',
-    architecture: 'Graph transformer with object-to-token attention and task-specific heads',
-    data: 'Large LHC-style event samples',
+    architecture: 'Point-Edge Transformer event backbone with discriminative and generative task heads',
+    data: 'Large Delphes pretraining corpus plus CMS Open Data simulation and real collision-data downstream tasks',
     summary: 'EveNet is positioned as the integration point for this overview: it tests whether reusable representations can be learned directly from event-analysis objects rather than only detector or constituent-level inputs.',
     highlights: [
-      'Targets classification, regression, and generative event simulation in one framework.',
+      'Targets classification, assignments, segmentations, and generative event simulation in one framework.',
       'Operates on calibrated analysis objects rather than raw detector cells.',
       'Connects the major trends: multi-task pretraining, transfer, reusable embeddings, and generative/discriminative integration.'
     ],
-    tags: ['event level', 'graph transformer', 'multi-task', 'generative + discriminative', 'analysis oriented']
+    tags: ['event level', 'graph transformer', 'multi-task', 'generative + discriminative', 'analysis oriented', 'hybrid pretraining']
   },
   {
     id: 'omni-transfer-neutrino',
@@ -538,9 +538,9 @@ export const models = [
     arch: 'OmniLearned transfer',
     title: 'Cross-domain transfer with particle physics foundation models',
     published: 'Apr 2026',
-    representation: 'Jet / constituent pretraining transferred to raw neutrino detector tasks',
-    architecture: 'OmniLearned-style transformer foundation model fine-tuned cross-domain',
-    data: 'Jets and neutrino interaction samples',
+    representation: 'Jet-pretrained particle-cloud model transferred to processed MINERvA reconstructed-object tokens',
+    architecture: 'OmniLearned PET2 checkpoints fine-tuned/evaluated against point-global transformer baselines',
+    data: 'Simulated MINERvA Open Data Medium Energy FHC playlists 1A and 1B',
     summary: 'A strong example of reusable representations across experimental regimes: an OmniLearned-style jet-pretrained FM is adapted to lower-energy neutrino interactions.',
     highlights: [
       'Fine-tunes an OmniLearned-style jet-pretrained model on energy regression and pion final-state classification.',
@@ -598,6 +598,2194 @@ export const models = [
     tags: ['cross-domain', 'OmniLearned', 'molecular dynamics', 'point-edge attention', 'energy regression']
   }
 ]
+
+const NOT_SPECIFIED = 'Not specified in the paper/project.'
+
+const foundationModelDetails = {
+  panda: {
+    arch: 'Point Transformer V3',
+    short: 'Self-distilled LArTPC point-cloud representations.',
+    architecture: 'Point Transformer V3 sparse hierarchical encoder with DINO/iBOT-style teacher-student self-distillation.',
+    data: 'PILArNet-M simulated LArTPC charge clouds; 1.2M events total, 1M used for pretraining.',
+    classification: 'Detector-level foundation-style SSL; supported within one LArTPC domain.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Supported within domain; no cross-experiment generalization test.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'detector FM candidate'],
+      architecture: ['Point Transformer V3', 'teacher-student SSL'],
+      domain: ['LArTPC', 'panoptic segmentation'],
+      evidence: ['label efficiency', 'public data', 'within-domain transfer']
+    },
+    dataset: {
+      type: 'custom simulation / LArTPC',
+      generator: 'PILArNet-M simulated charge-deposition events with detector-like preprocessing/deconvolution',
+      size: '1.2M events total; 1M pretraining events',
+      public: 'Yes: code/data reported available',
+      link: 'https://github.com/DeepLearnPhysics/Panda',
+      multipleDatasets: 'No; one LArTPC corpus',
+      mixedSource: 'No mixed-source or cross-domain pretraining'
+    },
+    representation: {
+      inputObjects: 'Voxelized 3D charge-deposition point cloud with (x, y, z, q)',
+      pipeline: ['LArTPC charge cloud', '0.13 MeV threshold + 3 mm voxels', 'sparse Point Transformer tokens'],
+      variableLength: 'Handled by sparse point-cloud processing rather than fixed image padding',
+      paddingMasking: 'Global/local/masked crops are used for SSL; no fixed detector-image padding',
+      preprocessing: '3 mm voxel grid; low-charge points removed'
+    },
+    backbone: {
+      architectureType: 'Sparse hierarchical Point Transformer V3 encoder',
+      baseModel: 'Self-trained on PILArNet-M; no external pretrained base',
+      structure: 'Encoder plus optional decoder for segmentation heads',
+      objective: 'DINO/iBOT/Sonata-style prototype self-distillation with student and EMA teacher',
+      parameters: '~91M encoder parameters; optional ~16M decoder',
+      trainableFrozen: 'Pretrained encoder adapted with supervised segmentation heads; freeze policy not central to claim',
+      fineTuning: 'Semantic and panoptic segmentation fine-tuning on labeled PILArNet-M subsets'
+    },
+    summary: 'Panda learns reusable sparse 3D LArTPC charge-cloud representations with self-distillation, then reuses them for semantic and panoptic reconstruction. The evidence is strong for label efficiency inside one simulated detector regime.',
+    highlights: [
+      'Detector-native SSL on voxelized LArTPC charge clouds.',
+      'Large sparse PTv3 encoder with student/EMA-teacher pretraining.',
+      'Improves low-label semantic and panoptic segmentation.',
+      'Good foundation-style example, but not detector-agnostic.'
+    ],
+    benchmarks: [
+      {
+        task: 'Semantic segmentation',
+        dataset: 'PILArNet-M',
+        metrics: 'macro/per-class F1',
+        transfer: 'Yes: pretrained encoder to segmentation',
+        ood: 'No',
+        fmEvidence: 'Moderate: reusable within same detector corpus'
+      },
+      {
+        task: 'Particle and interaction panoptic segmentation',
+        dataset: 'PILArNet-M',
+        metrics: 'PQ, ARI, purity, efficiency',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate: multi-task reconstruction reuse'
+      },
+      {
+        task: 'Low-label scaling',
+        dataset: 'PILArNet-M label fractions 0.1%-1%',
+        metrics: 'F1/PQ versus label fraction and convergence',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Strong within-domain label-efficiency evidence'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'A100 40GB GPUs',
+      gpu: '4 A100 for pretraining; 4 A100 semantic and 8 A100 panoptic fine-tuning',
+      trainingTime: NOT_SPECIFIED,
+      batchSize: '48',
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'neutrino-ssl': {
+    arch: 'sparse ViT + Perceiver',
+    short: 'FASERCal MAE+Rel pretraining with transfer tests.',
+    architecture: 'Sparse ViT-like detector encoder with SpConv patch embeddings, module-aware attention, and Perceiver-IO fusion.',
+    data: 'FASERCal GENIE/PYTHIA8/Geant4 simulation; transfer evaluated on public plastic-scintillator and PILArNet benchmarks.',
+    classification: 'Detector foundation-style SSL with cross-dataset downstream transfer.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Multi-task and cross-dataset transfer, but source pretraining is one simulated detector concept.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'SSL'],
+      architecture: ['Sparse ViT', 'MAE+Rel', 'Perceiver fusion'],
+      domain: ['neutrino', 'heterogeneous detector', 'FASERCal'],
+      evidence: ['transfer benchmark', 'OOD stress', 'Geant4']
+    },
+    dataset: {
+      type: 'custom simulation / Geant4-full detector concept',
+      generator: 'GENIE v3.04.00 neutrino interactions; PYTHIA8 tau/charm decays; Geant4 detector propagation',
+      size: '1,118,058 nominal interactions; 108,317 enriched nu_tau CC events; 85/5/10 split',
+      public: 'Code/framework public; generated training dataset link not specified',
+      link: 'https://github.com/rubbiaa/FASER',
+      multipleDatasets: 'Yes for evaluation: plastic scintillator benchmark and PILArNet 768^3 release',
+      mixedSource: 'Pretraining on FASERCal only; cross-domain evidence is downstream transfer'
+    },
+    representation: {
+      inputObjects: 'Sparse detector hits from 3DCal, AHCAL, ECAL, and muon-system modules',
+      pipeline: ['sparse voxel/module hits', 'log charge + occupied patch selection + 75% MAE masking', 'module-aware ViT tokens fused by Perceiver'],
+      variableLength: 'Sparse occupied patches and detector-module tokens are fused with Perceiver-style processing',
+      paddingMasking: '75% masked autoencoding; sparse patches avoid dense-volume padding',
+      preprocessing: 'Log charge; ECAL as compact 5x5 matrix tokens; muon planes/tracks as separate module tokens'
+    },
+    backbone: {
+      architectureType: 'Sparse ViT-like encoder plus Perceiver-IO fusion',
+      baseModel: 'Self-trained on FASERCal simulation',
+      structure: 'SpConv patch embeddings; module-aware attention; decoder dimension 256 with 8 heads',
+      objective: 'Stage 1 MAE; Stage 2 MAE plus relational ghost, hierarchy, and particle-category objectives',
+      parameters: 'dimension 384, 12 heads, MLP ratio 4; total parameter count not specified',
+      trainableFrozen: 'Fine-tuning/scratch comparisons reported; exact freeze policy varies by task',
+      fineTuning: 'Classification/regression heads fine-tuned for neutrino flavor, charm, energy, and transfer datasets'
+    },
+    summary: 'This FASERCal model tests whether sparse self-supervised detector tokens can support heterogeneous neutrino reconstruction. It is best framed as a foundation-style detector model with meaningful but source-domain-limited pretraining.',
+    highlights: [
+      'Combines masked reconstruction with detector-aware relational SSL.',
+      'Covers sparse 3D calorimetry, compact ECAL tokens, and muon-system inputs.',
+      'Shows low-label gains and transfer to other detector-like benchmarks.',
+      'Pretraining corpus is FASERCal simulation, not a mixed detector corpus.'
+    ],
+    benchmarks: [
+      {
+        task: 'Six-way neutrino flavor classification',
+        dataset: 'FASERCal simulated interactions',
+        metrics: 'AUROC, confusion, purity, efficiency, FOM',
+        transfer: 'Yes: pretrained to supervised head',
+        ood: 'No',
+        fmEvidence: 'Moderate: source-domain downstream reuse'
+      },
+      {
+        task: 'Charm category classification',
+        dataset: 'FASERCal charm samples',
+        metrics: 'AUROC and class efficiencies',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate: additional downstream task'
+      },
+      {
+        task: 'Kinematic regression',
+        dataset: 'FASERCal simulated events',
+        metrics: 'residuals and robust spread for energy, momentum, missing pT, dPV',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate: multi-task reuse'
+      },
+      {
+        task: 'Detector-style transfer',
+        dataset: 'public plastic scintillator PID and public PILArNet classification',
+        metrics: 'accuracy/AUROC gains over scratch',
+        transfer: 'Yes',
+        ood: 'Partial: different detector-style datasets',
+        fmEvidence: 'Strongest evidence for foundation-style claim'
+      },
+      {
+        task: 'Robustness stress tests',
+        dataset: 'FASERCal energy-scale and subsystem ablations',
+        metrics: 'task performance under perturbation/ablation',
+        transfer: 'No',
+        ood: 'Partial',
+        fmEvidence: 'Supporting robustness evidence'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'GH200 and H100 GPUs',
+      gpu: '8 GH200 for pretraining; 1 H100 for fine-tuning/scratch',
+      trainingTime: '400 MAE epochs + 100 MAE+Rel epochs',
+      batchSize: '512/GPU pretraining; 1024 fine-tuning',
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'calo-moe': {
+    badges: ['G', 'MoE', 'PEFT'],
+    arch: 'autoregressive MoE',
+    short: 'PEFT transfer for generative calorimeter showers.',
+    architecture: 'Dual-stream autoregressive transformer with fixed-routing MoE experts, frozen backbone transfer, and LoRA for particle-species adaptation.',
+    data: 'Geant4 ILD-like Si-W ECAL showers across W/Ta/Pb absorbers and photons/electrons at 10-100 GeV.',
+    classification: 'Generative fast-simulation foundation-style model; not a regression downstream model.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Supported for calorimeter fast-simulation transfer across materials and particle species.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'fast simulation'],
+      architecture: ['autoregressive transformer', 'MoE', 'LoRA', 'PEFT'],
+      domain: ['calorimeter', 'Geant4 showers'],
+      evidence: ['generative validation', 'material transfer', 'particle transfer']
+    },
+    dataset: {
+      type: 'Geant4/full simulation / calorimeter',
+      generator: 'ILD-like Si-W ECAL Geant4 electromagnetic showers with W, Ta, and Pb absorbers',
+      size: '~950k samples per particle/material; 760k train, 95k validation, 95k test',
+      public: 'Code public; datasets reproducible, some material details by request',
+      link: 'https://github.com/wmdataphys/FM4CAL; https://github.com/FLC-QU-hep/getting_high',
+      multipleDatasets: 'Yes: photons/electrons across multiple absorber materials',
+      mixedSource: 'Cross-material and photon-to-electron transfer; no real-detector data'
+    },
+    representation: {
+      inputObjects: 'Raw 30x30x30 calorimeter energy-deposit voxel grids',
+      pipeline: ['Geant4 shower voxels', 'nonzero cells sorted by descending energy', 'spatial cell tokens + discretized energy tokens with energy conditioning'],
+      variableLength: 'Sparse nonzero cells serialized with SOS/EOS sequence tokens',
+      paddingMasking: 'Autoregressive sequence modeling with start/end tokens; padding not emphasized',
+      preprocessing: 'Cell position discretized over 27k cells; energy discretized into ~25k tokens; incident energy prepended'
+    },
+    backbone: {
+      architectureType: 'Dual-stream autoregressive transformer',
+      baseModel: 'Self-trained calorimeter shower model',
+      structure: 'Energy tokens query spatial tokens via cross-attention, followed by self-attention',
+      objective: 'Next-token shower generation conditioned on incident energy/material/species',
+      parameters: 'embedding dimension 256; full parameter count not specified',
+      trainableFrozen: 'Backbone/vocabulary frozen for new material experts; LoRA trains attention projections for species transfer',
+      fineTuning: 'New material expert training; photon-to-electron LoRA plus particle-specific heads/vocabulary'
+    },
+    summary: 'Calo-MoE is a generative calorimeter fast-simulation model, with evidence centered on shower fidelity and parameter-efficient transfer. It should not be described as a downstream regression benchmark.',
+    highlights: [
+      'Adapts shower generation across absorber materials with new experts.',
+      'Uses LoRA and particle-specific heads for photon-to-electron transfer.',
+      'Benchmarks are Geant4 shower observables and generation speed.',
+      'Strong PEFT story, narrower than an analysis-wide detector FM.'
+    ],
+    benchmarks: [
+      {
+        task: 'Generative shower validation',
+        dataset: 'Geant4 photon/electron ECAL showers',
+        metrics: 'visible cell energy, total energy, hit multiplicity, longitudinal center-of-gravity, layer energy, radial profile',
+        transfer: 'No for base closure',
+        ood: 'No',
+        fmEvidence: 'Moderate: validates reusable shower generator'
+      },
+      {
+        task: 'Material transfer',
+        dataset: 'Pb photon showers with 1k, 10k, and full Pb samples',
+        metrics: 'same shower-observable agreement against Geant4',
+        transfer: 'Yes: new expert with frozen backbone',
+        ood: 'Partial: absorber material shift',
+        fmEvidence: 'Strong for fast-sim transfer'
+      },
+      {
+        task: 'Particle-species transfer',
+        dataset: 'W electron showers from photon-pretrained model',
+        metrics: 'shower-observable agreement',
+        transfer: 'Yes: LoRA plus particle-specific outputs',
+        ood: 'Partial: photon to electron',
+        fmEvidence: 'Strong for PEFT reuse'
+      },
+      {
+        task: 'Generation speed',
+        dataset: 'tested calorimeter shower setup',
+        metrics: '~10.46 ms/event on A100; ~392x faster than Geant4 CPU',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Supporting simulation utility, not FM by itself'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'A100 for reported inference',
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  fm4dirc: {
+    arch: 'next-token MoE',
+    short: 'Mixed discrete/continuous DIRC readout sequences.',
+    architecture: 'Next-token transformer with independent pixel/time embeddings, cross multi-head attention, conditioning tokens, and class-conditional MoE.',
+    data: 'Simulated hpDIRC Cherenkov readout with about 5M pion and 5M kaon tracks.',
+    classification: 'Readout-level generative foundation-style model with same-detector PID/filtering transfer.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Multi-task reuse in one readout system; no broader detector transfer.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'readout model'],
+      architecture: ['next-token transformer', 'CMHCA', 'MoE'],
+      domain: ['DIRC', 'Cherenkov', 'PID'],
+      evidence: ['generative validation', 'noise filtering', 'same-detector transfer']
+    },
+    dataset: {
+      type: 'custom simulation / detector readout',
+      generator: 'hpDIRC Cherenkov photon hit patterns compared with Geant4/FastDIRC-style simulation references',
+      size: '~5M pion tracks and ~5M kaon tracks; 1 < |p| < 10 GeV/c, 25 deg < theta < 160 deg',
+      public: 'Code public; official dataset link not specified',
+      link: 'https://github.com/wmdataphys/FM4DIRC',
+      multipleDatasets: 'Pion and kaon conditional samples plus noise-injection studies',
+      mixedSource: 'No broad cross-experiment transfer; same-readout task transfer'
+    },
+    representation: {
+      inputObjects: 'Variable-length Cherenkov photon hit sequences with pixel ID and arrival time',
+      pipeline: ['photon pixel/time hits', 'pixel and time bin vocabularies + kinematic conditioning', 'autoregressive readout token sequence'],
+      variableLength: 'Sequences capped around 250 hits with SOS/EOS tokens',
+      paddingMasking: 'Autoregressive next-token masking; explicit padding strategy not central',
+      preprocessing: 'PMT pixel vocabulary size 6144; time binned to one quarter detector timing resolution, vocabulary size 5920'
+    },
+    backbone: {
+      architectureType: 'Next-token mixed discrete/continuous transformer',
+      baseModel: 'Self-trained on simulated hpDIRC readout',
+      structure: 'Independent spatial/time embeddings; time queries spatial keys/values; self-attention stack',
+      objective: 'Autoregressive readout generation; downstream PID and token-level noise filtering',
+      parameters: 'embedding dimension 256, 8 heads; total count not specified',
+      trainableFrozen: 'Generative pretraining fine-tuned for sequence-level and token-level heads',
+      fineTuning: 'CLS/BCE PID head and focal-loss noise-filtering head'
+    },
+    summary: 'FM4DIRC extends foundation-style modeling to detector readout streams, where discrete sensor IDs and continuous timing must be modeled together. Evidence is useful but confined to one Cherenkov readout system.',
+    highlights: [
+      'Combines pixel-ID tokens, time tokens, and continuous track conditioning.',
+      'Generates realistic readout sequences and supports PID/noise tasks.',
+      'Fine-tuning benefit is task-dependent, especially for filtering.',
+      'A rare readout-level example outside calorimetry and tracking.'
+    ],
+    benchmarks: [
+      {
+        task: 'Generative closure',
+        dataset: 'simulated hpDIRC pion/kaon tracks',
+        metrics: 'x/y/time distributions, photon yield, KDE/FastDIRC classifier metrics',
+        transfer: 'No',
+        ood: 'Partial: kinematic scans',
+        fmEvidence: 'Moderate: validates readout generator'
+      },
+      {
+        task: 'Pion/kaon PID',
+        dataset: 'hpDIRC tracks at 3 and 6 GeV/c over theta',
+        metrics: 'accuracy and separation power',
+        transfer: 'Yes: fine-tuned from generative pretraining',
+        ood: 'No',
+        fmEvidence: 'Moderate: same-system downstream reuse'
+      },
+      {
+        task: 'Noise filtering',
+        dataset: 'PMT dark noise at 100 kHz/cm2 with ~8-10% noise',
+        metrics: 'AP and AUC',
+        transfer: 'Yes, but benefit is limited/task-dependent',
+        ood: 'No',
+        fmEvidence: 'Partial: downstream reuse with caveat'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  fm4npp: {
+    arch: 'Mamba2 SSM',
+    short: 'Scaling state-space FM on sparse TPC spacepoints.',
+    architecture: 'Mamba2 state-space model with hierarchical raster-scan serialization, NeRF-like positional features, and kNN self-supervision.',
+    data: 'PYTHIA8 plus full Geant4 sPHENIX TPC p+p events at sqrt(s)=200 GeV; more than 11M events.',
+    classification: 'Detector-domain FM with frozen-adapter transfer across TPC reconstruction tasks.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Strong within-detector multi-task reuse; not cross-experiment.'
+    },
+    tags: {
+      modelType: ['foundation model', 'detector reconstruction'],
+      architecture: ['Mamba2', 'state-space model', 'kNN SSL'],
+      domain: ['TPC', 'sPHENIX', 'track finding'],
+      evidence: ['scaling', 'frozen adapters', 'multi-task transfer']
+    },
+    dataset: {
+      type: 'Geant4/full simulation / private-internal style benchmark',
+      generator: 'PYTHIA 8.307 Detroit tune plus full Geant4 sPHENIX geometry, field, electronics, noise, gain, and zero suppression',
+      size: '>11M p+p events; mean ~856 spacepoints and 15.6 tracks/event',
+      public: 'Paper calls it an open benchmark; direct official dataset URL not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'One main sPHENIX TPC corpus with downstream task labels',
+      mixedSource: 'No cross-experiment pretraining; multi-task downstream within same detector'
+    },
+    representation: {
+      inputObjects: 'Variable-size set of reconstructed TPC spacepoints with E, x, y, z or E, r, phi, eta',
+      pipeline: ['TPC spacepoint cloud', 'min-max normalized cylindrical features + NeRF-like position features', 'hierarchical raster-scan Mamba sequence'],
+      variableLength: 'Serialized sparse event sequence over r/eta/phi bins rather than dense raster image',
+      paddingMasking: 'Sequence batching details not specified; downstream adapters handle variable event size',
+      preprocessing: 'Min-max normalization over eta, phi, and radius ranges'
+    },
+    backbone: {
+      architectureType: 'Mamba2 state-space sequence model',
+      baseModel: 'Self-trained on sPHENIX TPC simulation',
+      structure: 'Six sizes from 0.34M to 188M parameters; frozen FM plus task adapters',
+      objective: 'k-next-nearest-neighbor prediction, k=10, with MSE and event-difficulty reweighting',
+      parameters: '0.34M to 188M',
+      trainableFrozen: 'Pretrained backbone frozen for downstream adapters',
+      fineTuning: 'MaskFormer/Mask2Former-like track adapter, PID adapter, and noise-tagging adapter'
+    },
+    summary: 'FM4NPP is a detector-domain scaling study for sparse TPC spacepoints using Mamba2 rather than a transformer. It demonstrates strong same-detector reuse through frozen adapters for tracking, PID, and noise tagging.',
+    highlights: [
+      'Uses a state-space backbone, widening the FM architecture menu.',
+      'Scales up to 188M parameters on full-simulation TPC spacepoints.',
+      'Frozen adapters improve track finding, PID, and noise tagging.',
+      'Evidence is within sPHENIX TPC, not cross-experiment.'
+    ],
+    benchmarks: [
+      {
+        task: 'Model/data/compute scaling',
+        dataset: 'sPHENIX TPC p+p full simulation',
+        metrics: 'scaling curves over model, data, and compute',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Supporting scaling evidence'
+      },
+      {
+        task: 'Track finding',
+        dataset: 'sPHENIX TPC downstream labels',
+        metrics: 'ARI, efficiency, purity; reported m6 table ~0.9448 ARI, 96.08% efficiency, 93.08% purity',
+        transfer: 'Yes: frozen FM plus adapter',
+        ood: 'No',
+        fmEvidence: 'Strong within-detector transfer'
+      },
+      {
+        task: 'PID',
+        dataset: 'sPHENIX TPC labels',
+        metrics: 'accuracy, macro recall, precision',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate: additional downstream task'
+      },
+      {
+        task: 'Noise tagging',
+        dataset: 'sPHENIX TPC labels',
+        metrics: 'accuracy, macro recall, precision',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate: additional downstream task'
+      },
+      {
+        task: 'Low-label adaptation',
+        dataset: 'sPHENIX TPC label subsets',
+        metrics: 'task metrics versus label fraction',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Strong data-efficiency support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'H100/A100 80GB GPUs',
+      gpu: 'largest model uses 64 GPUs',
+      trainingTime: '~72 hours for largest model',
+      batchSize: '256',
+      optimizer: 'AdamW',
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'vlm-neutrino': {
+    arch: 'Llama-3.2 Vision QLoRA',
+    short: 'General VLM fine-tuned on LArTPC event-display pixel maps.',
+    architecture: 'QLoRA fine-tuning of meta-llama/Llama-3.2-11B-Vision-Instruct with 4-bit quantized frozen base weights.',
+    data: 'GENIE/Geant4 simulated modular LArTPC event-display pixel maps; about 190k events; data on request.',
+    classification: 'General AI-to-HEP transfer study; not a HEP-native detector-pretrained FM.',
+    fmEvidence: {
+      level: 'Partial',
+      note: 'Transfer from a general VLM is supported; HEP-native foundation-model evidence is not.'
+    },
+    tags: {
+      modelType: ['transfer study', 'VLM adaptation'],
+      architecture: ['Llama-3.2 Vision', 'QLoRA', '4-bit'],
+      domain: ['neutrino', 'LArTPC event displays', 'pixel maps'],
+      evidence: ['OOD downsampling', 'prompted classification', 'general VLM transfer']
+    },
+    dataset: {
+      type: 'custom simulation / event-display images',
+      generator: 'GENIE v3.0.6 neutrino interactions up to 10 GeV; Geant4 v11.2.0 detector deposition; drift/readout smearing into displays',
+      size: '~190k events; held-out test samples in the 10k range',
+      public: 'Data available from corresponding author on request; code public',
+      link: 'https://github.com/dikshantsagar/Neutrino-LLaMa',
+      multipleDatasets: 'Nominal 512x512 displays plus 256x256 downsampled OOD displays',
+      mixedSource: 'Base VLM pretrained outside HEP; fine-tuned on neutrino images'
+    },
+    representation: {
+      inputObjects: 'Two 2D grayscale event-display projections, XZ and YZ',
+      pipeline: ['simulated LArTPC depositions', 'centered/resized event-display pixel maps', 'VLM image processor + text prompt'],
+      variableLength: 'Image input is fixed by VLM image processor; no raw sparse-hit variable-length handling',
+      paddingMasking: 'Handled by Llama-3.2-Vision image processor, not detector-specific masking',
+      preprocessing: '512x512 nominal maps; 256x256 downsampled OOD test'
+    },
+    backbone: {
+      architectureType: 'Vision-language transformer',
+      baseModel: 'meta-llama/Llama-3.2-11B-Vision-Instruct with ViT-h/14 vision encoder',
+      structure: 'Frozen/4-bit quantized VLM with low-rank adapters on attention and MLP projections',
+      objective: 'Prompted event-class classification and explanation generation',
+      parameters: '11B base; ~29.5M trainable QLoRA parameters',
+      trainableFrozen: 'Base weights frozen/quantized; QLoRA rank 8, alpha 16, dropout 0.05 trainable',
+      fineTuning: 'QLoRA supervised fine-tuning for neutrino event classification'
+    },
+    summary: 'Neutrino VLM adapts a general vision-language model to LArTPC event-display images. It is a useful transfer and robustness example, but it should not be presented as a HEP-native model trained on raw detector hits.',
+    highlights: [
+      'Uses derived event-display pixel maps, not raw detector hit tensors.',
+      'Fine-tunes Llama-3.2-11B-Vision with QLoRA and a frozen quantized base.',
+      'Shows robustness to image-resolution downsampling.',
+      'Few-shot frozen VLM is weak, so zero-shot understanding should not be overclaimed.'
+    ],
+    benchmarks: [
+      {
+        task: 'Nominal event classification',
+        dataset: '512x512 simulated LArTPC event displays',
+        metrics: 'accuracy, precision, recall, AUC',
+        transfer: 'Yes: general VLM to HEP images',
+        ood: 'No',
+        fmEvidence: 'Partial: transfer evidence, not HEP-native FM'
+      },
+      {
+        task: 'Baseline comparison',
+        dataset: 'same event-display test set',
+        metrics: 'classification metrics versus CNN and fully fine-tuned ViT-h/14',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Supporting evidence'
+      },
+      {
+        task: 'Resolution-shift robustness',
+        dataset: '512-to-256 downsampled OOD displays',
+        metrics: 'accuracy/precision/recall/AUC under downsampling',
+        transfer: 'Yes',
+        ood: 'Yes: image-resolution shift',
+        fmEvidence: 'Moderate transfer robustness evidence'
+      },
+      {
+        task: 'Few-shot frozen VLM',
+        dataset: 'simulated event displays',
+        metrics: 'classification behavior; often one-class collapse',
+        transfer: 'No fine-tuning in this ablation',
+        ood: 'No',
+        fmEvidence: 'Caveat: weak zero-shot/few-shot claim'
+      },
+      {
+        task: 'Generated rationales',
+        dataset: 'classified event displays',
+        metrics: 'qualitative explanations only',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Limited: no causal physics-faithfulness benchmark'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'NVIDIA A6000 49GB GPUs',
+      gpu: '4 A6000',
+      trainingTime: '~1 week',
+      batchSize: '4/device with gradient accumulation 2',
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: '4-bit BitsAndBytes QLoRA fine-tuning'
+    }
+  },
+  omnilearned: {
+    badges: ['G', 'D', 'R', 'LHC'],
+    arch: 'PET / PET v2',
+    short: 'Broad mixed-source jet foundation-model lineage.',
+    architecture: 'Point-Edge Transformer family with local/global attention, physics pairwise biases, and classification/generation/flow-matching heads.',
+    data: 'Early JetClass 100M Delphes pretraining; later 1B+ mixed-data pretraining across Delphes, ATLAS full simulation, H1, CMS simulated/open, and real CMS Open Data downstream tasks.',
+    classification: 'Mature jet-physics foundation model lineage with strong multi-task and mixed-source evidence.',
+    fmEvidence: {
+      level: 'Strong',
+      note: 'Broadest multi-dataset and multi-task evidence among jet entries.'
+    },
+    tags: {
+      modelType: ['foundation model', 'jet FM lineage'],
+      architecture: ['PET', 'PET v2', 'flow matching'],
+      domain: ['jets', 'particle clouds', 'flavor tagging'],
+      evidence: ['multi-dataset pretraining', 'CMS Open Data', 'OOD', 'transfer']
+    },
+    dataset: {
+      type: 'mixed Delphes / full simulation / open data / real data downstream',
+      generator: 'JetClass MG5_aMC+PYTHIA8+Delphes; later JetClass2, Aspen Open Jets, ATLAS Top, H1 DIS, CMS QCD/BSM, and CMS Open Data sources',
+      size: 'Early 100M jets; later >1B jets',
+      public: 'Yes: public code/data framework and public/open datasets',
+      link: 'https://github.com/ViniciusMikuni/OmniLearned; https://github.com/ViniciusMikuni/OmniLearn',
+      multipleDatasets: 'Yes; central to the later framework',
+      mixedSource: 'Yes: pp/ep, detector fidelities, real/simulated sources, and many downstream tasks'
+    },
+    representation: {
+      inputObjects: 'Unordered jet constituent point clouds with kinematics, PID, vertex/track features where available',
+      pipeline: ['jet constituents', 'relative kinematics + optional PID/track features', 'PET/PET v2 particle tokens with local pairwise features and summary tokens'],
+      variableLength: 'Point-cloud transformer handles variable multiplicity; JetClass-style setup uses up to ~150 particles/jet',
+      paddingMasking: 'Masking/padding handled by point-cloud batching; task-specific details vary across lineage',
+      preprocessing: 'relative eta/phi, log pT, log E, pairwise physics bias features'
+    },
+    backbone: {
+      architectureType: 'Point-Edge Transformer family',
+      baseModel: 'Self-trained on large mixed jet corpora',
+      structure: 'Local attention, global attention, physics-informed pairwise bias terms, task heads for classification/generation/flow matching',
+      objective: 'Supervised plus generative/flow-matching and sample-identity learning; not primarily masked/contrastive SSL',
+      parameters: 'small ~3M; medium ~58M; large ~423M/460M depending on paper',
+      trainableFrozen: 'Fine-tuning usually updates all weights with lower backbone learning rate; task heads replaced',
+      fineTuning: 'Task-specific heads and full/low-LR backbone adaptation across jet, open-data, and real-data tasks'
+    },
+    summary: 'OmniLearn and OmniLearned form the strongest jet-level FM lineage in the library, with large mixed-source pretraining and broad downstream reuse. It is the clearest mature HEP foundation-model example on particle-cloud jets.',
+    highlights: [
+      'Moves from JetClass-scale pretraining to a 1B+ mixed jet corpus.',
+      'Covers classification, generation, flavor tagging, unfolding, reweighting, and anomaly detection.',
+      'Includes cross-fidelity and real/open-data downstream evidence.',
+      'Best anchor for the mature jet-FM claim.'
+    ],
+    benchmarks: [
+      {
+        task: 'Top tagging',
+        dataset: 'ATLAS-like/Delphes top benchmarks',
+        metrics: 'AUC, accuracy, background rejection at fixed signal efficiency',
+        transfer: 'Yes',
+        ood: 'Partial: dataset/fidelity shifts',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'Quark/gluon tagging',
+        dataset: 'Pythia and CMS Open Data Q/G settings',
+        metrics: 'AUC and rejection metrics',
+        transfer: 'Yes',
+        ood: 'Yes for open-data settings',
+        fmEvidence: 'Strong mixed-source evidence'
+      },
+      {
+        task: 'Unfolding/reweighting',
+        dataset: 'Z+jets and H1 DIS tasks',
+        metrics: 'classifier/reweighting comparison metrics',
+        transfer: 'Yes',
+        ood: 'Yes: pp to ep / analysis shifts',
+        fmEvidence: 'Strong breadth evidence'
+      },
+      {
+        task: 'Anomaly detection',
+        dataset: 'LHCO R&D plus CMS Open Data/Aspen anomaly-search settings',
+        metrics: 'significance and detection threshold',
+        transfer: 'Yes',
+        ood: 'Yes: real/open-data settings',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'Jet generation',
+        dataset: 'JetNet/jet-feature distribution tests in earlier work',
+        metrics: 'distribution-closure metrics',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Supporting generative capability'
+      },
+      {
+        task: 'ATLAS flavor tagging',
+        dataset: 'open ATLAS-style track dataset',
+        metrics: 'background rejection at fixed b/c efficiency',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Strong downstream transfer'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'NERSC Perlmutter A100 GPUs',
+      gpu: '32-512 A100 GPUs',
+      trainingTime: '~3 passes over 1B-jet corpus',
+      batchSize: 'global batch 4096',
+      optimizer: 'Lion',
+      distributedStrategy: 'large distributed multi-GPU training'
+    }
+  },
+  omnijet: {
+    arch: 'causal transformer',
+    short: 'Tokenized jet sequences for generation and low-label transfer.',
+    architecture: 'VQ-VAE tokenization plus GPT-like causal transformer; later continuous-input NTP and masked particle modeling variants.',
+    data: 'JetClass Delphes pretraining plus later ATLAS-like top-tagging transfer dataset.',
+    classification: 'Moderate jet FM evidence through autoregressive generation and low-label transfer.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Good low-label transfer and generative representation learning; narrower than OmniLearned.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'generative jet model'],
+      architecture: ['VQ-VAE', 'next-token prediction', 'masked particle modeling'],
+      domain: ['jets', 'JetClass', 'Delphes'],
+      evidence: ['few-label transfer', 'top tagging transfer']
+    },
+    dataset: {
+      type: 'Delphes fast simulation',
+      generator: 'JetClass: MadGraph5_aMC@NLO + PYTHIA + Delphes CMS-like; transfer top-tagging PYTHIA8 + Delphes ATLAS-like',
+      size: 'JetClass 100M train / 5M validation / 20M test; top-tagging ~1.2M jets',
+      public: 'Code and JetClass are public',
+      link: 'https://github.com/uhh-pd-ml/omnijet_alpha',
+      multipleDatasets: 'Yes: JetClass plus related top-tagging transfer benchmark',
+      mixedSource: 'Related jet transfer; no real-data OOD'
+    },
+    representation: {
+      inputObjects: 'Jet constituents with kinematics, tokenized by VQ-VAE into discrete particle tokens',
+      pipeline: ['jet constituent sequence', 'VQ-VAE discrete tokens or continuous decoded features', 'causal transformer sequence with start/stop tokens'],
+      variableLength: 'Autoregressive variable-length sequence with causal masking',
+      paddingMasking: 'Causal mask; masked particle modeling introduced in later enhancement',
+      preprocessing: 'Original alpha uses pT, eta, phi with approximate/zero mass; later continuous-input NTP adds decoded continuous features'
+    },
+    backbone: {
+      architectureType: 'GPT-like causal transformer over jet tokens',
+      baseModel: 'Self-trained on JetClass',
+      structure: 'Original three GPT blocks/eight heads/no positional encoding; later prenorm transformer with LayerScale, registers, eight blocks, d=128',
+      objective: 'Original next-token prediction; later NTP, MPM, and joint NTP+MPM',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'Fine-tuning and fixed-backbone probes evaluated',
+      fineTuning: 'JetClass classification and top-tagging transfer heads'
+    },
+    summary: 'OmniJet-alpha maps language-model-style next-token prediction onto tokenized jet constituents, then tests whether generative pretraining helps tagging. Later work separates NTP, MPM, and continuous-input variants.',
+    highlights: [
+      'Clear bridge from NLP token prediction to particle jets.',
+      'Uses VQ-VAE tokens for particle-cloud generation.',
+      'Low-label transfer benefits are strongest at 100-1000 labels.',
+      'Narrower dataset/task scope than OmniLearned.'
+    ],
+    benchmarks: [
+      {
+        task: 'Generative quality',
+        dataset: 'JetClass q/g and top jets',
+        metrics: 'token/reconstructed distributions and classifier separation of generated vs reconstructed',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Moderate generative representation evidence'
+      },
+      {
+        task: 'JetClass classification',
+        dataset: 'JetClass 10-class jets',
+        metrics: 'classification performance versus training-set size',
+        transfer: 'Yes: pretrained backbone',
+        ood: 'No',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Top-tagging transfer',
+        dataset: 'ATLAS-like top-tagging dataset',
+        metrics: 'accuracy/AUC/rejection depending on setup',
+        transfer: 'Yes',
+        ood: 'Partial: related but out of training distribution',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Few-label transfer',
+        dataset: 'top-tagging with 100-1000 labels',
+        metrics: 'performance versus scratch',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Strong low-label support'
+      },
+      {
+        task: 'Objective ablations',
+        dataset: 'JetClass/top-transfer settings',
+        metrics: 'token-ID vs continuous input, NTP vs MPM, probes, extended features',
+        transfer: 'Partial',
+        ood: 'Partial',
+        fmEvidence: 'Method support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  sophon: {
+    arch: 'Particle Transformer',
+    short: '188-way supervised signature pretraining for boosted jets.',
+    architecture: 'Particle Transformer with six particle-attention blocks, two class-attention blocks, and supervised 188-way signature classification.',
+    data: 'JetClass-II Delphes CMS-like large-R jets with pileup/PUPPI; about 139M labeled jets across 188 classes.',
+    classification: 'Supervised jet-signature foundation-style encoder for resonance and anomaly searches.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Supported for supervised jet signature transfer; narrower than OmniLearned.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'supervised pretraining'],
+      architecture: ['Particle Transformer', '188-way classifier'],
+      domain: ['boosted jets', 'resonance search', 'anomaly search'],
+      evidence: ['latent transfer', 'Delphes', 'PUPPI']
+    },
+    dataset: {
+      type: 'Delphes fast simulation',
+      generator: 'MadGraph5_aMC@NLO 2.9.18 + PYTHIA 8.3 resonant signals; QCD from PYTHIA 8.3; Delphes3 CMS-like with pileup 50 and PUPPI',
+      size: '~139M labeled jets across 188 classes',
+      public: 'Paper states dataset/model will be public; exact official link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'Main JetClass-II plus transfer/anomaly-search benchmarks',
+      mixedSource: 'Transfer to related jet signatures and search workflows'
+    },
+    representation: {
+      inputObjects: 'Large-R jet constituents / E-flow objects',
+      pipeline: ['large-R jet constituents', 'kinematics + PID + impact-parameter features + scaled four-momenta', 'Particle Transformer constituent tokens'],
+      variableLength: 'Handled by Particle Transformer over constituent clouds',
+      paddingMasking: 'Standard ParT-style batching; exact padding not specified',
+      preprocessing: 'Sampling/reweighting decorrelates pT and soft-drop mass from labels'
+    },
+    backbone: {
+      architectureType: 'Particle Transformer',
+      baseModel: 'Self-trained on JetClass-II',
+      structure: 'Six particle-attention blocks plus two class-attention blocks',
+      objective: 'Supervised 188-class signature classification',
+      parameters: '~2.3M parameters; d=128; 8 heads',
+      trainableFrozen: 'Latent vectors used with small downstream MLPs; fine-tuning details vary',
+      fineTuning: 'Transfer to new resonance/signature and anomaly-search workflows'
+    },
+    summary: 'Sophon is a strong supervised-pretraining counterpart to SSL/generative jet FMs. It builds a broad boosted-jet signature encoder and reuses latent features for resonance and anomaly searches.',
+    highlights: [
+      'Pretrains on 188 fine-grained boosted-jet signatures.',
+      'Useful for supervised signature transfer and search workflows.',
+      'Includes mass/pT decorrelation strategy in dataset construction.',
+      'Not SSL or generative; claim is supervised representation transfer.'
+    ],
+    benchmarks: [
+      {
+        task: 'Direct resonance discrimination',
+        dataset: 'JetClass-II resonance/QCD classes',
+        metrics: 'likelihood-ratio discriminants, background rejection, significance-style metrics',
+        transfer: 'No for direct pretraining labels',
+        ood: 'No',
+        fmEvidence: 'Moderate supervised backbone evidence'
+      },
+      {
+        task: 'Unseen/rare signature transfer',
+        dataset: 'examples such as X->bs',
+        metrics: 'MLP-on-latent classification performance',
+        transfer: 'Yes',
+        ood: 'Partial: related unseen signatures',
+        fmEvidence: 'Strong for supervised transfer'
+      },
+      {
+        task: 'Single-jet resonance search',
+        dataset: 'simulated W/Z/top peak search setup',
+        metrics: 'peak reconstruction/search sensitivity',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'SALAD/model-agnostic anomaly detection',
+        dataset: 'Sophon latent-space anomaly setup',
+        metrics: 'anomaly/search sensitivity metrics',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Dijet triboson anomaly benchmark',
+        dataset: 'triboson anomaly benchmark',
+        metrics: 'signal-event requirement/discovery sensitivity',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Moderate'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: '80 epochs, 10M samples per epoch',
+      batchSize: '512',
+      optimizer: 'Lookahead/RAdam, learning rate 5e-4',
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  mpmv2: {
+    arch: 'MAE-style transformer',
+    short: 'Tokenization-free masked particle modeling with OOD b-tag transfer.',
+    architecture: 'MAE-style transformer encoder/decoder for masked particle modeling with continuous reconstruction and flow-matching objective studies.',
+    data: 'JetClass Delphes pretraining plus BTag ATLAS-like OOD downstream dataset.',
+    classification: 'Jet/track representation FM evidence with meaningful OOD downstream tasks.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Good multi-task transfer evidence, especially BTag OOD.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'SSL'],
+      architecture: ['MAE-style', 'masked particle modeling', 'conditional flow matching'],
+      domain: ['jets', 'tracks', 'BTag OOD'],
+      evidence: ['vertex finding', 'track ID', 'low-label transfer']
+    },
+    dataset: {
+      type: 'Delphes fast simulation',
+      generator: 'JetClass PYTHIA8/MadGraph + Delphes CMS-like; BTag Delphes ATLAS-like charged-track dataset',
+      size: 'JetClass 120M large-R jets; BTag 3M light/charm/bottom jets capped at 15 tracks',
+      public: 'JetClass public; BTag public link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'Yes: JetClass pretraining and BTag OOD downstream',
+      mixedSource: 'Cross-jet-task and ATLAS-like downstream shift'
+    },
+    representation: {
+      inputObjects: 'Unordered particles/tracks with kinematics, impact parameters, PID, and charge',
+      pipeline: ['particle/track cloud', 'continuous features + one-hot labels; neutral impact params zero-padded', 'masked-set transformer tokens'],
+      variableLength: 'Transformer set processing; BTag caps charged tracks at 15',
+      paddingMasking: 'Masked particle modeling with encoder/decoder masks',
+      preprocessing: 'Feature normalization details not specified; neutral impact parameters zero-padded'
+    },
+    backbone: {
+      architectureType: 'MAE-style transformer encoder/decoder',
+      baseModel: 'Self-trained on JetClass',
+      structure: 'Encoder 8 layers d=512 8 heads with registers/SwiGLU/LayerScale; decoder 4 layers d=128 4 heads',
+      objective: 'Particle ID CE, token targets, direct regression, KMeans, conditional normalizing flow, conditional flow matching, and set-to-set flow matching studied',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'Fixed-backbone probes and fine-tuning evaluated',
+      fineTuning: 'Classification, weak supervision, b-tagging, vertexing, and track-ID heads'
+    },
+    summary: 'MPMv2 asks whether masked particle modeling needs a discrete tokenizer. Its strongest FM evidence is a focused but broad set of downstream jet and track tasks, including BTag distribution shift.',
+    highlights: [
+      'Removes the separate VQ-VAE tokenizer from the masked-particle pipeline.',
+      'Systematically compares reconstruction targets for particle-cloud SSL.',
+      'Transfers from JetClass to OOD b-tagging, vertexing, and track ID.',
+      'Useful bridge from MAE-style vision methods to particle clouds.'
+    ],
+    benchmarks: [
+      {
+        task: 'JetClass 10-class classification',
+        dataset: 'JetClass label fractions',
+        metrics: 'accuracy/AUC-like classification performance',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'CWoLa weak supervision',
+        dataset: 'Jet samples with injected top signals',
+        metrics: 'SIC at high background rejection',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Moderate method breadth'
+      },
+      {
+        task: 'BTag three-class classification',
+        dataset: 'ATLAS-like BTag',
+        metrics: 'accuracy',
+        transfer: 'Yes',
+        ood: 'Yes: dataset/task shift',
+        fmEvidence: 'Strong OOD support'
+      },
+      {
+        task: 'Secondary vertex finding',
+        dataset: 'BTag',
+        metrics: 'ARI versus number of vertices',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strong downstream breadth'
+      },
+      {
+        task: 'Heavy-track identification',
+        dataset: 'BTag',
+        metrics: 'balanced accuracy',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strong downstream breadth'
+      },
+      {
+        task: 'Objective/probe ablations',
+        dataset: 'JetClass and BTag',
+        metrics: 'fixed-backbone and objective comparison metrics',
+        transfer: 'Partial',
+        ood: 'Partial',
+        fmEvidence: 'Method support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  bumblebee: {
+    arch: 'BERT-style transformer',
+    short: 'Focused event-token SSL for dileptonic ttbar.',
+    architecture: 'BERT-like bidirectional transformer encoder with Cloze-style masked four-vector reconstruction.',
+    data: 'Custom Delphes CMS-like dileptonic ttbar and toponium toy samples; dataset link not specified.',
+    classification: 'Focused event-level prototype; useful but limited/moderate FM evidence.',
+    fmEvidence: {
+      level: 'Partial',
+      note: 'Reusable within a specific event topology; broad FM claim remains weak.'
+    },
+    tags: {
+      modelType: ['foundation-style prototype', 'SSL'],
+      architecture: ['BERT-style', 'Cloze pretraining'],
+      domain: ['event-level', 'dileptonic ttbar', 'toponium'],
+      evidence: ['order invariant', 'limited transfer', 'Delphes']
+    },
+    dataset: {
+      type: 'Delphes fast simulation',
+      generator: '7M dileptonic ttbar NLO with POWHEG v2; 1M eta_t toy events with MG5_aMC@NLO; PYTHIA + Delphes CMS card',
+      size: '8M total generated events; 70/15/15 split',
+      public: 'Official dataset link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'ttbar plus toponium toy model',
+      mixedSource: 'Limited; same/few related topologies'
+    },
+    representation: {
+      inputObjects: 'Event-level reconstructed and generator-level four-vectors for dileptonic ttbar topology',
+      pipeline: ['reco/gen event objects', 'pT/eta/phi/mass/b-tag + level/PDG/mask embeddings', 'order-invariant BERT event tokens'],
+      variableLength: 'Topology-specific token set; no positional encoding',
+      paddingMasking: 'Mask-status embedding for Cloze pretraining',
+      preprocessing: 'Neutrinos represented through MET-like tokens; generator-level information omitted for downstream classification'
+    },
+    backbone: {
+      architectureType: 'Bidirectional transformer encoder',
+      baseModel: 'Self-trained on dileptonic ttbar samples',
+      structure: '8 layers, d_model 768, 16 heads',
+      objective: 'Cloze-style masked four-vector reconstruction with MSE',
+      parameters: '~57M',
+      trainableFrozen: 'Fine-tuning with classification heads; exact freeze policy not central',
+      fineTuning: 'Top reconstruction and classification heads'
+    },
+    summary: 'Bumblebee demonstrates masked event-token pretraining for a specific dileptonic top topology. It improves some reconstruction/classification tasks but should not be framed as broad discovery-grade FM evidence.',
+    highlights: [
+      'Order-invariant BERT-style event representation.',
+      'Uses both generator and reconstruction information during pretraining.',
+      'Improves top reconstruction and some classification tasks.',
+      'Toponium benchmark is not uniformly better than supervised transformer baselines.'
+    ],
+    benchmarks: [
+      {
+        task: 'Top reconstruction',
+        dataset: 'dileptonic ttbar Delphes samples',
+        metrics: 'ttbar invariant-mass resolution; 10-20% improvement over supervised transformer',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate within-topology support'
+      },
+      {
+        task: 'Toponium versus ttbar classification',
+        dataset: 'toponium toy + ttbar',
+        metrics: 'AUC; improves over DNN but below supervised transformer in cited comparison',
+        transfer: 'Yes',
+        ood: 'Partial: related toy signal',
+        fmEvidence: 'Limited/caveated'
+      },
+      {
+        task: 'Initial-state gg versus qqbar classification',
+        dataset: 'dileptonic ttbar',
+        metrics: 'AUC',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate task reuse'
+      },
+      {
+        task: 'Embedding/pretraining ablations',
+        dataset: 'ttbar/toponium tasks',
+        metrics: 'task performance changes',
+        transfer: 'Partial',
+        ood: 'No',
+        fmEvidence: 'Method support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'V100 GPUs',
+      gpu: '2 V100',
+      trainingTime: '~10 epochs',
+      batchSize: '16',
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  rs3l: {
+    arch: 'DynamicEdgeConv SSL',
+    short: 'Resimulation-pair contrastive pretraining for robust jets.',
+    architecture: 'DynamicEdgeConv GNN with SimCLR contrastive loss using simulator resimulation views as positive pairs.',
+    data: 'Z+jet and HZ/H->bb Delphes CMS-like resimulation pairs with PYTHIA/Herwig variations; 5M events public on Zenodo.',
+    classification: 'Robust jet-representation SSL with strong systematic/OOD evidence in a narrow scope.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Supported for robust jet representations; narrower task scope than OmniLearned.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'contrastive SSL'],
+      architecture: ['DynamicEdgeConv', 'SimCLR'],
+      domain: ['jets', 'systematics', 'resimulation pairs'],
+      evidence: ['OOD', 'robustness', 'public Zenodo']
+    },
+    dataset: {
+      type: 'Delphes fast simulation',
+      generator: 'MG5_aMC@NLO pp->Z+jet and pp->HZ,H->bb,Z->nunu at 13 TeV; nominal PYTHIA8 CP5; resim with seeds, FSR up/down, Herwig7',
+      size: '5M events, 50/50 QCD/Higgs',
+      public: 'Yes: Zenodo DOI',
+      link: 'https://doi.org/10.5281/zenodo.10633815',
+      multipleDatasets: 'Nominal plus resimulation/augmentation variants',
+      mixedSource: 'Resimulation domain variation plus W-vs-QCD OOD benchmark'
+    },
+    representation: {
+      inputObjects: 'Top 100 Delphes E-flow candidates in anti-kT R=0.8 jets',
+      pipeline: ['resimulated jet constituents', '15 per-particle features', 'DynamicEdgeConv graph embedding'],
+      variableLength: 'Top 100 candidates fixed/capped for graph processing',
+      paddingMasking: 'Capped particle list; detailed padding not specified',
+      preprocessing: 'pT > 450 GeV, mass > 10 GeV, |eta| < 0.1'
+    },
+    backbone: {
+      architectureType: 'DynamicEdgeConv GNN',
+      baseModel: 'Self-trained with resimulation positive pairs',
+      structure: 'k=24 DynamicEdgeConv stack with global sum pooling to 8D latent',
+      objective: 'SimCLR contrastive loss on resimulation views',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'Fine-tuning for tagging tasks; BERT-like transformer cross-check not primary',
+      fineTuning: 'Higgs-vs-QCD and W-vs-QCD tagging'
+    },
+    summary: 'RS3L turns the simulator itself into a physics-aware augmentation source. Its foundation-style value is robustness: representations learn invariance to seeds, shower variations, and generator choices.',
+    highlights: [
+      'Positive pairs come from re-simulating the same hard events.',
+      'Directly targets systematic robustness rather than generic image augmentations.',
+      'Public dataset with explicit simulator variation structure.',
+      'Strong robustness/OOD story, but task breadth is narrow.'
+    ],
+    benchmarks: [
+      {
+        task: 'Higgs-vs-QCD tagging',
+        dataset: 'Z+jet and HZ/H->bb Delphes resimulation dataset',
+        metrics: 'ROC/background rejection at fixed Higgs efficiency',
+        transfer: 'Yes',
+        ood: 'No for nominal',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Simulator robustness',
+        dataset: 'seed/FSR/Herwig resimulation variants',
+        metrics: 'Wasserstein distances of tagger outputs',
+        transfer: 'Yes',
+        ood: 'Yes: simulator/shower variations',
+        fmEvidence: 'Strong robustness support'
+      },
+      {
+        task: 'OOD W-vs-QCD tagging',
+        dataset: 'W jets transfer benchmark',
+        metrics: 'background rejection at fixed W efficiency',
+        transfer: 'Yes',
+        ood: 'Yes: task/process shift',
+        fmEvidence: 'Strong within jet domain'
+      },
+      {
+        task: 'Data efficiency',
+        dataset: 'reduced-label tagging settings',
+        metrics: 'performance versus supervised sample size',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Moderate'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'tau-transfer': {
+    arch: 'OmniJet fine-tune',
+    short: 'OmniJet-alpha transfer to full-sim tau reconstruction.',
+    architecture: 'OmniJet-alpha VQ-VAE/tokenizer plus GPT-style backbone reused with frozen tokenizer and fine-tuned GPT blocks.',
+    data: 'JetClass Delphes pretraining transferred to FuTau full-simulation/reconstruction tau dataset.',
+    classification: 'Derivative transfer study, not a new tau-pretrained foundation model.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Good transfer study derived from OmniJet-alpha.'
+    },
+    tags: {
+      modelType: ['transfer study', 'derivative FM use'],
+      architecture: ['OmniJet-alpha', 'VQ-VAE tokenizer', 'GPT-style transformer'],
+      domain: ['tau reconstruction', 'FuTau', 'full simulation'],
+      evidence: ['cross-fidelity transfer', 'regression', 'low-data']
+    },
+    dataset: {
+      type: 'mixed Delphes pretraining + full simulation downstream',
+      generator: 'OmniJet-alpha JetClass Delphes pretraining; FuTau full-simulation/reconstruction downstream',
+      size: 'Downstream scans from ~10^3 to 10^6 jets; key examples ~10^4 jets',
+      public: 'Official downstream dataset link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'Yes: JetClass pretraining plus FuTau downstream',
+      mixedSource: 'Yes: cross-process, cross-granularity, and cross-fidelity transfer'
+    },
+    representation: {
+      inputObjects: 'Tau-candidate reconstructed particle/constituent features',
+      pipeline: ['reconstructed tau candidates', 'OmniJet-alpha tokenizer with frozen VQ-VAE', 'tokenized sequence processed by GPT backbone'],
+      variableLength: 'Handled through OmniJet-alpha tokenized sequence processing',
+      paddingMasking: 'Autoregressive/token-sequence handling from OmniJet-alpha; tokenizer frozen',
+      preprocessing: 'Task-specific tau candidate features; exact normalization not specified'
+    },
+    backbone: {
+      architectureType: 'OmniJet-alpha transfer stack',
+      baseModel: 'OmniJet-alpha pretrained on JetClass',
+      structure: 'Frozen tokenizer plus GPT blocks with task heads',
+      objective: 'Fine-tuned classification/regression from generative jet pretraining',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'Tokenizer frozen in all strategies; scratch, fixed backbone, and unfreezing/fine-tuning compared',
+      fineTuning: 'Best performance generally from fine-tuning pretrained GPT blocks'
+    },
+    summary: 'Tau Transfer is an honest cross-fidelity reuse test: a jet-pretrained OmniJet-alpha model is adapted to full-simulation tau reconstruction. It supports transfer learning, not a new standalone tau FM.',
+    highlights: [
+      'Transfers from Delphes jet pretraining to full-sim/reco tau tasks.',
+      'Targets tau ID, visible pT regression, and decay-mode reconstruction.',
+      'Pretraining helps low-data settings, but specialist ParT can still win some tasks.',
+      'Clear derivative evidence for reusable jet representations.'
+    ],
+    benchmarks: [
+      {
+        task: 'Hadronic tau ID',
+        dataset: 'FuTau downstream tau dataset',
+        metrics: 'AUC and mis-ID rate at fixed efficiency',
+        transfer: 'Yes: OmniJet-alpha to FuTau',
+        ood: 'Yes: cross-fidelity/process shift',
+        fmEvidence: 'Moderate derivative transfer'
+      },
+      {
+        task: 'Visible tau pT regression',
+        dataset: 'FuTau',
+        metrics: 'pT resolution',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Decay-mode reconstruction',
+        dataset: 'FuTau',
+        metrics: 'AUC',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Fine-tuning strategy ablation',
+        dataset: 'FuTau label-size scans',
+        metrics: 'performance versus unfreezing schedule/layers',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Method support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'hep-jepa': {
+    badges: ['D', 'SSL'],
+    arch: 'JEPA SSL',
+    short: 'Latent-prediction SSL for jets; partial evidence.',
+    architecture: 'Joint embedding predictive architecture with context encoder, EMA target encoder, and predictor; latent prediction, not EBM or generation.',
+    data: 'JetClass Delphes pretraining with top-tagging and quark/gluon simulated transfer datasets.',
+    classification: 'JEPA / latent-prediction SSL demonstrator with partial foundation-model evidence.',
+    fmEvidence: {
+      level: 'Partial',
+      note: 'Methodologically useful; downstream breadth and gains are limited.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'SSL'],
+      architecture: ['JEPA', 'latent prediction', 'Transformer'],
+      domain: ['jets', 'JetClass', 'top tagging', 'quark-gluon'],
+      evidence: ['few-shot', 'modest transfer']
+    },
+    dataset: {
+      type: 'Delphes fast simulation plus no-detector simulated q/g',
+      generator: 'JetClass MadGraph/PYTHIA + Delphes CMS-like; top TQTR and Pythia8 no-detector q/g downstream',
+      size: 'JetClass 100M train / 5M validation / 20M test; top and q/g datasets each 2M samples',
+      public: 'Project site public; JetClass public',
+      link: 'https://hep-jepa.github.io/',
+      multipleDatasets: 'Yes: JetClass plus top/QG transfer',
+      mixedSource: 'Related jet transfer; no real-data transfer'
+    },
+    representation: {
+      inputObjects: 'Particle vectors with angular, mass/energy, pT, and distance-to-jet features',
+      pipeline: ['jet particle cloud', 'eta/phi farthest-point patching + kNN grouping', 'PointNet-style patch tokens with spatial context/target masks'],
+      variableLength: 'Patchified particle cloud; kNN groups and transformer tokens handle multiplicity',
+      paddingMasking: 'Spatially coherent context and target masks with masking scales',
+      preprocessing: 'Physics-aware patching; pairwise physics-bias terms'
+    },
+    backbone: {
+      architectureType: 'JEPA transformer',
+      baseModel: 'Self-trained on JetClass',
+      structure: 'Context encoder, target encoder, predictor, EMA target encoder; 12 blocks, 8 registers, physics-bias pair terms',
+      objective: 'Smooth L1 loss in embedding space; no data-space reconstruction or generation',
+      parameters: '~2.5M',
+      trainableFrozen: 'Fine-tuning for downstream classification; EMA target frozen by design during pretraining',
+      fineTuning: 'JetClass few-shot, top tagging, and quark/gluon classification'
+    },
+    summary: 'HEP-JEPA is a latent-prediction SSL model for jets, not a generative, energy-based, or anomaly-detection benchmark. It is valuable for methodology, with strongest gains in few-shot JetClass settings.',
+    highlights: [
+      'Correct framing is JEPA/latent prediction, not EBM or generation.',
+      'Uses physics-aware patching and pairwise biases.',
+      'Few-shot JetClass gains fade at full labels.',
+      'Top/QG transfer gains are modest and below strong specialist baselines.'
+    ],
+    benchmarks: [
+      {
+        task: 'JetClass few-shot classification',
+        dataset: 'JetClass label fractions',
+        metrics: 'macro accuracy versus label fraction',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Moderate only at low labels'
+      },
+      {
+        task: 'Top tagging transfer',
+        dataset: 'TQTR top-tagging dataset',
+        metrics: 'accuracy; below ParticleNet/ParT baselines',
+        transfer: 'Yes',
+        ood: 'Partial: related jet dataset shift',
+        fmEvidence: 'Partial'
+      },
+      {
+        task: 'Quark/gluon transfer',
+        dataset: 'Pythia8 no-detector q/g dataset',
+        metrics: 'accuracy; modest gains over scratch, below ParticleNet/ParT',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Partial'
+      },
+      {
+        task: 'Architecture/objective ablations',
+        dataset: 'JetClass/top/QG settings',
+        metrics: 'masking, physics bias, registers, augmentation comparisons',
+        transfer: 'Partial',
+        ood: 'Partial',
+        fmEvidence: 'Method support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'RTX 2080Ti GPUs',
+      gpu: NOT_SPECIFIED,
+      trainingTime: '~320 GPU-hours',
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'joint-opt': {
+    arch: 'ParT + DeepSets',
+    short: 'Fine-tuning pretrained jet backbones for analysis objectives.',
+    architecture: 'JetClass-pretrained Particle Transformer backbone with final softmax removed, joined to a DeepSets event-level analysis head.',
+    data: 'JetClass-pretrained ParT plus CMS Open Data simulated Xbb/G->HH samples through CMS full simulation/reconstruction workflows.',
+    classification: 'Method support for FM adaptation; not a new standalone foundation model.',
+    fmEvidence: {
+      level: 'Partial',
+      note: 'Strong downstream adaptation example rather than a new FM.'
+    },
+    tags: {
+      modelType: ['adaptation method', 'transfer study'],
+      architecture: ['Particle Transformer', 'DeepSets', 'joint fine-tuning'],
+      domain: ['HH->4b', 'CMS Open Data simulation', 'event analysis'],
+      evidence: ['domain adaptation', 'data efficiency']
+    },
+    dataset: {
+      type: 'CMS Open Data simulation plus Delphes pretraining',
+      generator: 'ParT weights from JetClass; downstream CMS Open Data simulated G->HH and QCD/Xbb-style full simulation/reconstruction',
+      size: 'Xbb pretraining ~22M jets; event-level study up to 10M simulated events with mass points',
+      public: 'CMS Open Data samples and modified analysis tool referenced',
+      link: 'CMS Open Data simulation references in paper',
+      multipleDatasets: 'Yes: JetClass and CMS Open Data simulation',
+      mixedSource: 'Yes: JetClass to CMS event-level HH analysis'
+    },
+    representation: {
+      inputObjects: 'Jet constituents processed by ParT plus optional high-level jet/event features',
+      pipeline: ['jet constituents', 'ParT latent or scalar Xbb score + jet features', 'DeepSets over up to five jets'],
+      variableLength: 'Event head handles set of up to five jets',
+      paddingMasking: 'Missing jets handled by fixed event set; detailed mask not specified',
+      preprocessing: 'Variants use scalar score + high-level features, latent vector + high-level features, or latent vector only'
+    },
+    backbone: {
+      architectureType: 'Particle Transformer backbone plus event-level DeepSets head',
+      baseModel: 'JetClass-pretrained ParT',
+      structure: 'Final softmax removed; event head optimizes BCE signal/background objective',
+      objective: 'Joint analysis optimization via supervised event-level loss',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'Frozen, fine-tuned, scratch, and JetClass-initialized variants compared',
+      fineTuning: 'Backbone fine-tuned jointly with event head for G->HH->4b'
+    },
+    summary: 'Joint Analysis Optimization shows why foundation models should often be fine-tuned for the final analysis objective. It is evidence for adaptation workflows, not a new foundation model.',
+    highlights: [
+      'Repurposes a pretrained jet model inside an event-level HH search.',
+      'Compares frozen scalar use, latent use, scratch, and joint fine-tuning.',
+      'Fine-tuning improves background rejection and data efficiency.',
+      'Good bridge from object-level FMs to full analysis optimization.'
+    ],
+    benchmarks: [
+      {
+        task: 'G->HH->4b event classification',
+        dataset: 'CMS Open Data simulated HH/QCD samples',
+        metrics: 'background rejection at 90% signal efficiency, AUC/SIC in appendix',
+        transfer: 'Yes: JetClass ParT to CMS HH',
+        ood: 'Partial: simulation/domain adaptation',
+        fmEvidence: 'Partial: adaptation evidence'
+      },
+      {
+        task: 'Low-data/domain adaptation',
+        dataset: 'same event-level HH study with reduced data',
+        metrics: 'background rejection and data-efficiency curves',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Moderate support for fine-tuning FMs'
+      },
+      {
+        task: 'Representation strategy ablation',
+        dataset: 'HH event study',
+        metrics: 'scalar Xbb + features vs latent + features vs latent only',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Method support'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'event-transformer': {
+    badges: ['D', 'prelim'],
+    arch: 'preliminary transformer',
+    short: 'Early top-multiplicity event-transformer methodology.',
+    architecture: 'Small tabular/event Transformer with masked-variable reconstruction and top-multiplicity classification.',
+    data: 'Custom Delphes CMS-like top-multiplicity simulation; 8,198,428 events; dataset link not specified.',
+    classification: 'Preliminary methodology/prototype, not mature FM evidence.',
+    fmEvidence: {
+      level: 'Preliminary',
+      note: 'Transfer learning and broad downstream reuse are weak/not demonstrated.'
+    },
+    tags: {
+      modelType: ['preliminary', 'methodology'],
+      architecture: ['Transformer', 'masked reconstruction'],
+      domain: ['event-level', 'top multiplicity', 'Delphes CMS'],
+      evidence: ['entropy OOD demo', 'limited transfer']
+    },
+    dataset: {
+      type: 'Delphes fast simulation',
+      generator: 'MadGraph5 and CompHEP hard processes; Delphes CMS-like detector at 13 TeV',
+      size: '8,198,428 events across zero-, one-, two-, three-, and four-top classes',
+      public: 'Official dataset link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'Multiple top-multiplicity processes within one workflow',
+      mixedSource: 'No clear cross-domain pretraining'
+    },
+    representation: {
+      inputObjects: 'Fixed tabular event-object representation with object kinematics and event counts',
+      pipeline: ['top-multiplicity events', 'objects sorted by energy + standardized features + zero padding', 'linear token embedding for transformer'],
+      variableLength: 'Fixed maximum object counts: 12 jets including 4 b-jets plus 4 leptons',
+      paddingMasking: 'Missing objects zero-padded; 30% variable masking for reconstruction',
+      preprocessing: 'pT, eta, phi, Px, Py, Pz plus counts and MET standardized for reconstruction'
+    },
+    backbone: {
+      architectureType: 'Small tabular/event Transformer',
+      baseModel: 'Self-trained on top-multiplicity simulation',
+      structure: 'Linear embedding, multi-head self-attention, flattening, final linear output',
+      objective: 'Masked variable reconstruction and supervised top-count classification',
+      parameters: 'Four small variants with embedding dimensions 16/20/125 and 1/5 heads; total count not specified',
+      trainableFrozen: 'Transfer/frozen adaptation not clearly demonstrated',
+      fineTuning: 'Supervised top-multiplicity classification after/with reconstruction training'
+    },
+    summary: 'The Event Transformer entry should be treated as an early methodology slide: masked event-variable reconstruction plus top-count classification. It does not yet establish mature event-level foundation-model transfer.',
+    highlights: [
+      'Uses tabular event-object tokens rather than a broad event FM corpus.',
+      'Masked reconstruction and top-count classification are demonstrated.',
+      'OOD result is an entropy demo, not a robust transfer benchmark.',
+      'Keep the label preliminary to avoid overclaiming.'
+    ],
+    benchmarks: [
+      {
+        task: 'Masked reconstruction',
+        dataset: 'top-multiplicity Delphes events',
+        metrics: 'reconstruction loss and variable-distribution comparisons',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Method support only'
+      },
+      {
+        task: 'Representation visualization',
+        dataset: 'same top-multiplicity events',
+        metrics: 't-SNE before/after training',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Illustrative only'
+      },
+      {
+        task: 'Top-count classification',
+        dataset: 'zero- to four-top Delphes classes',
+        metrics: 'ROC AUC; best mean around 0.91-0.92',
+        transfer: 'No mature transfer benchmark',
+        ood: 'No',
+        fmEvidence: 'Preliminary'
+      },
+      {
+        task: 'Entropy OOD example',
+        dataset: 'SM-trained model on scalar-DM single-top events',
+        metrics: 'entropy separation example; no robust metric table',
+        transfer: 'No',
+        ood: 'Partial demo',
+        fmEvidence: 'Weak/preliminary'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  pecm: {
+    arch: 'event GNN',
+    short: 'Compact event-graph pretraining across SM processes.',
+    architecture: 'DGL/PyTorch fully connected event graph network with node/edge/global encoders and graph-processing steps.',
+    data: '120M Delphes ATLAS-like events across 12 SM processes, plus generated downstream and ATLAS Open Data tasks.',
+    classification: 'Moderate-to-good event-level pretraining evidence with explicit downstream transfer.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Multi-task transfer is real; model scale and representation breadth are modest.'
+    },
+    tags: {
+      modelType: ['foundation-style', 'event pretraining'],
+      architecture: ['GNN', 'fully connected event graph'],
+      domain: ['event-level', 'ATLAS Open Data', 'SM processes'],
+      evidence: ['fine-tuning', 'time-to-target', 'multi-task transfer']
+    },
+    dataset: {
+      type: 'Delphes fast simulation + ATLAS Open Data downstream',
+      generator: 'MadGraph@NLO 2.7.3 at NLO QCD; MadSpin; PYTHIA 8.235; Delphes 3.4.2 ATLAS fast simulation',
+      size: '~120M pretraining events across 12 SM processes',
+      public: 'ATLAS Open Data downstream samples public; generated pretraining sample publicness not specified',
+      link: 'https://atlas-opendata.web.cern.ch/',
+      multipleDatasets: 'Yes: generated pretraining, generated downstream, and ATLAS Open Data tasks',
+      mixedSource: 'Yes: pretraining to BSM/open-data downstream tasks'
+    },
+    representation: {
+      inputObjects: 'Fully connected graph of jets, electrons, muons, photons, and MET',
+      pipeline: ['event objects', 'node/edge/global features', 'fully connected graph network'],
+      variableLength: 'Variable-size events handled directly by GNN',
+      paddingMasking: 'Placeholders for undefined node fields; no dense padding requirement',
+      preprocessing: 'Node pT/eta/phi/E/b-tag/charge/type; edge Delta eta/phi/R; global node count'
+    },
+    backbone: {
+      architectureType: 'Graph neural network',
+      baseModel: 'Self-trained on 12-process SM pretraining corpus',
+      structure: 'Node/edge/global encoders to dimension 64; four graph-processing steps',
+      objective: '12-class multiclass CE or 41-label multilabel objective; multiclass usually better downstream',
+      parameters: '~400k',
+      trainableFrozen: 'Final layer replaced; pretrained layers lower LR; frozen transfer tried and performed poorly',
+      fineTuning: 'Fine-tuning on five generated tasks and two ATLAS Open Data tasks'
+    },
+    summary: 'PECM is a compact event-graph pretraining model with explicit downstream tables. It provides solid event-level transfer evidence, though at modest scale and with a narrower representation than EveNet.',
+    highlights: [
+      'Pretrains on a broad 12-process SM event corpus.',
+      'Fine-tunes to generated BSM/SM tasks and ATLAS Open Data tasks.',
+      'Shows time-to-target and low-data benefits.',
+      'Multiclass pretraining is generally more useful than multilabel pretraining.'
+    ],
+    benchmarks: [
+      {
+        task: 'Five generated binary classification tasks',
+        dataset: 'ttH gamma gamma CP, FCNC vs tHq, ttW vs ttt, stop+H vs ttH, WH vs ZH',
+        metrics: 'accuracy and ROC AUC across 1e3 to 1e7 examples/class',
+        transfer: 'Yes',
+        ood: 'Partial: unseen processes',
+        fmEvidence: 'Moderate/good'
+      },
+      {
+        task: 'ATLAS Open Data Higgs production',
+        dataset: 'ATLAS Open Data Higgs diphoton production',
+        metrics: 'accuracy/AUC',
+        transfer: 'Yes',
+        ood: 'Partial: open-data analysis context',
+        fmEvidence: 'Good'
+      },
+      {
+        task: 'ATLAS Open Data triboson',
+        dataset: 'ATLAS Open Data triboson dataset',
+        metrics: 'accuracy/AUC',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Good'
+      },
+      {
+        task: 'CKA interpretability',
+        dataset: 'downstream fine-tuned PECM models',
+        metrics: 'layer adaptation similarity',
+        transfer: 'Yes',
+        ood: 'No',
+        fmEvidence: 'Supporting evidence'
+      },
+      {
+        task: 'Time-to-target',
+        dataset: 'downstream PECM task suite',
+        metrics: 'compute/time amortization estimates',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Supporting practical FM value'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  'event-diffusion': {
+    arch: 'point-cloud diffusion',
+    short: 'Heavy-ion point-cloud diffusion surrogate, toward FM.',
+    architecture: 'HEIDi point-cloud diffusion with PointNet-style encoder and normalizing-flow latent decoder for conditional event generation.',
+    data: 'UrQMD heavy-ion cascade simulation; Au-Au events at selected impact parameters; dataset link not specified.',
+    classification: 'Generative surrogate supported; broad foundation-model transfer not yet shown.',
+    fmEvidence: {
+      level: 'Partial',
+      note: 'Strong simulation acceleration evidence, no downstream task suite.'
+    },
+    tags: {
+      modelType: ['generative surrogate', 'toward FM'],
+      architecture: ['point-cloud diffusion', 'normalizing flow', 'HEIDi'],
+      domain: ['heavy-ion', 'UrQMD', 'event generation'],
+      evidence: ['centrality interpolation', 'speedup']
+    },
+    dataset: {
+      type: 'custom simulation / theory-level heavy-ion generator',
+      generator: 'UrQMD cascade simulation',
+      size: '18k Au-Au events at 10 AGeV b=1 fm; conditional setup 30k events across b=1,3,5 fm',
+      public: 'Official dataset link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'Different impact parameters for centrality conditioning',
+      mixedSource: 'No cross-domain training; interpolation within UrQMD parameter space'
+    },
+    representation: {
+      inputObjects: 'Generated particle-level event point clouds with momentum vector and one-hot species ID',
+      pipeline: ['UrQMD particle event', 'pad to fixed cloud with fake/padding particles', 'conditional diffusion point cloud'],
+      variableLength: 'Padded to 1084 particles',
+      paddingMasking: 'Fake/padding particles included',
+      preprocessing: 'Particle-level output, not detector readout'
+    },
+    backbone: {
+      architectureType: 'Conditional point-cloud diffusion',
+      baseModel: 'Self-trained on UrQMD events',
+      structure: 'PointNet-style encoder, normalizing-flow decoder for latent event conditioning, diffusion generator',
+      objective: 'Generate full event point clouds conditioned on latent/global variables and optional impact parameter',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'No downstream fine-tuning benchmark',
+      fineTuning: 'Not demonstrated'
+    },
+    summary: 'HEIDi/Event Diffusion is a strong generative surrogate for heavy-ion event generation, including centrality interpolation and speedup. It is best labeled as toward FM, since downstream reuse is not shown.',
+    highlights: [
+      'Generates full particle-level heavy-ion point clouds.',
+      'Reproduces multiple UrQMD observables with large speedup.',
+      'Tests impact-parameter interpolation at b=4 fm.',
+      'No transfer-learning or downstream analysis suite yet.'
+    ],
+    benchmarks: [
+      {
+        task: 'Generated-vs-UrQMD validation',
+        dataset: 'UrQMD Au-Au events',
+        metrics: 'multiplicities, rapidity, pT spectra, momentum components, net charge, correlations',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Partial: generative surrogate validation'
+      },
+      {
+        task: 'Centrality interpolation',
+        dataset: 'conditional UrQMD b=1,3,5 fm training; b=4 fm test',
+        metrics: 'observable agreement at unseen impact parameter',
+        transfer: 'No downstream transfer',
+        ood: 'Partial: parameter interpolation',
+        fmEvidence: 'Moderate for conditional simulation'
+      },
+      {
+        task: 'Generation speed',
+        dataset: 'tested UrQMD setup',
+        metrics: '~30 ms/event on A100 versus ~3 s/event UrQMD cascade',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Utility evidence, not broad FM'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'A100 for reported generation speed',
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  smeft: {
+    badges: ['D', 'retrieval'],
+    arch: 'MLP contrastive encoder',
+    short: 'Theory-space SMEFT representation demonstrator.',
+    architecture: 'Feed-forward MLP encoder over binned Drell-Yan cross-section vectors with supervised contrastive loss and Dirichlet-prior uncertainty head.',
+    data: 'MadGraph5 theory-level neutral-current Drell-Yan SMEFT universes; 1M replica examples; no detector simulation.',
+    classification: 'Theory-space demonstrator only; not a transformer and not broad FM evidence.',
+    fmEvidence: {
+      level: 'Demonstrator',
+      note: 'Conceptually useful reusable theory embedding, no process/detector transfer.'
+    },
+    tags: {
+      modelType: ['demonstrator only', 'theory representation'],
+      architecture: ['MLP', 'contrastive', 'Dirichlet prior'],
+      domain: ['SMEFT', 'Drell-Yan', 'theory-level'],
+      evidence: ['retrieval', 'uncertainty', 'no detector data']
+    },
+    dataset: {
+      type: 'theory-level',
+      generator: 'MadGraph5 neutral-current Drell-Yan pp -> mu+ mu- at tree-level SMEFT with CT18LO PDFs',
+      size: '100 SMEFT universes x 10^4 replicas = 10^6 training examples',
+      public: 'Official dataset/code link not specified',
+      link: NOT_SPECIFIED,
+      multipleDatasets: 'Binned m_ll and muon pT differential cross sections',
+      mixedSource: 'No process transfer; one theory setup'
+    },
+    representation: {
+      inputObjects: 'Fixed-length vectors of binned Drell-Yan differential cross sections',
+      pipeline: ['SMEFT cross-section bins', 'replicas sampled around covariance/uncertainty', 'MLP latent vector'],
+      variableLength: 'Fixed-length vector; no event tokens or particle clouds',
+      paddingMasking: 'None specified; not a token model',
+      preprocessing: 'Binned m_ll and muon pT observables with uncertainty/covariance sampling'
+    },
+    backbone: {
+      architectureType: 'Feed-forward MLP contrastive encoder',
+      baseModel: 'Self-trained on SMEFT universes',
+      structure: 'Three dense blocks with BatchNorm, ReLU, Dropout, 2D latent output; additional Dirichlet-prior classification/uncertainty head',
+      objective: 'Supervised contrastive pair loss: same-universe replicas positive, different universes negative',
+      parameters: NOT_SPECIFIED,
+      trainableFrozen: 'All MLP components trained for demonstrator; no external frozen base',
+      fineTuning: 'No transfer fine-tuning to other processes or detectors'
+    },
+    summary: 'The SMEFT entry must be corrected to a feed-forward contrastive encoder over binned theory vectors. It is a useful theory-space FM demonstrator, not a transformer or broad collider foundation model.',
+    highlights: [
+      'Uses binned Drell-Yan cross-section vectors, not events or tokens.',
+      'Learns a 2D latent geometry for SMEFT deformation directions.',
+      'Supports uncertainty-aware classification and retrieval-style queries.',
+      'Demonstrator only: no process, detector, or real-data transfer.'
+    ],
+    benchmarks: [
+      {
+        task: 'Latent geometry check',
+        dataset: '100 SMEFT universes with replicas',
+        metrics: 'alignment of latent directions with SMEFT shape distortions',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Demonstrator support'
+      },
+      {
+        task: 'Classification with uncertainty',
+        dataset: 'SMEFT universe replicas',
+        metrics: 'Dirichlet-prior entropy and mutual information',
+        transfer: 'No',
+        ood: 'Partial: anomaly/OOD-style behavior',
+        fmEvidence: 'Demonstrator only'
+      },
+      {
+        task: 'Retrieval',
+        dataset: 'SMEFT universes near SM uncertainty contours',
+        metrics: 'nearest-neighbor universes within 1, 3, and 6 sigma regions',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Conceptual reusable-embedding evidence'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: 'early stopping used; exact time not specified',
+      batchSize: NOT_SPECIFIED,
+      optimizer: 'Adam with very small learning rate',
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  evenet: {
+    arch: 'Point-Edge Transformer',
+    short: 'Event-level FM for discriminative and generative analysis tasks.',
+    architecture: 'Point-Edge Transformer event backbone with classification, assignment, segmentation, masked-diffusion, and invisible-object generative heads.',
+    data: '2.93B generated / 543M selected Delphes events for pretraining; CMS Open Data simulation and real DoubleMuon downstream tasks.',
+    classification: 'Strong event-level analysis foundation model with realistic downstream transfer caveats.',
+    fmEvidence: {
+      level: 'Strong',
+      note: 'Strongly supported for event-level analysis; full experimental deployment remains future work.'
+    },
+    tags: {
+      modelType: ['foundation model', 'event-level FM'],
+      architecture: ['Point-Edge Transformer', 'masked diffusion', 'multi-head'],
+      domain: ['LHC events', 'CMS Open Data', 'real collision data'],
+      evidence: ['transfer', 'OOD', 'systematics robustness', 'public data']
+    },
+    dataset: {
+      type: 'Delphes pretraining + CMS Open Data simulation + real data downstream',
+      generator: 'MadGraph5_aMC@NLO matrix elements, PYTHIA shower/hadronization, Delphes generic detector; CMS full-sim Open Data and DoubleMuon collision data downstream',
+      size: '2.93B generated and 543M selected pretraining events; four downstream datasets',
+      public: 'Datasets/checkpoints and code reported public',
+      link: 'https://huggingface.co/datasets/Avencast/EveNet; https://github.com/EveNet-HEP',
+      multipleDatasets: 'Yes: large pretraining corpus plus four downstream datasets',
+      mixedSource: 'Yes: fast simulation to full CMS simulation and real CMS collision data'
+    },
+    representation: {
+      inputObjects: 'Event-level point cloud of jets, b-jets, leptons, photons, MET/invisible tokens, and global observables',
+      pipeline: ['reconstructed event objects', 'object/global features + task conditioning/diffusion time', 'Point-Edge Transformer event tokens'],
+      variableLength: 'Variable event content handled as point cloud/object tokens',
+      paddingMasking: 'Task heads handle masked reconstruction, assignment, segmentation, classification, and generation',
+      preprocessing: 'Task-specific object selection, conditioning variables, diffusion time steps for generative heads'
+    },
+    backbone: {
+      architectureType: 'Point-Edge Transformer event backbone',
+      baseModel: 'Self-trained on large Delphes event corpus',
+      structure: 'Shared encoder plus classification, assignment, segmentation, SSL generative, and supervised generative heads',
+      objective: 'Stage I SSL generative masked reconstruction; Stage II classification + SSL generation + supervised generation',
+      parameters: 'Stage I 18.8M encoder + 1.3M head; Stage II 18.8M encoder + 3.8M heads',
+      trainableFrozen: 'Fine-tuning jointly optimizes encoder/decoders with lower encoder LR than task heads',
+      fineTuning: 'Mass-point search, exotic Higgs, ttbar quantum correlation, and DoubleMuon anomaly detection'
+    },
+    summary: 'EveNet is the event-level centerpiece: a multi-head Point-Edge Transformer pretrained on hundreds of millions of simulated events and transferred to CMS simulation and real collision-data workflows.',
+    highlights: [
+      'Integrates classification, assignment, segmentation, and generative reconstruction.',
+      'Transfers from fast-sim pretraining to CMS full-sim Open Data and real DoubleMuon data.',
+      'Shows sensitivity, data-efficiency, convergence, and systematics robustness gains.',
+      'Strong FM evidence, with deployment caveats around full experimental systematics.'
+    ],
+    benchmarks: [
+      {
+        task: 'Heavy scalar X->YH_SM->bbWW* search',
+        dataset: 'CMS Open Data simulation grid',
+        metrics: 'maximum SIC; individual mass-point and parameterized training',
+        transfer: 'Yes: Delphes pretraining to CMS full simulation',
+        ood: 'Yes: downstream processes absent from pretraining',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'Exotic Higgs H_SM->aa->4b',
+        dataset: 'QCD backgrounds and signal samples',
+        metrics: 'SIC and pairing efficiency; EveNet-Full ~4.1 SIC vs scratch 1.6 and SPANet 1.4',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'Dileptonic ttbar quantum correlation',
+        dataset: 'ttbar downstream sample',
+        metrics: 'precision on D and lepton-quark pairing efficiency',
+        transfer: 'Yes',
+        ood: 'Partial',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'DoubleMuon anomaly detection / Upsilon rediscovery',
+        dataset: 'CMS Open Data DoubleMuon 2016 real collision data',
+        metrics: 'median l-reweighted significance; calibrated EveNet-Full ~7.6 sigma vs CATHODE 6.4 sigma',
+        transfer: 'Yes',
+        ood: 'Yes: real collision data',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'Systematics robustness',
+        dataset: 'JES and soft-MET variations',
+        metrics: 'stability under variations without retraining',
+        transfer: 'Yes',
+        ood: 'Yes: systematic shifts',
+        fmEvidence: 'Strong supporting evidence'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'NERSC Perlmutter, NVIDIA A100 GPUs and CPU cores',
+      gpu: '512 A100 GPUs; 16,384 CPU cores',
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: 'LION with EMA and cosine schedule',
+      distributedStrategy: 'PyTorch Lightning and Ray distributed training'
+    }
+  },
+  'omni-transfer-neutrino': {
+    arch: 'PET2 transfer',
+    short: 'OmniLearned jet priors transferred to MINERvA neutrino tasks.',
+    architecture: 'OmniLearned PET2 small/medium checkpoints compared with point-global transformer baselines on MINERvA reconstructed-object tokens.',
+    data: 'Simulated MINERvA Open Data Medium Energy FHC playlists 1A/1B; 6M train, 700k validation, 700k test.',
+    classification: 'Cross-domain transfer evidence; not a standalone neutrino-pretrained FM.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Supports transferable particle-cloud priors from jets to neutrino interactions.'
+    },
+    tags: {
+      modelType: ['cross-domain transfer', 'derivative FM use'],
+      architecture: ['OmniLearned PET2', 'point-global transformer'],
+      domain: ['MINERvA', 'neutrino', 'scintillator calorimeter'],
+      evidence: ['transfer', 'OOD domain shift', 'Open Data']
+    },
+    dataset: {
+      type: 'simulated MINERvA Open Data',
+      generator: 'Standard MINERvA Monte Carlo playlists; exact generator/simulation chain not specified beyond playlists',
+      size: '6M training, 700k validation, 700k test events',
+      public: 'Yes: MINERvA Open Data and code public',
+      link: 'https://minerva.fnal.gov/opendata/; https://github.com/gregorkrz/minerva-ml',
+      multipleDatasets: 'Yes: Medium Energy FHC playlists 1A and 1B',
+      mixedSource: 'Yes: OmniLearned pretrained on high-Q2 pp/ep data and fine-tuned on few-GeV neutrino interactions'
+    },
+    representation: {
+      inputObjects: 'Variable-length reconstructed-object tokens plus global engineered features',
+      pipeline: ['MINERvA reconstructed objects', 'token caps + kinematics/PID/dE/dx/space/time features + 15 global features', 'PET2 or point-global transformer input'],
+      variableLength: 'Up to 33 objects/event: muon, photons, blobs, and prongs',
+      paddingMasking: 'Capped token sets; undefined channels zero-filled',
+      preprocessing: 'eta, phi, log pT, log E, integer PID/node type, log mean dE/dx, x/y/z/time, type-summed globals'
+    },
+    backbone: {
+      architectureType: 'OmniLearned PET2 transfer and point-global transformer baselines',
+      baseModel: 'OmniLearned-small and OmniLearned-medium pretrained on mixed jet/collider data',
+      structure: 'Small ~3M with 8 trunk blocks, 2 head blocks, 4 tokens/particle, width 128, 8 heads; medium ~53M frozen',
+      objective: 'Separate classification and regression fine-tuning',
+      parameters: '~3M small; ~53M medium',
+      trainableFrozen: 'Small fine-tuned; medium backbone frozen due to compute constraints',
+      fineTuning: 'Available-energy regression and pion final-state classification heads'
+    },
+    summary: 'Jets-to-neutrino transfer tests whether an OmniLearned particle-cloud prior survives a large domain shift to MINERvA reconstructed objects. It is strong evidence for reusable priors, not for a neutrino-native FM.',
+    highlights: [
+      'Uses processed MINERvA object tokens, not raw detector hits.',
+      'Transfers from high-energy jet/collider pretraining to few-GeV neutrino interactions.',
+      'Covers energy regression and charged/neutral pion final-state tagging.',
+      'Pretrained small model improves performance and compute efficiency.'
+    ],
+    benchmarks: [
+      {
+        task: 'Available hadronic energy regression',
+        dataset: 'MINERvA playlists 1A/1B simulation',
+        metrics: 'Smooth L1 loss, IQR and MPV of residual ratio versus q3',
+        transfer: 'Yes: OmniLearned to MINERvA',
+        ood: 'Yes: collider jets to neutrino interactions',
+        fmEvidence: 'Strong cross-domain transfer'
+      },
+      {
+        task: 'CC1pi+/- tagging',
+        dataset: 'MINERvA pion final-state labels',
+        metrics: 'AUPRC, AUROC, TPR at fixed FPR, binned by pion energy/angle',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'CCNpi+/- tagging',
+        dataset: 'MINERvA',
+        metrics: 'AUPRC, AUROC, TPR at fixed FPR, binned by W',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'CC1pi0 tagging',
+        dataset: 'MINERvA',
+        metrics: 'AUPRC, AUROC, TPR at fixed FPR, binned by pion kinematics',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strong'
+      },
+      {
+        task: 'Compute efficiency',
+        dataset: 'MINERvA validation tasks',
+        metrics: 'validation loss versus FLOPs and training steps',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Supporting foundation-model utility'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'A100 GPU',
+      gpu: 'single A100',
+      trainingTime: '~6 hours classification; ~8 hours regression for OmniLearned-small',
+      batchSize: '2048',
+      optimizer: 'Adam, learning rate 1e-4',
+      distributedStrategy: 'single-GPU fine-tuning'
+    }
+  },
+  omnicosmos: {
+    arch: 'OmniLearned transfer',
+    short: 'Jet-pretrained PET adapted to cosmological halo point clouds.',
+    architecture: 'OmniLearned-small PET with incompatible input layers reinitialized and output heads replaced for cosmology tasks.',
+    data: 'CosmoBench CAMELS-SAM and Quijote dark-matter halo point-cloud simulation suites.',
+    classification: 'Far-transfer evidence for point-cloud priors beyond collider physics.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Useful far-transfer support, less central to LHC slide claims.'
+    },
+    tags: {
+      modelType: ['far transfer', 'derivative FM use'],
+      architecture: ['OmniLearned PET', 'adapted input encoder'],
+      domain: ['cosmology', 'halo point clouds', 'CosmoBench'],
+      evidence: ['cross-domain transfer', 'low-data gains']
+    },
+    dataset: {
+      type: 'cosmological simulation',
+      generator: 'CosmoBench CAMELS-SAM and Quijote dark-matter simulation suites',
+      size: 'Up to 5000 halos/simulation; splits 600/204/196 CAMELS-SAM and 19651/6550/6551 Quijote',
+      public: 'CosmoBench datasets public; code points to OmniLearned repository',
+      link: 'https://github.com/ViniciusMikuni/OmniLearned',
+      multipleDatasets: 'Yes: CAMELS-SAM and Quijote',
+      mixedSource: 'Yes: jet-pretrained OmniLearned adapted to cosmological halo point clouds'
+    },
+    representation: {
+      inputObjects: 'Point cloud of dark-matter halos/galaxies using positions as input',
+      pipeline: ['halo positions', 'geometric pairwise features + KNN neighborhoods', 'adapted OmniLearned PET tokens'],
+      variableLength: 'OmniLearned handles variable multiplicity, but memory limits use to small model',
+      paddingMasking: 'Not specified; point-cloud batching inherited from PET framework',
+      preprocessing: 'coordinate differences, Euclidean distance, cosine distances; k=10 CAMELS-SAM and k=20 Quijote best studies'
+    },
+    backbone: {
+      architectureType: 'Adapted OmniLearned Point-Edge Transformer',
+      baseModel: 'OmniLearned-small pretrained on ~1B mixed jets',
+      structure: 'Eight transformer blocks; incompatible input layers randomly initialized; output heads replaced',
+      objective: 'Cosmological parameter regression and per-halo velocity prediction',
+      parameters: '~2M trainable parameters in adapted setup',
+      trainableFrozen: 'New/incompatible layers use higher learning rate; matching pretrained body loaded',
+      fineTuning: 'Fine-tune/adapt for CAMELS-SAM and Quijote regression tasks'
+    },
+    summary: 'OmniCosmos stretches the OmniLearned particle-cloud prior into cosmological simulations. It is useful far-transfer evidence, strongest in low-data regimes, but outside the LHC detector/event core.',
+    highlights: [
+      'Adapts jet-pretrained point-edge attention to halo point clouds.',
+      'Predicts cosmological parameters and halo velocities.',
+      'Gains are modest but clearest in low-data settings.',
+      'Conceptual cross-domain support rather than direct LHC evidence.'
+    ],
+    benchmarks: [
+      {
+        task: 'CAMELS-SAM parameter regression',
+        dataset: 'CAMELS-SAM',
+        metrics: 'R2 for Omega_m and sigma_8; 0.87/0.92 vs scratch 0.83/0.89',
+        transfer: 'Yes: jets to cosmology',
+        ood: 'Yes: far domain shift',
+        fmEvidence: 'Moderate far-transfer support'
+      },
+      {
+        task: 'CAMELS-SAM halo velocity prediction',
+        dataset: 'CAMELS-SAM',
+        metrics: 'R2_v; 0.301 vs scratch 0.299 and GNN 0.2865',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Partial/modest'
+      },
+      {
+        task: 'Quijote parameter regression',
+        dataset: 'Quijote',
+        metrics: 'R2; 0.849/0.871 vs scratch 0.838/0.868',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Quijote halo velocity prediction',
+        dataset: 'Quijote',
+        metrics: 'R2_v 0.471 vs scratch 0.470 and LLS 0.4347',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Partial/modest'
+      },
+      {
+        task: 'Data efficiency',
+        dataset: 'CAMELS-SAM and Quijote simulation subsets',
+        metrics: 'performance versus number of simulations',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Moderate in low-data regimes'
+      }
+    ],
+    pretrainingResources: {
+      hardware: NOT_SPECIFIED,
+      gpu: NOT_SPECIFIED,
+      trainingTime: NOT_SPECIFIED,
+      batchSize: NOT_SPECIFIED,
+      optimizer: NOT_SPECIFIED,
+      distributedStrategy: NOT_SPECIFIED
+    }
+  },
+  omnimol: {
+    arch: 'OmniLearned PET transfer',
+    short: 'Jet-pretrained PET adapted to molecular energy/force prediction.',
+    architecture: 'OmniLearned Point-Edge Transformer body with molecular encoders/heads, LoRA/full fine-tuning, and optional conservative/equivariant variant.',
+    data: 'OMoL25/oMol molecular datasets with oMol-4M, oMol-100M/140M, 100k subsets, and Val-Comp evaluation.',
+    classification: 'Far-transfer evidence for point-edge priors; benefits strongest in low-data or low-compute settings.',
+    fmEvidence: {
+      level: 'Moderate',
+      note: 'Strong conceptual cross-domain evidence with task-specific caveats.'
+    },
+    tags: {
+      modelType: ['far transfer', 'derivative FM use'],
+      architecture: ['Point-Edge Transformer', 'LoRA', 'full fine-tuning', 'equivariance'],
+      domain: ['molecular dynamics', 'MLIP', 'energy/force regression'],
+      evidence: ['low-data transfer', 'A100 inference']
+    },
+    dataset: {
+      type: 'molecular dynamics / molecular potential data',
+      generator: 'OMoL25/oMol large-scale molecular dataset and Val-Comp evaluation',
+      size: 'oMol-4M, oMol-100M/140M, and 100k subset studies',
+      public: 'Code public; OMoL25 dataset source cited',
+      link: 'https://github.com/ibrahimEls/OmniMol',
+      multipleDatasets: 'Yes: different oMol sizes/subsets and Val-Comp evaluation',
+      mixedSource: 'Yes: OmniLearned jet-pretrained PET adapted to molecular point clouds'
+    },
+    representation: {
+      inputObjects: 'Variable-size molecular point clouds of atoms',
+      pipeline: ['atom coordinates + atomic number + optional charge/spin', 'centering + molecular pairwise features + standardization', 'PET atom tokens with molecular heads'],
+      variableLength: 'Unordered variable-size atom point cloud; KNN local neighborhoods use k=15',
+      paddingMasking: 'Not specified; point-cloud batching inherited from PET implementation',
+      preprocessing: 'per-molecule centering; bag-of-atoms energy baseline plus residual; energy/force standardization'
+    },
+    backbone: {
+      architectureType: 'Adapted OmniLearned Point-Edge Transformer',
+      baseModel: 'OmniLearned jet-pretrained PET',
+      structure: 'Molecular input encoders, bias MLP, per-atom force head, per-atom energy correction head, optional conservative/equivariant variant',
+      objective: 'Energy and force regression for molecular learned interatomic potentials',
+      parameters: 'small/medium/large variants; exact counts not summarized in report',
+      trainableFrozen: 'LoRA rank 96 adapters freeze base body; full fine-tuning trains matching weights',
+      fineTuning: 'LoRA or full fine-tuning on oMol training subsets; conservative variant derives forces from energy gradients'
+    },
+    summary: 'OmniMol adapts a jet-pretrained PET into a molecular learned interatomic potential. Pretraining helps most when molecular data or compute are limited; advantages shrink with large molecular training budgets.',
+    highlights: [
+      'Swaps in molecular encoders and energy/force heads around a PET body.',
+      'Compares LoRA, full fine-tuning, direct forces, and conservative variants.',
+      'Low-data and low-compute regimes show the clearest transfer gains.',
+      'Far-transfer story, not direct LHC detector/event evidence.'
+    ],
+    benchmarks: [
+      {
+        task: 'Energy and force regression',
+        dataset: 'Val-Comp',
+        metrics: 'MAE in meV/atom and meV/A',
+        transfer: 'Yes: jets to molecules',
+        ood: 'Yes: far domain shift',
+        fmEvidence: 'Moderate far-transfer support'
+      },
+      {
+        task: 'oMol-4M full-data comparison',
+        dataset: 'oMol-4M',
+        metrics: 'energy/force MAE versus eSEN, AllScAIP, Transformer-1B, TransIP',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Partial: pretrained advantage reduced with enough data'
+      },
+      {
+        task: 'oMol-100M/140M scaling',
+        dataset: 'large oMol training sets',
+        metrics: 'energy/force MAE versus GNN/all-to-all transformer baselines',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Partial/moderate'
+      },
+      {
+        task: '100k low-data subset',
+        dataset: 'oMol 100k subset',
+        metrics: 'energy/force MAE improvements for small/medium direct and conservative variants',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Strongest support'
+      },
+      {
+        task: 'Low-compute two-pass training',
+        dataset: 'oMol-4M two-pass setup',
+        metrics: 'energy/force MAE gains, especially OmniMol-m-d',
+        transfer: 'Yes',
+        ood: 'Yes',
+        fmEvidence: 'Moderate'
+      },
+      {
+        task: 'Inference speed',
+        dataset: 'A100 O(100)-atom systems',
+        metrics: '~3x faster than comparable GNN baselines with moderate error tradeoff',
+        transfer: 'No',
+        ood: 'No',
+        fmEvidence: 'Utility evidence'
+      }
+    ],
+    pretrainingResources: {
+      hardware: 'A100-40GB GPUs',
+      gpu: '32/128/512 A100-40GB for small/medium/large',
+      trainingTime: '100 passes for oMol-4M; 15 passes for oMol-100M/140M',
+      batchSize: NOT_SPECIFIED,
+      optimizer: 'AdamW with OneCycle learning rate',
+      distributedStrategy: 'large multi-GPU training'
+    }
+  }
+}
+
+export const models = baseModels.map(model => ({
+  ...model,
+  ...(foundationModelDetails[model.id] ?? {})
+}))
 
 export const paperLinks = {
   panda: [

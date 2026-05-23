@@ -35,7 +35,7 @@
         </div>
         <div
           class="card-grid"
-          :class="{ 'many-cards': modelsForLevel(level.key).length > 4 }"
+          :class="{ 'many-cards': useCompactGrid(level.key) }"
         >
           <article
             v-for="model in modelsForLevel(level.key)"
@@ -43,21 +43,44 @@
             role="button"
             tabindex="0"
             class="model-card"
-            :style="{ '--avatar-color': model.color }"
-            :class="[`rarity-${model.rarity}`, { featured: model.featured }]"
+            :style="cardStyle(model)"
+            :class="[
+              `rarity-${model.rarity}`,
+              evidenceVisualClass(model),
+              { featured: model.featured }
+            ]"
             @click.stop="openModel(model)"
             @keydown.enter.prevent="openModel(model)"
             @keydown.space.prevent="openModel(model)"
           >
             <div class="card-shine"></div>
             <div class="card-head">
-              <div class="avatar" :style="{ '--avatar-color': model.color }">
-                <span>{{ model.initials }}</span>
+              <div
+                class="avatar"
+                :class="{ 'avatar--evenet': model.id === 'evenet' }"
+                :style="{ '--avatar-color': model.color }"
+              >
+                <img
+                  v-if="model.id === 'evenet'"
+                  src="/evenet-logo-white.svg"
+                  alt=""
+                  class="avatar-logo"
+                />
+                <span v-else>{{ model.initials }}</span>
               </div>
               <div class="card-meta">
                 <div class="model-name">
-                  {{ model.cardTitle ?? model.name }}
+                  <MathText :text="model.cardTitle ?? model.name" />
                   <!-- <sup v-if="model.summarizedTitle" class="summary-marker" title="summarized title">*</sup> -->
+                </div>
+                <div class="mini-tags mini-tags--top">
+                  <span
+                    v-for="tag in cardBadges(model)"
+                    :key="tag"
+                    :class="badgeClass(tag)"
+                  >
+                    {{ tag }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -80,17 +103,8 @@
                 <span class="source-ref">{{ cardRef(source) }}</span>
               </div>
             </div>
-            <div class="mini-tags">
-              <span
-                v-for="tag in model.badges"
-                :key="tag"
-                :class="badgeClass(tag)"
-              >
-                {{ tag }}
-              </span>
-            </div>
             <div class="card-footer">
-              <span>{{ model.arch }}</span>
+              <span><MathText :text="model.arch" /></span>
               <div class="i-carbon:zoom-in"></div>
             </div>
           </article>
@@ -111,6 +125,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { cardRef, compactLinksFor, isArxiv, levels, models } from '../data/foundationModels.js'
 import FoundationModelDetail from './FoundationModelDetail.vue'
+import MathText from './MathText.vue'
 
 const props = defineProps({
   group: {
@@ -180,6 +195,10 @@ function modelsForLevel(levelKey) {
   return models.filter(model => model.level === levelKey && visibleKeys.value.includes(model.level))
 }
 
+function useCompactGrid(levelKey) {
+  return props.group !== 'event' && modelsForLevel(levelKey).length > 4
+}
+
 function openModel(model) {
   selected.value = model
 }
@@ -200,7 +219,28 @@ function badgeClass(tag) {
     'badge-d': tag === 'D',
     'badge-ssl': tag === 'SSL',
     'badge-real': tag === 'R',
-    'badge-llm': tag === 'LLM'
+    'badge-llm': tag === 'LLM' || tag === 'VLM'
+  }
+}
+
+function cardBadges(model) {
+  return model.badges ?? []
+}
+
+function evidenceVisualClass(model) {
+  const level = String(model.fmEvidence?.level ?? '').toLowerCase()
+  return {
+    'evidence-strong': level.includes('strong'),
+    'evidence-moderate': level.includes('moderate'),
+    'evidence-partial': level.includes('partial'),
+    'evidence-preliminary': level.includes('preliminary'),
+    'evidence-demonstrator': level.includes('demo')
+  }
+}
+
+function cardStyle(model) {
+  return {
+    '--avatar-color': model.color
   }
 }
 
@@ -336,12 +376,16 @@ onUnmounted(() => {
 
 .model-card {
   position: relative;
+  --evidence-opacity: 0.46;
+  --evidence-border: 0.16;
+  --evidence-fill: 0.052;
+  --evidence-shadow: 0;
   min-height: 88px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, var(--evidence-border));
   background:
-    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--avatar-color), transparent 82%), transparent 48%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.080), rgba(255, 255, 255, 0.030)),
+    linear-gradient(90deg, color-mix(in srgb, var(--avatar-color), transparent 88%) 0 3px, transparent 3px),
+    linear-gradient(180deg, rgba(255, 255, 255, calc(var(--evidence-fill) + 0.035)), rgba(255, 255, 255, var(--evidence-fill))),
     rgba(7, 11, 24, 0.76);
   color: rgba(255, 255, 255, 0.90);
   text-align: left;
@@ -351,10 +395,54 @@ onUnmounted(() => {
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
+.model-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  opacity: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 20%,
+    rgba(125, 211, 252, 0.54) 38%,
+    rgba(255, 255, 255, 0.86) 50%,
+    rgba(196, 181, 253, 0.46) 62%,
+    rgba(255, 255, 255, 0.14) 80%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.model-card::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  opacity: var(--evidence-opacity);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 0 calc(6px + var(--evidence-shadow) * 8px) rgba(255, 255, 255, 0.20);
+  pointer-events: none;
+}
+
 .model-card:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--avatar-color), white 18%);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24), 0 0 20px color-mix(in srgb, var(--avatar-color), transparent 78%);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.24),
+    0 0 0 1px color-mix(in srgb, var(--avatar-color), transparent 82%);
 }
 
 .model-card:focus-visible {
@@ -363,8 +451,98 @@ onUnmounted(() => {
 }
 
 .model-card.featured {
-  border-color: color-mix(in srgb, var(--avatar-color), white 10%);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--avatar-color), transparent 84%);
+  border-color: rgba(255, 255, 255, 0.26);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--avatar-color), transparent 86%);
+}
+
+.model-card.evidence-strong {
+  --evidence-opacity: 0.95;
+  --evidence-border: 0;
+  --evidence-fill: 0.066;
+  --evidence-shadow: 1;
+  border-width: 2px;
+  border-color: transparent;
+  box-shadow:
+    0 0 20px rgba(125, 211, 252, 0.10),
+    0 12px 24px rgba(0, 0, 0, 0.14);
+}
+
+.model-card.evidence-strong::before {
+  opacity: 1;
+  animation: evidence-rim-flow 3.4s linear infinite;
+}
+
+.model-card.evidence-strong::after {
+  content: "★";
+  top: 5px;
+  right: 5px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  background: linear-gradient(110deg, #ffffff 8%, #7dd3fc 26%, #ffffff 46%, #c4b5fd 66%, #ffffff 88%);
+  background-size: 220% 100%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 1;
+  animation: evidence-star-flow 2.4s linear infinite;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 12px rgba(125, 211, 252, 0.20),
+    0 0 18px rgba(196, 181, 253, 0.12);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.26);
+}
+
+.model-card.evidence-moderate {
+  --evidence-opacity: 0.68;
+  --evidence-border: 0.26;
+  --evidence-fill: 0.058;
+  --evidence-shadow: 0.35;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.055);
+}
+
+.model-card.evidence-moderate::after {
+  opacity: 0.78;
+}
+
+.model-card.evidence-partial,
+.model-card.evidence-preliminary,
+.model-card.evidence-demonstrator {
+  --evidence-opacity: 0.34;
+  --evidence-border: 0.18;
+  --evidence-fill: 0.046;
+  --evidence-shadow: 0;
+  border-style: dashed;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.035) 0 5px,
+      transparent 5px 14px
+    ),
+    linear-gradient(90deg, color-mix(in srgb, var(--avatar-color), transparent 92%) 0 3px, transparent 3px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.070), rgba(255, 255, 255, 0.026)),
+    rgba(7, 11, 24, 0.76);
+}
+
+.model-card.evidence-preliminary::after,
+.model-card.evidence-demonstrator::after {
+  opacity: 0.48;
+  border-radius: 2px;
+}
+
+@keyframes evidence-star-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 220% 50%; }
+}
+
+@keyframes evidence-rim-flow {
+  0% { background-position: 220% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .card-shine {
@@ -385,7 +563,12 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: 32px minmax(0, 1fr);
   gap: 7px;
-  align-items: center;
+  align-items: start;
+}
+
+.card-meta {
+  min-width: 0;
+  padding-right: 17px;
 }
 
 .avatar {
@@ -402,11 +585,29 @@ onUnmounted(() => {
   box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.08);
 }
 
+.avatar--evenet {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(5, 10, 22, 0.82);
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow:
+    inset 0 0 14px rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(125, 211, 252, 0.24);
+}
+
 .avatar span {
   color: rgba(5, 10, 22, 0.90);
   font-size: calc(12.3px * var(--fm-font-scale));
   font-weight: 900;
   line-height: 1;
+}
+
+.avatar-logo {
+  display: block;
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(125, 211, 252, 0.28));
 }
 
 .model-name {
@@ -498,6 +699,10 @@ onUnmounted(() => {
   flex-wrap: wrap;
   gap: 3px;
   margin-top: 4px;
+}
+
+.mini-tags--top {
+  margin-top: 3px;
 }
 
 .mini-tags span {

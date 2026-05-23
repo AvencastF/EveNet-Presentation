@@ -12,7 +12,7 @@ glowOpacity: 0.32
 
 <FoundationModelGallery
   group="detector"
-  :lane-widths="{ raw: 0.72, jet: 1.48 }"
+  :lane-widths="{ raw: 0.82, jet: 1.48 }"
   :scale="1.0"
   :detail-typography="{
     title: 34,
