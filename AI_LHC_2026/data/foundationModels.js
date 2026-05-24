@@ -41,6 +41,11 @@ export const levels = [
   }
 ]
 
+export const benchmarkSemantics = {
+  ood: 'Benchmark distribution/process/detector/domain differs from the pretraining source; ordinary train/validation/test splits are not OOD.',
+  realData: 'Benchmark uses actual experimental or observational data, not only public simulated samples.'
+}
+
 export const models = [
   {
     id: 'panda',
@@ -51,8 +56,7 @@ export const models = [
     rarity: 'rare',
     badges: [
       'D',
-      'SSL',
-      'low-label'
+      'SSL'
     ],
     short: 'Self-distilled LArTPC point-cloud representations.',
     arch: 'Point Transformer V3',
@@ -73,12 +77,13 @@ export const models = [
       ],
       domain: [
         'LArTPC',
+        'PILArNet-M',
         'panoptic segmentation'
       ],
       evidence: [
         'label efficiency',
         'public data',
-        'within-domain transfer'
+        'within-domain downstream reuse'
       ]
     },
     dataset: {
@@ -122,25 +127,25 @@ export const models = [
         task: 'Semantic segmentation',
         dataset: 'PILArNet-M',
         metrics: 'macro/per-class F1',
-        transfer: 'Yes: pretrained encoder to segmentation',
         ood: 'No',
-        fmEvidence: 'Moderate: reusable within same detector corpus'
+        fmEvidence: 'Moderate: reusable within same detector corpus',
+        realData: 'No'
       },
       {
         task: 'Particle and interaction panoptic segmentation',
         dataset: 'PILArNet-M',
         metrics: 'PQ, ARI, purity, efficiency',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate: multi-task reconstruction reuse'
+        fmEvidence: 'Moderate: multi-task reconstruction reuse',
+        realData: 'No'
       },
       {
-        task: 'Low-label scaling',
+        task: 'Low-label and convergence scaling',
         dataset: 'PILArNet-M label fractions 0.1%-1%',
-        metrics: 'F1/PQ versus label fraction and convergence',
-        transfer: 'Yes',
+        metrics: 'F1/PQ versus label fraction, convergence speed, and event-sample efficiency',
         ood: 'No',
-        fmEvidence: 'Strong within-domain label-efficiency evidence'
+        fmEvidence: 'Strong within-domain label-efficiency evidence',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -161,11 +166,10 @@ export const models = [
     rarity: 'rare',
     badges: [
       'D',
-      'SSL',
-      'transfer'
+      'SSL'
     ],
     short: 'FASERCal MAE+Rel pretraining with transfer tests.',
-    arch: 'sparse ViT + Perceiver',
+    arch: 'sparse ViT + Perceiver-IO',
     title: 'Foundation-style models for energy-frontier heterogeneous neutrino detectors',
     summarizedTitle: true,
     classification: 'Detector foundation-style SSL with cross-dataset downstream transfer.',
@@ -185,12 +189,12 @@ export const models = [
       ],
       domain: [
         'neutrino',
-        'heterogeneous detector',
-        'FASERCal'
+        'FASERCal',
+        'heterogeneous detector'
       ],
       evidence: [
         'transfer benchmark',
-        'OOD stress',
+        'OOD detector datasets',
         'Geant4'
       ]
     },
@@ -235,41 +239,41 @@ export const models = [
         task: 'Six-way neutrino flavor classification',
         dataset: 'FASERCal simulated interactions',
         metrics: 'AUROC, confusion, purity, efficiency, FOM',
-        transfer: 'Yes: pretrained to supervised head',
         ood: 'No',
-        fmEvidence: 'Moderate: source-domain downstream reuse'
+        fmEvidence: 'Moderate: source-domain downstream reuse',
+        realData: 'No'
       },
       {
         task: 'Charm category classification',
         dataset: 'FASERCal charm samples',
         metrics: 'AUROC and class efficiencies',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate: additional downstream task'
+        fmEvidence: 'Moderate: additional downstream task',
+        realData: 'No'
       },
       {
         task: 'Kinematic regression',
         dataset: 'FASERCal simulated events',
         metrics: 'residuals and robust spread for energy, momentum, missing pT, dPV',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate: multi-task reuse'
+        fmEvidence: 'Moderate: multi-task reuse',
+        realData: 'No'
       },
       {
         task: 'Detector-style transfer',
         dataset: 'public plastic scintillator PID and public PILArNet classification',
         metrics: 'accuracy/AUROC gains over scratch',
-        transfer: 'Yes',
-        ood: 'Partial: different detector-style datasets',
-        fmEvidence: 'Strongest evidence for foundation-style claim'
+        ood: 'Yes: different detector-style datasets',
+        fmEvidence: 'Strongest evidence for foundation-style claim',
+        realData: 'No'
       },
       {
         task: 'Robustness stress tests',
         dataset: 'FASERCal energy-scale and subsystem ablations',
         metrics: 'task performance under perturbation/ablation',
-        transfer: 'No',
-        ood: 'Partial',
-        fmEvidence: 'Supporting robustness evidence'
+        ood: 'Partial: detector perturbation/subsystem ablation',
+        fmEvidence: 'Supporting robustness evidence',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -289,9 +293,7 @@ export const models = [
     color: '#38bdf8',
     rarity: 'epic',
     badges: [
-      'G',
-      'MoE',
-      'PEFT'
+      'G'
     ],
     short: 'PEFT transfer for generative calorimeter showers.',
     arch: 'autoregressive MoE',
@@ -315,12 +317,13 @@ export const models = [
       ],
       domain: [
         'calorimeter',
-        'Geant4 showers'
+        'Geant4 showers',
+        'fast simulation'
       ],
       evidence: [
         'generative validation',
-        'material transfer',
-        'particle transfer'
+        'material OOD',
+        'particle-species OOD'
       ]
     },
     dataset: {
@@ -364,33 +367,33 @@ export const models = [
         task: 'Generative shower validation',
         dataset: 'Geant4 photon/electron ECAL showers',
         metrics: 'visible cell energy, total energy, hit multiplicity, longitudinal center-of-gravity, layer energy, radial profile',
-        transfer: 'No for base closure',
         ood: 'No',
-        fmEvidence: 'Moderate: validates reusable shower generator'
+        fmEvidence: 'Moderate: validates reusable shower generator',
+        realData: 'No'
       },
       {
         task: 'Material transfer',
-        dataset: 'Pb photon showers with 1k, 10k, and full Pb samples',
-        metrics: 'same shower-observable agreement against Geant4',
-        transfer: 'Yes: new expert with frozen backbone',
-        ood: 'Partial: absorber material shift',
-        fmEvidence: 'Strong for fast-sim transfer'
+        dataset: 'Pb/Ta photon and electron showers with reduced and full samples',
+        metrics: 'shower-observable agreement against Geant4 across absorber-material shifts',
+        ood: 'Yes: absorber-material shift',
+        fmEvidence: 'Strong for fast-simulation PEFT/material transfer',
+        realData: 'No'
       },
       {
         task: 'Particle-species transfer',
         dataset: 'W electron showers from photon-pretrained model',
         metrics: 'shower-observable agreement',
-        transfer: 'Yes: LoRA plus particle-specific outputs',
-        ood: 'Partial: photon to electron',
-        fmEvidence: 'Strong for PEFT reuse'
+        ood: 'Yes: photon-to-electron particle-species shift',
+        fmEvidence: 'Strong for PEFT reuse',
+        realData: 'No'
       },
       {
         task: 'Generation speed',
         dataset: 'tested calorimeter shower setup',
         metrics: '~10.46 ms/event on A100; ~392x faster than Geant4 CPU',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Supporting simulation utility, not FM by itself'
+        fmEvidence: 'Supporting simulation utility, not FM by itself',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -411,12 +414,11 @@ export const models = [
     rarity: 'epic',
     badges: [
       'G',
-      'D',
-      'MoE'
+      'D'
     ],
     short: 'Mixed discrete/continuous DIRC readout sequences.',
     arch: 'next-token MoE',
-    title: 'Foundation models for experimental readout systems combining discrete and continuous data',
+    title: 'Towards Foundation Models for Experimental Readout Systems Combining Discrete and Continuous Data',
     classification: 'Readout-level generative foundation-style model with same-detector PID/filtering transfer.',
     fmEvidence: {
       level: 'Moderate',
@@ -435,12 +437,12 @@ export const models = [
       domain: [
         'DIRC',
         'Cherenkov',
-        'PID'
+        'readout'
       ],
       evidence: [
         'generative validation',
-        'noise filtering',
-        'same-detector transfer'
+        'PID',
+        'noise filtering'
       ]
     },
     dataset: {
@@ -484,25 +486,25 @@ export const models = [
         task: 'Generative closure',
         dataset: 'simulated hpDIRC pion/kaon tracks',
         metrics: 'x/y/time distributions, photon yield, KDE/FastDIRC classifier metrics',
-        transfer: 'No',
-        ood: 'Partial: kinematic scans',
-        fmEvidence: 'Moderate: validates readout generator'
+        ood: 'Partial: kinematic scans within same detector/readout',
+        fmEvidence: 'Moderate: validates readout generator',
+        realData: 'No'
       },
       {
         task: 'Pion/kaon PID',
         dataset: 'hpDIRC tracks at 3 and 6 GeV/c over theta',
         metrics: 'accuracy and separation power',
-        transfer: 'Yes: fine-tuned from generative pretraining',
         ood: 'No',
-        fmEvidence: 'Moderate: same-system downstream reuse'
+        fmEvidence: 'Moderate: same-system downstream reuse',
+        realData: 'No'
       },
       {
         task: 'Noise filtering',
         dataset: 'PMT dark noise at 100 kHz/cm2 with ~8-10% noise',
         metrics: 'AP and AUC',
-        transfer: 'Yes, but benefit is limited/task-dependent',
-        ood: 'No',
-        fmEvidence: 'Partial: downstream reuse with caveat'
+        ood: 'Partial: injected dark-noise contamination',
+        fmEvidence: 'Partial: downstream reuse with caveat',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -523,8 +525,7 @@ export const models = [
     rarity: 'legendary',
     badges: [
       'D',
-      'SSL',
-      'scaling'
+      'SSL'
     ],
     short: 'Scaling state-space FM on sparse TPC spacepoints.',
     arch: 'Mamba2 SSM',
@@ -552,7 +553,7 @@ export const models = [
       evidence: [
         'scaling',
         'frozen adapters',
-        'multi-task transfer'
+        'within-detector multi-task reuse'
       ]
     },
     dataset: {
@@ -596,41 +597,41 @@ export const models = [
         task: 'Model/data/compute scaling',
         dataset: 'sPHENIX TPC p+p full simulation',
         metrics: 'scaling curves over model, data, and compute',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Supporting scaling evidence'
+        fmEvidence: 'Supporting scaling evidence',
+        realData: 'No'
       },
       {
-        task: 'Track finding',
+        task: 'Track finding and pipeline comparison',
         dataset: 'sPHENIX TPC downstream labels',
-        metrics: 'ARI, efficiency, purity; reported m6 table ~0.9448 ARI, 96.08% efficiency, 93.08% purity',
-        transfer: 'Yes: frozen FM plus adapter',
+        metrics: 'ARI, efficiency, purity, plus comparison with official sPHENIX-style reconstruction selections',
         ood: 'No',
-        fmEvidence: 'Strong within-detector transfer'
+        fmEvidence: 'Strong within-detector transfer',
+        realData: 'No'
       },
       {
         task: 'PID',
         dataset: 'sPHENIX TPC labels',
         metrics: 'accuracy, macro recall, precision',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate: additional downstream task'
+        fmEvidence: 'Moderate: additional downstream task',
+        realData: 'No'
       },
       {
         task: 'Noise tagging',
         dataset: 'sPHENIX TPC labels',
         metrics: 'accuracy, macro recall, precision',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate: additional downstream task'
+        fmEvidence: 'Moderate: additional downstream task',
+        realData: 'No'
       },
       {
         task: 'Low-label adaptation',
         dataset: 'sPHENIX TPC label subsets',
         metrics: 'task metrics versus label fraction',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Strong data-efficiency support'
+        fmEvidence: 'Strong data-efficiency support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -655,7 +656,7 @@ export const models = [
     ],
     short: 'General VLM fine-tuned on LArTPC event-display pixel maps.',
     arch: 'Llama-3.2 Vision QLoRA',
-    title: 'Pretrained vision-language models for neutrino event classification',
+    title: 'Fine-tuning vision-language models for neutrino event analysis in HEP',
     summarizedTitle: true,
     classification: 'General AI-to-HEP transfer study; not a HEP-native detector-pretrained FM.',
     fmEvidence: {
@@ -678,7 +679,7 @@ export const models = [
         'pixel maps'
       ],
       evidence: [
-        'OOD downsampling',
+        'resolution OOD',
         'prompted classification',
         'general VLM transfer'
       ]
@@ -724,41 +725,41 @@ export const models = [
         task: 'Nominal event classification',
         dataset: '512x512 simulated LArTPC event displays',
         metrics: 'accuracy, precision, recall, AUC',
-        transfer: 'Yes: general VLM to HEP images',
         ood: 'No',
-        fmEvidence: 'Partial: transfer evidence, not HEP-native FM'
+        fmEvidence: 'Partial: transfer evidence, not HEP-native FM',
+        realData: 'No'
       },
       {
         task: 'Baseline comparison',
         dataset: 'same event-display test set',
         metrics: 'classification metrics versus CNN and fully fine-tuned ViT-h/14',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Supporting evidence'
+        fmEvidence: 'Supporting evidence',
+        realData: 'No'
       },
       {
         task: 'Resolution-shift robustness',
         dataset: '512-to-256 downsampled OOD displays',
         metrics: 'accuracy/precision/recall/AUC under downsampling',
-        transfer: 'Yes',
-        ood: 'Yes: image-resolution shift',
-        fmEvidence: 'Moderate transfer robustness evidence'
+        ood: 'Partial: image-resolution shift',
+        fmEvidence: 'Moderate transfer robustness evidence',
+        realData: 'No'
       },
       {
         task: 'Few-shot frozen VLM',
         dataset: 'simulated event displays',
         metrics: 'classification behavior; often one-class collapse',
-        transfer: 'No fine-tuning in this ablation',
         ood: 'No',
-        fmEvidence: 'Caveat: weak zero-shot/few-shot claim'
+        fmEvidence: 'Caveat: weak zero-shot/few-shot claim',
+        realData: 'No'
       },
       {
         task: 'Generated rationales',
         dataset: 'classified event displays',
         metrics: 'qualitative explanations only',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Limited: no causal physics-faithfulness benchmark'
+        fmEvidence: 'Limited: no causal physics-faithfulness benchmark',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -781,8 +782,7 @@ export const models = [
     badges: [
       'G',
       'D',
-      'R',
-      'LHC'
+      'R'
     ],
     short: 'Broad mixed-source jet foundation-model lineage.',
     arch: 'PET / PET v2',
@@ -806,13 +806,12 @@ export const models = [
       domain: [
         'jets',
         'particle clouds',
-        'flavor tagging'
+        'CMS Open Data'
       ],
       evidence: [
         'multi-dataset pretraining',
-        'CMS Open Data',
-        'OOD',
-        'transfer'
+        'real-data benchmark',
+        'OOD transfer'
       ]
     },
     dataset: {
@@ -856,49 +855,49 @@ export const models = [
         task: 'Top tagging',
         dataset: 'ATLAS-like/Delphes top benchmarks',
         metrics: 'AUC, accuracy, background rejection at fixed signal efficiency',
-        transfer: 'Yes',
-        ood: 'Partial: dataset/fidelity shifts',
-        fmEvidence: 'Strong'
+        ood: 'Partial: dataset/fidelity shift',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'Quark/gluon tagging',
         dataset: 'Pythia and CMS Open Data Q/G settings',
         metrics: 'AUC and rejection metrics',
-        transfer: 'Yes',
-        ood: 'Yes for open-data settings',
-        fmEvidence: 'Strong mixed-source evidence'
+        ood: 'Yes: CMS Open Data setting for part of benchmark',
+        fmEvidence: 'Strong mixed-source evidence',
+        realData: 'No'
       },
       {
         task: 'Unfolding/reweighting',
         dataset: 'Z+jets and H1 DIS tasks',
         metrics: 'classifier/reweighting comparison metrics',
-        transfer: 'Yes',
-        ood: 'Yes: pp to ep / analysis shifts',
-        fmEvidence: 'Strong breadth evidence'
+        ood: 'Yes: pp to ep / analysis shift',
+        fmEvidence: 'Strong breadth evidence',
+        realData: 'No'
       },
       {
         task: 'Anomaly detection',
         dataset: 'LHCO R&D plus CMS Open Data/Aspen anomaly-search settings',
         metrics: 'significance and detection threshold',
-        transfer: 'Yes',
-        ood: 'Yes: real/open-data settings',
-        fmEvidence: 'Strong'
+        ood: 'Yes: real/open-data anomaly-search setting',
+        fmEvidence: 'Strong',
+        realData: 'Yes: CMS Open Data/Aspen Open Jets where used'
       },
       {
         task: 'Jet generation',
         dataset: 'JetNet/jet-feature distribution tests in earlier work',
         metrics: 'distribution-closure metrics',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Supporting generative capability'
+        fmEvidence: 'Supporting generative capability',
+        realData: 'No'
       },
       {
         task: 'ATLAS flavor tagging',
         dataset: 'open ATLAS-style track dataset',
         metrics: 'background rejection at fixed b/c efficiency',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Strong downstream transfer'
+        ood: 'Partial: open ATLAS-style track dataset shift',
+        fmEvidence: 'Strong downstream transfer',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -919,8 +918,7 @@ export const models = [
     rarity: 'epic',
     badges: [
       'G',
-      'D',
-      'tokens'
+      'D'
     ],
     short: 'Tokenized jet sequences for generation and low-label transfer.',
     arch: 'causal transformer',
@@ -947,7 +945,7 @@ export const models = [
       ],
       evidence: [
         'few-label transfer',
-        'top tagging transfer'
+        'top-tagging OOD'
       ]
     },
     dataset: {
@@ -991,41 +989,41 @@ export const models = [
         task: 'Generative quality',
         dataset: 'JetClass q/g and top jets',
         metrics: 'token/reconstructed distributions and classifier separation of generated vs reconstructed',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Moderate generative representation evidence'
+        fmEvidence: 'Moderate generative representation evidence',
+        realData: 'No'
       },
       {
         task: 'JetClass classification',
         dataset: 'JetClass 10-class jets',
         metrics: 'classification performance versus training-set size',
-        transfer: 'Yes: pretrained backbone',
         ood: 'No',
-        fmEvidence: 'Moderate'
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Top-tagging transfer',
         dataset: 'ATLAS-like top-tagging dataset',
         metrics: 'accuracy/AUC/rejection depending on setup',
-        transfer: 'Yes',
-        ood: 'Partial: related but out of training distribution',
-        fmEvidence: 'Moderate'
+        ood: 'Partial: related ATLAS-like top-tagging dataset',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Few-label transfer',
         dataset: 'top-tagging with 100-1000 labels',
         metrics: 'performance versus scratch',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Strong low-label support'
+        ood: 'Partial: same OOD top-tagging dataset at low labels',
+        fmEvidence: 'Strong low-label support',
+        realData: 'No'
       },
       {
         task: 'Objective ablations',
         dataset: 'JetClass/top-transfer settings',
         metrics: 'token-ID vs continuous input, NTP vs MPM, probes, extended features',
-        transfer: 'Partial',
-        ood: 'Partial',
-        fmEvidence: 'Method support'
+        ood: 'Partial: mix of JetClass and top-transfer settings',
+        fmEvidence: 'Method support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1045,8 +1043,7 @@ export const models = [
     color: '#9f7aea',
     rarity: 'epic',
     badges: [
-      'D',
-      'LHC'
+      'D'
     ],
     short: '188-way supervised signature pretraining for boosted jets.',
     arch: 'Particle Transformer',
@@ -1067,13 +1064,13 @@ export const models = [
       ],
       domain: [
         'boosted jets',
-        'resonance search',
-        'anomaly search'
+        'JetClass-II',
+        'resonance search'
       ],
       evidence: [
-        'latent transfer',
-        'Delphes',
-        'PUPPI'
+        'supervised pretraining',
+        'unseen signatures',
+        'anomaly search'
       ]
     },
     dataset: {
@@ -1117,41 +1114,41 @@ export const models = [
         task: 'Direct resonance discrimination',
         dataset: 'JetClass-II resonance/QCD classes',
         metrics: 'likelihood-ratio discriminants, background rejection, significance-style metrics',
-        transfer: 'No for direct pretraining labels',
         ood: 'No',
-        fmEvidence: 'Moderate supervised backbone evidence'
+        fmEvidence: 'Moderate supervised backbone evidence',
+        realData: 'No'
       },
       {
         task: 'Unseen/rare signature transfer',
         dataset: 'examples such as X->bs',
         metrics: 'MLP-on-latent classification performance',
-        transfer: 'Yes',
-        ood: 'Partial: related unseen signatures',
-        fmEvidence: 'Strong for supervised transfer'
+        ood: 'Partial: unseen/rare but related jet signatures',
+        fmEvidence: 'Strong for supervised transfer',
+        realData: 'No'
       },
       {
         task: 'Single-jet resonance search',
         dataset: 'simulated W/Z/top peak search setup',
         metrics: 'peak reconstruction/search sensitivity',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Moderate'
+        ood: 'Partial: simulated search-workflow shift',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'SALAD/model-agnostic anomaly detection',
         dataset: 'Sophon latent-space anomaly setup',
         metrics: 'anomaly/search sensitivity metrics',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Moderate'
+        ood: 'Partial: latent-space anomaly-search workflow',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Dijet triboson anomaly benchmark',
         dataset: 'triboson anomaly benchmark',
         metrics: 'signal-event requirement/discovery sensitivity',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Moderate'
+        ood: 'Partial: simulated triboson anomaly benchmark',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1244,49 +1241,49 @@ export const models = [
         task: 'JetClass 10-class classification',
         dataset: 'JetClass label fractions',
         metrics: 'accuracy/AUC-like classification performance',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate'
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'CWoLa weak supervision',
         dataset: 'Jet samples with injected top signals',
         metrics: 'SIC at high background rejection',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Moderate method breadth'
+        ood: 'Partial: weak-supervision/injected-signal setting',
+        fmEvidence: 'Moderate method breadth',
+        realData: 'No'
       },
       {
         task: 'BTag three-class classification',
         dataset: 'ATLAS-like BTag',
         metrics: 'accuracy',
-        transfer: 'Yes',
-        ood: 'Yes: dataset/task shift',
-        fmEvidence: 'Strong OOD support'
+        ood: 'Yes: ATLAS-like BTag dataset/task shift',
+        fmEvidence: 'Strong OOD support',
+        realData: 'No'
       },
       {
         task: 'Secondary vertex finding',
         dataset: 'BTag',
         metrics: 'ARI versus number of vertices',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strong downstream breadth'
+        ood: 'Yes: ATLAS-like BTag dataset/task shift',
+        fmEvidence: 'Strong downstream breadth',
+        realData: 'No'
       },
       {
         task: 'Heavy-track identification',
         dataset: 'BTag',
         metrics: 'balanced accuracy',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strong downstream breadth'
+        ood: 'Yes: ATLAS-like BTag dataset/task shift',
+        fmEvidence: 'Strong downstream breadth',
+        realData: 'No'
       },
       {
         task: 'Objective/probe ablations',
         dataset: 'JetClass and BTag',
         metrics: 'fixed-backbone and objective comparison metrics',
-        transfer: 'Partial',
-        ood: 'Partial',
-        fmEvidence: 'Method support'
+        ood: 'Partial: includes both source and OOD downstream settings',
+        fmEvidence: 'Method support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1307,8 +1304,7 @@ export const models = [
     rarity: 'rare',
     badges: [
       'D',
-      'SSL',
-      'LHC'
+      'SSL'
     ],
     short: 'Focused event-token SSL for dileptonic ttbar.',
     arch: 'BERT-style transformer',
@@ -1330,12 +1326,11 @@ export const models = [
       domain: [
         'event-level',
         'dileptonic ttbar',
-        'toponium'
+        'Delphes'
       ],
       evidence: [
         'order invariant',
-        'limited transfer',
-        'Delphes'
+        'topology-specific reuse'
       ]
     },
     dataset: {
@@ -1379,33 +1374,33 @@ export const models = [
         task: 'Top reconstruction',
         dataset: 'dileptonic ttbar Delphes samples',
         metrics: 'ttbar invariant-mass resolution; 10-20% improvement over supervised transformer',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate within-topology support'
+        fmEvidence: 'Moderate within-topology support',
+        realData: 'No'
       },
       {
         task: 'Toponium versus ttbar classification',
         dataset: 'toponium toy + ttbar',
-        metrics: 'AUC; improves over DNN but below supervised transformer in cited comparison',
-        transfer: 'Yes',
-        ood: 'Partial: related toy signal',
-        fmEvidence: 'Limited/caveated'
+        metrics: 'AUROC 0.877; improves over DNN but below supervised transformer in cited comparison',
+        ood: 'Partial: related toponium toy signal',
+        fmEvidence: 'Limited/caveated',
+        realData: 'No'
       },
       {
         task: 'Initial-state gg versus qqbar classification',
         dataset: 'dileptonic ttbar',
-        metrics: 'AUC',
-        transfer: 'Yes',
+        metrics: 'AUROC 0.625',
         ood: 'No',
-        fmEvidence: 'Moderate task reuse'
+        fmEvidence: 'Moderate task reuse',
+        realData: 'No'
       },
       {
         task: 'Embedding/pretraining ablations',
         dataset: 'ttbar/toponium tasks',
         metrics: 'task performance changes',
-        transfer: 'Partial',
         ood: 'No',
-        fmEvidence: 'Method support'
+        fmEvidence: 'Method support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1426,8 +1421,7 @@ export const models = [
     rarity: 'rare',
     badges: [
       'D',
-      'SSL',
-      'robust'
+      'SSL'
     ],
     short: 'Resimulation-pair contrastive pretraining for robust jets.',
     arch: 'DynamicEdgeConv SSL',
@@ -1448,12 +1442,12 @@ export const models = [
       ],
       domain: [
         'jets',
-        'systematics',
-        'resimulation pairs'
+        'resimulation pairs',
+        'Delphes'
       ],
       evidence: [
-        'OOD',
-        'robustness',
+        'systematics robustness',
+        'OOD W tagging',
         'public Zenodo'
       ]
     },
@@ -1498,33 +1492,33 @@ export const models = [
         task: 'Higgs-vs-QCD tagging',
         dataset: 'Z+jet and HZ/H->bb Delphes resimulation dataset',
         metrics: 'ROC/background rejection at fixed Higgs efficiency',
-        transfer: 'Yes',
-        ood: 'No for nominal',
-        fmEvidence: 'Moderate'
+        ood: 'No',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Simulator robustness',
         dataset: 'seed/FSR/Herwig resimulation variants',
         metrics: 'Wasserstein distances of tagger outputs',
-        transfer: 'Yes',
-        ood: 'Yes: simulator/shower variations',
-        fmEvidence: 'Strong robustness support'
+        ood: 'Yes: simulator/shower systematic variations',
+        fmEvidence: 'Strong robustness support',
+        realData: 'No'
       },
       {
         task: 'OOD W-vs-QCD tagging',
         dataset: 'W jets transfer benchmark',
         metrics: 'background rejection at fixed W efficiency',
-        transfer: 'Yes',
-        ood: 'Yes: task/process shift',
-        fmEvidence: 'Strong within jet domain'
+        ood: 'Yes: W-vs-QCD task/process shift',
+        fmEvidence: 'Strong within jet domain',
+        realData: 'No'
       },
       {
         task: 'Data efficiency',
         dataset: 'reduced-label tagging settings',
         metrics: 'performance versus supervised sample size',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Moderate'
+        ood: 'No: reduced-label study, not distribution shift',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1544,8 +1538,7 @@ export const models = [
     color: '#a855f7',
     rarity: 'rare',
     badges: [
-      'D',
-      'transfer'
+      'D'
     ],
     short: 'OmniJet-alpha transfer to full-sim tau reconstruction.',
     arch: 'OmniJet fine-tune',
@@ -1567,22 +1560,22 @@ export const models = [
       ],
       domain: [
         'tau reconstruction',
-        'FuTau',
+        'tau reconstruction dataset',
         'full simulation'
       ],
       evidence: [
-        'cross-fidelity transfer',
+        'cross-fidelity OOD',
         'regression',
-        'low-data'
+        'low-data transfer'
       ]
     },
     dataset: {
       type: 'mixed Delphes pretraining + full simulation downstream',
-      generator: 'OmniJet-alpha JetClass Delphes pretraining; FuTau full-simulation/reconstruction downstream',
+      generator: 'OmniJet-alpha JetClass Delphes pretraining; full-simulation/reconstruction tau downstream dataset',
       size: 'Downstream scans from ~10^3 to 10^6 jets; key examples ~10^4 jets',
       public: 'Official downstream dataset link not specified',
       link: 'Not specified in the paper/project.',
-      multipleDatasets: 'Yes: JetClass pretraining plus FuTau downstream',
+      multipleDatasets: 'Yes: JetClass pretraining plus full-simulation tau downstream dataset',
       mixedSource: 'Yes: cross-process, cross-granularity, and cross-fidelity transfer'
     },
     representation: {
@@ -1603,47 +1596,48 @@ export const models = [
       objective: 'Fine-tuned classification/regression from generative jet pretraining',
       parameters: 'Not specified in the paper/project.',
       trainableFrozen: 'Tokenizer frozen in all strategies; scratch, fixed backbone, and unfreezing/fine-tuning compared',
-      fineTuning: 'Best performance generally from fine-tuning pretrained GPT blocks'
+      fineTuning: 'Best performance generally from fine-tuning pretrained GPT blocks on the tau reconstruction dataset'
     },
-    summary: 'Tau Transfer is an honest cross-fidelity reuse test: a jet-pretrained OmniJet-alpha model is adapted to full-simulation tau reconstruction. It supports transfer learning, not a new standalone tau FM.',
+    summary: 'Tau Transfer is an honest cross-fidelity reuse test: a jet-pretrained OmniJet-alpha model is adapted to a full-simulation tau reconstruction dataset. It supports transfer learning, not a new standalone tau FM.',
     highlights: [
       'Transfers from Delphes jet pretraining to full-sim/reco tau tasks.',
       'Targets tau ID, visible pT regression, and decay-mode reconstruction.',
+      'Fine-tuning improves visible-pT resolution by about 50-55% over scratch.',
       'Pretraining helps low-data settings, but specialist ParT can still win some tasks.',
       'Clear derivative evidence for reusable jet representations.'
     ],
     benchmarks: [
       {
         task: 'Hadronic tau ID',
-        dataset: 'FuTau downstream tau dataset',
+        dataset: 'full-simulation tau reconstruction dataset',
         metrics: 'AUC and mis-ID rate at fixed efficiency',
-        transfer: 'Yes: OmniJet-alpha to FuTau',
-        ood: 'Yes: cross-fidelity/process shift',
-        fmEvidence: 'Moderate derivative transfer'
+        ood: 'Yes: JetClass/Delphes to full-simulation tau reconstruction',
+        fmEvidence: 'Moderate derivative transfer',
+        realData: 'No'
       },
       {
         task: 'Visible tau pT regression',
-        dataset: 'FuTau',
-        metrics: 'pT resolution',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Moderate'
+        dataset: 'full-simulation tau reconstruction dataset',
+        metrics: 'pT resolution; about 50-55% improvement over scratch when fine-tuned',
+        ood: 'Yes: JetClass/Delphes to full-simulation tau reconstruction',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Decay-mode reconstruction',
-        dataset: 'FuTau',
+        dataset: 'full-simulation tau reconstruction dataset',
         metrics: 'AUC',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Moderate'
+        ood: 'Yes: JetClass/Delphes to full-simulation tau reconstruction',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Fine-tuning strategy ablation',
-        dataset: 'FuTau label-size scans',
+        dataset: 'full-simulation tau label-size scans',
         metrics: 'performance versus unfreezing schedule/layers',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Method support'
+        ood: 'Yes: ablation on the tau OOD downstream setting',
+        fmEvidence: 'Method support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1692,7 +1686,7 @@ export const models = [
       ],
       evidence: [
         'few-shot',
-        'modest transfer'
+        'modest OOD transfer'
       ]
     },
     dataset: {
@@ -1736,33 +1730,33 @@ export const models = [
         task: 'JetClass few-shot classification',
         dataset: 'JetClass label fractions',
         metrics: 'macro accuracy versus label fraction',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Moderate only at low labels'
+        fmEvidence: 'Moderate only at low labels',
+        realData: 'No'
       },
       {
         task: 'Top tagging transfer',
         dataset: 'TQTR top-tagging dataset',
         metrics: 'accuracy; below ParticleNet/ParT baselines',
-        transfer: 'Yes',
-        ood: 'Partial: related jet dataset shift',
-        fmEvidence: 'Partial'
+        ood: 'Partial: related TQTR jet dataset shift',
+        fmEvidence: 'Partial',
+        realData: 'No'
       },
       {
         task: 'Quark/gluon transfer',
         dataset: 'Pythia8 no-detector q/g dataset',
         metrics: 'accuracy; modest gains over scratch, below ParticleNet/ParT',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Partial'
+        ood: 'Partial: no-detector Pythia q/g dataset shift',
+        fmEvidence: 'Partial',
+        realData: 'No'
       },
       {
         task: 'Architecture/objective ablations',
         dataset: 'JetClass/top/QG settings',
         metrics: 'masking, physics bias, registers, augmentation comparisons',
-        transfer: 'Partial',
-        ood: 'Partial',
-        fmEvidence: 'Method support'
+        ood: 'Partial: includes source and related-transfer settings',
+        fmEvidence: 'Method support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1782,8 +1776,7 @@ export const models = [
     color: '#b794f4',
     rarity: 'rare',
     badges: [
-      'D',
-      'analysis'
+      'D'
     ],
     short: 'Fine-tuning pretrained jet backbones for analysis objectives.',
     arch: 'ParT + DeepSets',
@@ -1800,9 +1793,8 @@ export const models = [
         'transfer study'
       ],
       architecture: [
-        'Particle Transformer',
-        'DeepSets',
-        'joint fine-tuning'
+        'ParT backbone',
+        'DeepSets event head'
       ],
       domain: [
         'HH->4b',
@@ -1810,8 +1802,9 @@ export const models = [
         'event analysis'
       ],
       evidence: [
+        'joint fine-tuning',
         'domain adaptation',
-        'data efficiency'
+        'low-data transfer'
       ]
     },
     dataset: {
@@ -1855,25 +1848,25 @@ export const models = [
         task: 'G->HH->4b event classification',
         dataset: 'CMS Open Data simulated HH/QCD samples',
         metrics: 'background rejection at 90% signal efficiency, AUC/SIC in appendix',
-        transfer: 'Yes: JetClass ParT to CMS HH',
-        ood: 'Partial: simulation/domain adaptation',
-        fmEvidence: 'Partial: adaptation evidence'
+        ood: 'Partial: JetClass ParT to CMS Open Data simulation',
+        fmEvidence: 'Partial: adaptation evidence',
+        realData: 'No'
       },
       {
         task: 'Low-data/domain adaptation',
         dataset: 'same event-level HH study with reduced data',
         metrics: 'background rejection and data-efficiency curves',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Moderate support for fine-tuning FMs'
+        ood: 'Partial: same CMS simulation downstream with reduced data',
+        fmEvidence: 'Moderate support for fine-tuning FMs',
+        realData: 'No'
       },
       {
         task: 'Representation strategy ablation',
         dataset: 'HH event study',
         metrics: 'scalar Xbb + features vs latent + features vs latent only',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Method support'
+        ood: 'Partial: same CMS simulation downstream',
+        fmEvidence: 'Method support',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -1893,8 +1886,7 @@ export const models = [
     color: '#34d399',
     rarity: 'rare',
     badges: [
-      'D',
-      'prelim'
+      'D'
     ],
     short: 'Early top-multiplicity event-transformer methodology.',
     arch: 'preliminary transformer',
@@ -1911,7 +1903,7 @@ export const models = [
         'methodology'
       ],
       architecture: [
-        'Transformer',
+        'small event transformer',
         'masked reconstruction'
       ],
       domain: [
@@ -1920,8 +1912,8 @@ export const models = [
         'Delphes CMS'
       ],
       evidence: [
-        'entropy OOD demo',
-        'limited transfer'
+        'preliminary',
+        'entropy OOD demo'
       ]
     },
     dataset: {
@@ -1965,33 +1957,33 @@ export const models = [
         task: 'Masked reconstruction',
         dataset: 'top-multiplicity Delphes events',
         metrics: 'reconstruction loss and variable-distribution comparisons',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Method support only'
+        fmEvidence: 'Method support only',
+        realData: 'No'
       },
       {
         task: 'Representation visualization',
         dataset: 'same top-multiplicity events',
         metrics: 't-SNE before/after training',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Illustrative only'
+        fmEvidence: 'Illustrative only',
+        realData: 'No'
       },
       {
         task: 'Top-count classification',
         dataset: 'zero- to four-top Delphes classes',
         metrics: 'ROC AUC; best mean around 0.91-0.92',
-        transfer: 'No mature transfer benchmark',
         ood: 'No',
-        fmEvidence: 'Preliminary'
+        fmEvidence: 'Preliminary',
+        realData: 'No'
       },
       {
         task: 'Entropy OOD example',
         dataset: 'SM-trained model on scalar-DM single-top events',
         metrics: 'entropy separation example; no robust metric table',
-        transfer: 'No',
-        ood: 'Partial demo',
-        fmEvidence: 'Weak/preliminary'
+        ood: 'Partial demo: scalar-DM single-top process',
+        fmEvidence: 'Weak/preliminary',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2012,7 +2004,6 @@ export const models = [
     rarity: 'epic',
     badges: [
       'D',
-      'LHC'
     ],
     short: 'Compact event-graph pretraining across SM processes.',
     arch: 'event GNN',
@@ -2029,8 +2020,9 @@ export const models = [
         'event pretraining'
       ],
       architecture: [
+        'fully connected event graph',
         'GNN',
-        'fully connected event graph'
+        'multiclass pretraining'
       ],
       domain: [
         'event-level',
@@ -2039,8 +2031,8 @@ export const models = [
       ],
       evidence: [
         'fine-tuning',
-        'time-to-target',
-        'multi-task transfer'
+        'full-simulation benchmark',
+        'time-to-target'
       ]
     },
     dataset: {
@@ -2084,41 +2076,41 @@ export const models = [
         task: 'Five generated binary classification tasks',
         dataset: 'ttH gamma gamma CP, FCNC vs tHq, ttW vs ttt, stop+H vs ttH, WH vs ZH',
         metrics: 'accuracy and ROC AUC across 1e3 to 1e7 examples/class',
-        transfer: 'Yes',
-        ood: 'Partial: unseen processes',
-        fmEvidence: 'Moderate/good'
+        ood: 'Yes: downstream processes absent from SM pretraining mix',
+        fmEvidence: 'Moderate/good',
+        realData: 'No'
       },
       {
         task: 'ATLAS Open Data Higgs production',
         dataset: 'ATLAS Open Data Higgs diphoton production',
         metrics: 'accuracy/AUC',
-        transfer: 'Yes',
-        ood: 'Partial: open-data analysis context',
-        fmEvidence: 'Good'
+        ood: 'Yes: ATLAS Open Data downstream task',
+        fmEvidence: 'Good',
+        realData: 'No'
       },
       {
         task: 'ATLAS Open Data triboson',
         dataset: 'ATLAS Open Data triboson dataset',
         metrics: 'accuracy/AUC',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Good'
+        ood: 'Yes: ATLAS Open Data downstream task',
+        fmEvidence: 'Good',
+        realData: 'No'
       },
       {
         task: 'CKA interpretability',
         dataset: 'downstream fine-tuned PECM models',
         metrics: 'layer adaptation similarity',
-        transfer: 'Yes',
         ood: 'No',
-        fmEvidence: 'Supporting evidence'
+        fmEvidence: 'Supporting evidence',
+        realData: 'No'
       },
       {
         task: 'Time-to-target',
         dataset: 'downstream PECM task suite',
         metrics: 'compute/time amortization estimates',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Supporting practical FM value'
+        ood: 'Partial: downstream task suite includes OOD tasks',
+        fmEvidence: 'Supporting practical FM value',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2138,8 +2130,7 @@ export const models = [
     color: '#a78bfa',
     rarity: 'epic',
     badges: [
-      'G',
-      'diffusion'
+      'G'
     ],
     short: 'Heavy-ion point-cloud diffusion surrogate, toward FM.',
     arch: 'point-cloud diffusion',
@@ -2157,9 +2148,9 @@ export const models = [
         'toward FM'
       ],
       architecture: [
+        'HEIDi',
         'point-cloud diffusion',
-        'normalizing flow',
-        'HEIDi'
+        'normalizing flow'
       ],
       domain: [
         'heavy-ion',
@@ -2167,6 +2158,7 @@ export const models = [
         'event generation'
       ],
       evidence: [
+        'generative validation',
         'centrality interpolation',
         'speedup'
       ]
@@ -2212,25 +2204,25 @@ export const models = [
         task: 'Generated-vs-UrQMD validation',
         dataset: 'UrQMD Au-Au events',
         metrics: 'multiplicities, rapidity, pT spectra, momentum components, net charge, correlations',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Partial: generative surrogate validation'
+        fmEvidence: 'Partial: generative surrogate validation',
+        realData: 'No'
       },
       {
         task: 'Centrality interpolation',
         dataset: 'conditional UrQMD b=1,3,5 fm training; b=4 fm test',
         metrics: 'observable agreement at unseen impact parameter',
-        transfer: 'No downstream transfer',
-        ood: 'Partial: parameter interpolation',
-        fmEvidence: 'Moderate for conditional simulation'
+        ood: 'Partial: impact-parameter interpolation within UrQMD',
+        fmEvidence: 'Moderate for conditional simulation',
+        realData: 'No'
       },
       {
         task: 'Generation speed',
         dataset: 'tested UrQMD setup',
         metrics: '~30 ms/event on A100 versus ~3 s/event UrQMD cascade',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Utility evidence, not broad FM'
+        fmEvidence: 'Utility evidence, not broad FM',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2250,8 +2242,7 @@ export const models = [
     color: '#86efac',
     rarity: 'rare',
     badges: [
-      'D',
-      'retrieval'
+      'D'
     ],
     short: 'Theory-space SMEFT representation demonstrator.',
     arch: 'MLP contrastive encoder',
@@ -2267,8 +2258,7 @@ export const models = [
         'theory representation'
       ],
       architecture: [
-        'MLP',
-        'contrastive',
+        'MLP contrastive encoder',
         'Dirichlet prior'
       ],
       domain: [
@@ -2277,9 +2267,9 @@ export const models = [
         'theory-level'
       ],
       evidence: [
-        'retrieval',
         'uncertainty',
-        'no detector data'
+        'retrieval',
+        'demonstrator'
       ]
     },
     dataset: {
@@ -2323,25 +2313,25 @@ export const models = [
         task: 'Latent geometry check',
         dataset: '100 SMEFT universes with replicas',
         metrics: 'alignment of latent directions with SMEFT shape distortions',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Demonstrator support'
+        fmEvidence: 'Demonstrator support',
+        realData: 'No'
       },
       {
         task: 'Classification with uncertainty',
         dataset: 'SMEFT universe replicas',
         metrics: 'Dirichlet-prior entropy and mutual information',
-        transfer: 'No',
-        ood: 'Partial: anomaly/OOD-style behavior',
-        fmEvidence: 'Demonstrator only'
+        ood: 'Partial: anomaly/OOD-style uncertainty behavior',
+        fmEvidence: 'Demonstrator only',
+        realData: 'No'
       },
       {
         task: 'Retrieval',
         dataset: 'SMEFT universes near SM uncertainty contours',
         metrics: 'nearest-neighbor universes within 1, 3, and 6 sigma regions',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Conceptual reusable-embedding evidence'
+        fmEvidence: 'Conceptual reusable-embedding evidence',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2362,10 +2352,10 @@ export const models = [
     rarity: 'legendary',
     featured: true,
     badges: [
-      'R',
       'G',
       'D',
-      'SSL'
+      'SSL',
+      'R'
     ],
     short: 'Event-level FM for discriminative and generative analysis tasks.',
     arch: 'Point-Edge Transformer',
@@ -2383,7 +2373,8 @@ export const models = [
       architecture: [
         'Point-Edge Transformer',
         'masked diffusion',
-        'multi-head'
+        'assignment',
+        'segmentation'
       ],
       domain: [
         'LHC events',
@@ -2391,10 +2382,9 @@ export const models = [
         'real collision data'
       ],
       evidence: [
-        'transfer',
-        'OOD',
+        'real-data benchmark',
         'systematics robustness',
-        'public data'
+        'OOD downstream tasks'
       ]
     },
     dataset: {
@@ -2438,41 +2428,41 @@ export const models = [
         task: 'Heavy scalar X->YH_SM->bbWW* search',
         dataset: 'CMS Open Data simulation grid',
         metrics: 'maximum SIC; individual mass-point and parameterized training',
-        transfer: 'Yes: Delphes pretraining to CMS full simulation',
-        ood: 'Yes: downstream processes absent from pretraining',
-        fmEvidence: 'Strong'
+        ood: 'Yes: CMS full-sim Open Data process grid absent from Delphes pretraining',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'Exotic Higgs H_SM->aa->4b',
         dataset: 'QCD backgrounds and signal samples',
         metrics: 'SIC and pairing efficiency; EveNet-Full ~4.1 SIC vs scratch 1.6 and SPANet 1.4',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strong'
+        ood: 'Yes: exotic Higgs downstream process absent from pretraining',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'Dileptonic ttbar quantum correlation',
         dataset: 'ttbar downstream sample',
         metrics: 'precision on D and lepton-quark pairing efficiency',
-        transfer: 'Yes',
-        ood: 'Partial',
-        fmEvidence: 'Strong'
+        ood: 'Partial: CMS full-sim downstream task; ttbar overlaps pretraining process family',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'DoubleMuon anomaly detection / Upsilon rediscovery',
         dataset: 'CMS Open Data DoubleMuon 2016 real collision data',
         metrics: 'median l-reweighted significance; calibrated EveNet-Full ~7.6 sigma vs CATHODE 6.4 sigma',
-        transfer: 'Yes',
-        ood: 'Yes: real collision data',
-        fmEvidence: 'Strong'
+        ood: 'Yes: real CMS DoubleMuon collision data',
+        fmEvidence: 'Strong',
+        realData: 'Yes: CMS Open Data DoubleMuon 2016'
       },
       {
         task: 'Systematics robustness',
         dataset: 'JES and soft-MET variations',
         metrics: 'stability under variations without retraining',
-        transfer: 'Yes',
-        ood: 'Yes: systematic shifts',
-        fmEvidence: 'Strong supporting evidence'
+        ood: 'Partial: systematic variations, not a new process/dataset',
+        fmEvidence: 'Strong supporting evidence',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2492,8 +2482,7 @@ export const models = [
     color: '#fcd34d',
     rarity: 'epic',
     badges: [
-      'D',
-      'transfer'
+      'D'
     ],
     short: 'OmniLearned jet priors transferred to MINERvA neutrino tasks.',
     arch: 'PET2 transfer',
@@ -2509,18 +2498,18 @@ export const models = [
         'derivative FM use'
       ],
       architecture: [
-        'OmniLearned PET2',
-        'point-global transformer'
+        'PET2',
+        'point-global transformer baselines'
       ],
       domain: [
-        'MINERvA',
+        'MINERvA Open Data',
         'neutrino',
         'scintillator calorimeter'
       ],
       evidence: [
-        'transfer',
-        'OOD domain shift',
-        'Open Data'
+        'available-energy regression',
+        'pion final states',
+        'cross-domain OOD'
       ]
     },
     dataset: {
@@ -2564,41 +2553,41 @@ export const models = [
         task: 'Available hadronic energy regression',
         dataset: 'MINERvA playlists 1A/1B simulation',
         metrics: 'Smooth L1 loss, IQR and MPV of residual ratio versus q3',
-        transfer: 'Yes: OmniLearned to MINERvA',
-        ood: 'Yes: collider jets to neutrino interactions',
-        fmEvidence: 'Strong cross-domain transfer'
+        ood: 'Yes: collider jets to MINERvA neutrino interactions',
+        fmEvidence: 'Strong cross-domain transfer',
+        realData: 'No'
       },
       {
         task: 'CC1pi+/- tagging',
         dataset: 'MINERvA pion final-state labels',
         metrics: 'AUPRC, AUROC, TPR at fixed FPR, binned by pion energy/angle',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strong'
+        ood: 'Yes: collider jets to MINERvA neutrino interactions',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'CCNpi+/- tagging',
         dataset: 'MINERvA',
         metrics: 'AUPRC, AUROC, TPR at fixed FPR, binned by W',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strong'
+        ood: 'Yes: collider jets to MINERvA neutrino interactions',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'CC1pi0 tagging',
         dataset: 'MINERvA',
         metrics: 'AUPRC, AUROC, TPR at fixed FPR, binned by pion kinematics',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strong'
+        ood: 'Yes: collider jets to MINERvA neutrino interactions',
+        fmEvidence: 'Strong',
+        realData: 'No'
       },
       {
         task: 'Compute efficiency',
         dataset: 'MINERvA validation tasks',
         metrics: 'validation loss versus FLOPs and training steps',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Supporting foundation-model utility'
+        ood: 'Yes: compute study on MINERvA downstream tasks',
+        fmEvidence: 'Supporting foundation-model utility',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2618,8 +2607,7 @@ export const models = [
     color: '#fde68a',
     rarity: 'epic',
     badges: [
-      'D',
-      'transfer'
+      'D'
     ],
     short: 'Jet-pretrained PET adapted to cosmological halo point clouds.',
     arch: 'OmniLearned transfer',
@@ -2636,16 +2624,18 @@ export const models = [
       ],
       architecture: [
         'OmniLearned PET',
-        'adapted input encoder'
+        'geometric pairwise features'
       ],
       domain: [
         'cosmology',
-        'halo point clouds',
-        'CosmoBench'
+        'CosmoBench',
+        'CAMELS-SAM',
+        'Quijote'
       ],
       evidence: [
-        'cross-domain transfer',
-        'low-data gains'
+        'parameter regression',
+        'velocity prediction',
+        'far-transfer OOD'
       ]
     },
     dataset: {
@@ -2689,41 +2679,41 @@ export const models = [
         task: 'CAMELS-SAM parameter regression',
         dataset: 'CAMELS-SAM',
         metrics: 'R2 for Omega_m and sigma_8; 0.87/0.92 vs scratch 0.83/0.89',
-        transfer: 'Yes: jets to cosmology',
-        ood: 'Yes: far domain shift',
-        fmEvidence: 'Moderate far-transfer support'
+        ood: 'Yes: jets to cosmology simulation domain',
+        fmEvidence: 'Moderate far-transfer support',
+        realData: 'No'
       },
       {
         task: 'CAMELS-SAM halo velocity prediction',
         dataset: 'CAMELS-SAM',
         metrics: 'R2_v; 0.301 vs scratch 0.299 and GNN 0.2865',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Partial/modest'
+        ood: 'Yes: jets to cosmology simulation domain',
+        fmEvidence: 'Partial/modest',
+        realData: 'No'
       },
       {
         task: 'Quijote parameter regression',
         dataset: 'Quijote',
         metrics: 'R2; 0.849/0.871 vs scratch 0.838/0.868',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Moderate'
+        ood: 'Yes: jets to cosmology simulation domain',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Quijote halo velocity prediction',
         dataset: 'Quijote',
         metrics: 'R2_v 0.471 vs scratch 0.470 and LLS 0.4347',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Partial/modest'
+        ood: 'Yes: jets to cosmology simulation domain',
+        fmEvidence: 'Partial/modest',
+        realData: 'No'
       },
       {
         task: 'Data efficiency',
         dataset: 'CAMELS-SAM and Quijote simulation subsets',
         metrics: 'performance versus number of simulations',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Moderate in low-data regimes'
+        ood: 'Yes: data-efficiency study in cosmology domain',
+        fmEvidence: 'Moderate in low-data regimes',
+        realData: 'No'
       }
     ],
     pretrainingResources: {
@@ -2743,8 +2733,7 @@ export const models = [
     color: '#facc15',
     rarity: 'epic',
     badges: [
-      'D',
-      'transfer'
+      'D'
     ],
     short: 'Jet-pretrained PET adapted to molecular energy/force prediction.',
     arch: 'OmniLearned PET transfer',
@@ -2760,17 +2749,18 @@ export const models = [
         'derivative FM use'
       ],
       architecture: [
-        'Point-Edge Transformer',
+        'OmniLearned PET',
         'LoRA',
         'full fine-tuning',
-        'equivariance'
+        'conservative forces'
       ],
       domain: [
         'molecular dynamics',
-        'MLIP',
-        'energy/force regression'
+        'OMoL25',
+        'MLIP'
       ],
       evidence: [
+        'energy/force regression',
         'low-data transfer',
         'A100 inference'
       ]
@@ -2816,49 +2806,49 @@ export const models = [
         task: 'Energy and force regression',
         dataset: 'Val-Comp',
         metrics: 'MAE in meV/atom and meV/A',
-        transfer: 'Yes: jets to molecules',
-        ood: 'Yes: far domain shift',
-        fmEvidence: 'Moderate far-transfer support'
+        ood: 'Yes: jets to molecular-potential domain',
+        fmEvidence: 'Moderate far-transfer support',
+        realData: 'No'
       },
       {
         task: 'oMol-4M full-data comparison',
         dataset: 'oMol-4M',
         metrics: 'energy/force MAE versus eSEN, AllScAIP, Transformer-1B, TransIP',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Partial: pretrained advantage reduced with enough data'
+        ood: 'Yes: jets to molecular-potential domain',
+        fmEvidence: 'Partial: pretrained advantage reduced with enough data',
+        realData: 'No'
       },
       {
         task: 'oMol-100M/140M scaling',
         dataset: 'large oMol training sets',
         metrics: 'energy/force MAE versus GNN/all-to-all transformer baselines',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Partial/moderate'
+        ood: 'Yes: jets to molecular-potential domain',
+        fmEvidence: 'Partial/moderate',
+        realData: 'No'
       },
       {
         task: '100k low-data subset',
         dataset: 'oMol 100k subset',
         metrics: 'energy/force MAE improvements for small/medium direct and conservative variants',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Strongest support'
+        ood: 'Yes: jets to molecular-potential domain',
+        fmEvidence: 'Strongest support',
+        realData: 'No'
       },
       {
         task: 'Low-compute two-pass training',
         dataset: 'oMol-4M two-pass setup',
         metrics: 'energy/force MAE gains, especially OmniMol-m-d',
-        transfer: 'Yes',
-        ood: 'Yes',
-        fmEvidence: 'Moderate'
+        ood: 'Yes: low-compute study in molecular domain',
+        fmEvidence: 'Moderate',
+        realData: 'No'
       },
       {
         task: 'Inference speed',
         dataset: 'A100 O(100)-atom systems',
         metrics: '~3x faster than comparable GNN baselines with moderate error tradeoff',
-        transfer: 'No',
         ood: 'No',
-        fmEvidence: 'Utility evidence'
+        fmEvidence: 'Utility evidence',
+        realData: 'No'
       }
     ],
     pretrainingResources: {

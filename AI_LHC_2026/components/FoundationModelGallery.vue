@@ -15,7 +15,7 @@
         <span><b class="legend-d">D</b> discriminative</span>
         <span><b class="legend-g">G</b> generative</span>
         <span><b class="legend-ssl">SSL</b> self-supervised</span>
-        <span><b class="legend-real">R</b> real / public data</span>
+        <span><b class="legend-real">R</b> real-data benchmark</span>
       </div>
     </div>
 

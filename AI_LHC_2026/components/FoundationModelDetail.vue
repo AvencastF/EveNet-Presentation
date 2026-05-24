@@ -129,8 +129,8 @@
                       <th>Task</th>
                       <th>Dataset</th>
                       <th>Metric</th>
-                      <th>Transfer?</th>
                       <th>OOD?</th>
+                      <th>Real data?</th>
                       <th>FM evidence</th>
                     </tr>
                   </thead>
@@ -143,13 +143,13 @@
                       <td><MathText :text="valueText(benchmark.dataset)" /></td>
                       <td><MathText :text="valueText(benchmark.metrics)" /></td>
                       <td>
-                        <span class="status-chip" :class="statusClass(benchmark.transfer)">
-                          {{ compactStatus(benchmark.transfer) }}
+                        <span class="status-chip" :class="statusClass(benchmark.ood)">
+                          {{ compactStatus(benchmark.ood) }}
                         </span>
                       </td>
                       <td>
-                        <span class="status-chip" :class="statusClass(benchmark.ood)">
-                          {{ compactStatus(benchmark.ood) }}
+                        <span class="status-chip" :class="statusClass(benchmark.realData)">
+                          {{ compactStatus(benchmark.realData) }}
                         </span>
                       </td>
                       <td><MathText :text="valueText(benchmark.fmEvidence)" /></td>
