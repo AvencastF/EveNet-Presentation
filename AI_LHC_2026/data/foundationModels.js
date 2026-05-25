@@ -60,7 +60,7 @@ export const models = [
     ],
     short: 'Self-distilled LArTPC point-cloud representations.',
     arch: 'Point Transformer V3',
-    title: 'Self-distillation of reusable sensor-level representations for HEP',
+    title: 'Panda: Self-distillation of Reusable Sensor-level Representations for High Energy Physics',
     classification: 'Detector-level foundation-style SSL; supported within one LArTPC domain.',
     fmEvidence: {
       level: 'Moderate',
@@ -126,7 +126,7 @@ export const models = [
       {
         task: 'Semantic segmentation',
         dataset: 'PILArNet-M',
-        metrics: 'macro/per-class F1',
+        metrics: 'mean F1 across label fractions; PTK+FTK reports 85.2/93.7/96.4/97.7/98.8 for 0.01/0.1/1/10/100% labels',
         ood: 'No',
         fmEvidence: 'Moderate: reusable within same detector corpus',
         realData: 'No'
@@ -151,10 +151,10 @@ export const models = [
     pretrainingResources: {
       hardware: 'A100 40GB GPUs',
       gpu: '4 A100 for pretraining; 4 A100 semantic and 8 A100 panoptic fine-tuning',
-      trainingTime: 'Not specified in the paper/project.',
+      trainingTime: '10M event-samples for pretraining; 20M event-samples for fine-tuning',
       batchSize: '48',
-      optimizer: 'Not specified in the paper/project.',
-      distributedStrategy: 'Not specified in the paper/project.'
+      optimizer: 'AdamW, betas 0.9/0.999, base LR 2.6e-3, 5% warmup + cosine decay, weight decay 0.04->0.20 during pretraining',
+      distributedStrategy: 'data-parallel multi-A100 training; exact framework not specified'
     }
   },
   {
@@ -170,8 +170,7 @@ export const models = [
     ],
     short: 'FASERCal MAE+Rel pretraining with transfer tests.',
     arch: 'sparse ViT + Perceiver-IO',
-    title: 'Foundation-style models for energy-frontier heterogeneous neutrino detectors',
-    summarizedTitle: true,
+    title: 'Towards foundation-style models for energy-frontier heterogeneous neutrino detectors via self-supervised pre-training',
     classification: 'Detector foundation-style SSL with cross-dataset downstream transfer.',
     fmEvidence: {
       level: 'Moderate',
@@ -202,8 +201,8 @@ export const models = [
       type: 'custom simulation / Geant4-full detector concept',
       generator: 'GENIE v3.04.00 neutrino interactions; PYTHIA8 tau/charm decays; Geant4 detector propagation',
       size: '1,118,058 nominal interactions; 108,317 enriched nu_tau CC events; 85/5/10 split',
-      public: 'Code/framework public; generated training dataset link not specified',
-      link: 'https://github.com/rubbiaa/FASER',
+      public: 'Code/framework public; generated FASERCal training dataset link not specified',
+      link: 'https://github.com/saulam/faserDL; https://github.com/rubbiaa/FASER',
       multipleDatasets: 'Yes for evaluation: plastic scintillator benchmark and PILArNet 768^3 release',
       mixedSource: 'Pretraining on FASERCal only; cross-domain evidence is downstream transfer'
     },
@@ -238,7 +237,7 @@ export const models = [
       {
         task: 'Six-way neutrino flavor classification',
         dataset: 'FASERCal simulated interactions',
-        metrics: 'AUROC, confusion, purity, efficiency, FOM',
+        metrics: 'AUROC scratch -> MAE+Rel: nu_e CC 0.968->0.985, nu_mu CC 0.909->0.958, NC 0.885->0.947, nu_tau had 0.902->0.944, nu_tau e 0.892->0.921, nu_tau mu 0.801->0.835',
         ood: 'No',
         fmEvidence: 'Moderate: source-domain downstream reuse',
         realData: 'No'
@@ -246,7 +245,7 @@ export const models = [
       {
         task: 'Charm category classification',
         dataset: 'FASERCal charm samples',
-        metrics: 'AUROC and class efficiencies',
+        metrics: 'charm->mu AUROC 0.832->0.891 and FOM 6.97->7.90; charm->had AUROC 0.792->0.877 and FOM 27.10->37.74; charm->e AUROC 0.746->0.809 and FOM 1.75->2.20',
         ood: 'No',
         fmEvidence: 'Moderate: additional downstream task',
         realData: 'No'
@@ -281,8 +280,8 @@ export const models = [
       gpu: '8 GH200 for pretraining; 1 H100 for fine-tuning/scratch',
       trainingTime: '400 MAE epochs + 100 MAE+Rel epochs',
       batchSize: '512/GPU pretraining; 1024 fine-tuning',
-      optimizer: 'Not specified in the paper/project.',
-      distributedStrategy: 'Not specified in the paper/project.'
+      optimizer: 'Pretraining AdamW LR 1e-4, betas 0.9/0.95, weight decay 0.05, 40 warmup epochs + cosine; fine-tuning AdamW LR 5e-4 pretrained or 1e-3 scratch',
+      distributedStrategy: '2 GH200 nodes for pretraining; single H100 fine-tuning/scratch'
     }
   },
   {
@@ -297,8 +296,7 @@ export const models = [
     ],
     short: 'PEFT transfer for generative calorimeter showers.',
     arch: 'autoregressive MoE',
-    title: 'Generalizable foundation models for calorimetry via MoE and PEFT',
-    summarizedTitle: true,
+    title: 'Generalizable Foundation Models for Calorimetry via Mixtures-of-Experts and Parameter Efficient Fine Tuning',
     classification: 'Generative fast-simulation foundation-style model; not a regression downstream model.',
     fmEvidence: {
       level: 'Moderate',
@@ -557,7 +555,7 @@ export const models = [
       ]
     },
     dataset: {
-      type: 'Geant4/full simulation / private-internal style benchmark',
+      type: 'Geant4/full simulation / sPHENIX TPC open benchmark',
       generator: 'PYTHIA 8.307 Detroit tune plus full Geant4 sPHENIX geometry, field, electronics, noise, gain, and zero suppression',
       size: '>11M p+p events; mean ~856 spacepoints and 15.6 tracks/event',
       public: 'Paper calls it an open benchmark; direct official dataset URL not specified',
@@ -596,7 +594,7 @@ export const models = [
       {
         task: 'Model/data/compute scaling',
         dataset: 'sPHENIX TPC p+p full simulation',
-        metrics: 'scaling curves over model, data, and compute',
+        metrics: 'six model sizes 0.34M/1.3M/5.3M/21M/84M/188M trained with 1/1/4/8/24/64 GPUs for roughly 10/12/20/32/50/72 hours',
         ood: 'No',
         fmEvidence: 'Supporting scaling evidence',
         realData: 'No'
@@ -604,7 +602,7 @@ export const models = [
       {
         task: 'Track finding and pipeline comparison',
         dataset: 'sPHENIX TPC downstream labels',
-        metrics: 'ARI, efficiency, purity, plus comparison with official sPHENIX-style reconstruction selections',
+        metrics: 'main Table 2: FM4NPP(m6) ARI 0.9448, efficiency 96.08%, purity 93.08%; official-pipeline high-pT long-track efficiency 94.6% vs model 99.6%',
         ood: 'No',
         fmEvidence: 'Strong within-detector transfer',
         realData: 'No'
@@ -612,7 +610,7 @@ export const models = [
       {
         task: 'PID',
         dataset: 'sPHENIX TPC labels',
-        metrics: 'accuracy, macro recall, precision',
+        metrics: 'main Table 2 reports accuracy 0.9039, macro recall 0.7652, precision 0.8782 for FM4NPP(m6)',
         ood: 'No',
         fmEvidence: 'Moderate: additional downstream task',
         realData: 'No'
@@ -620,7 +618,7 @@ export const models = [
       {
         task: 'Noise tagging',
         dataset: 'sPHENIX TPC labels',
-        metrics: 'accuracy, macro recall, precision',
+        metrics: 'main Table 2 reports accuracy 0.9713, macro recall 0.9367, precision 0.9190 for FM4NPP(m6)',
         ood: 'No',
         fmEvidence: 'Moderate: additional downstream task',
         realData: 'No'
@@ -639,8 +637,8 @@ export const models = [
       gpu: 'largest model uses 64 GPUs',
       trainingTime: '~72 hours for largest model',
       batchSize: '256',
-      optimizer: 'AdamW',
-      distributedStrategy: 'Not specified in the paper/project.'
+      optimizer: 'AdamW, LR 2e-4, weight decay 0.01, 10k warmup, cosine decay, gradient clip 0.1',
+      distributedStrategy: '1-64 H100/A100 80GB GPUs depending on model size'
     }
   },
   {
@@ -656,8 +654,7 @@ export const models = [
     ],
     short: 'General VLM fine-tuned on LArTPC event-display pixel maps.',
     arch: 'Llama-3.2 Vision QLoRA',
-    title: 'Fine-tuning vision-language models for neutrino event analysis in HEP',
-    summarizedTitle: true,
+    title: 'Adapting Vision-Language Models for Neutrino Event Classification in High-Energy Physics',
     classification: 'General AI-to-HEP transfer study; not a HEP-native detector-pretrained FM.',
     fmEvidence: {
       level: 'Partial',
@@ -724,7 +721,7 @@ export const models = [
       {
         task: 'Nominal event classification',
         dataset: '512x512 simulated LArTPC event displays',
-        metrics: 'accuracy, precision, recall, AUC',
+        metrics: 'Llama-3.2 Vision reports accuracy/precision/recall 0.87 and AUC 0.96 on 512x512 displays',
         ood: 'No',
         fmEvidence: 'Partial: transfer evidence, not HEP-native FM',
         realData: 'No'
@@ -732,7 +729,7 @@ export const models = [
       {
         task: 'Baseline comparison',
         dataset: 'same event-display test set',
-        metrics: 'classification metrics versus CNN and fully fine-tuned ViT-h/14',
+        metrics: 'ViT-h/14 reports accuracy 0.86, precision 0.86, recall 0.85, AUC 0.96; CNN reports accuracy 0.80, precision 0.80, recall 0.79, AUC 0.94',
         ood: 'No',
         fmEvidence: 'Supporting evidence',
         realData: 'No'
@@ -740,7 +737,7 @@ export const models = [
       {
         task: 'Resolution-shift robustness',
         dataset: '512-to-256 downsampled OOD displays',
-        metrics: 'accuracy/precision/recall/AUC under downsampling',
+        metrics: '256x256 displays: Llama accuracy/precision/recall 0.85 and AUC 0.95; ViT accuracy/precision/recall 0.85 and AUC 0.96; CNN accuracy 0.43 and AUC 0.70',
         ood: 'Partial: image-resolution shift',
         fmEvidence: 'Moderate transfer robustness evidence',
         realData: 'No'
@@ -767,7 +764,7 @@ export const models = [
       gpu: '4 A6000',
       trainingTime: '~1 week',
       batchSize: '4/device with gradient accumulation 2',
-      optimizer: 'Not specified in the paper/project.',
+      optimizer: 'adamw_torch_fused, constant LR 2e-4, warmup ratio 0.03, max grad norm 0.3, one epoch',
       distributedStrategy: '4-bit BitsAndBytes QLoRA fine-tuning'
     }
   },
@@ -922,7 +919,7 @@ export const models = [
     ],
     short: 'Tokenized jet sequences for generation and low-label transfer.',
     arch: 'causal transformer',
-    title: 'The first cross-task foundation model for particle physics',
+    title: 'OmniJet-α: The first cross-task foundation model for particle physics',
     classification: 'Moderate jet FM evidence through autoregressive generation and low-label transfer.',
     fmEvidence: {
       level: 'Moderate',
@@ -1029,9 +1026,9 @@ export const models = [
     pretrainingResources: {
       hardware: 'Not specified in the paper/project.',
       gpu: 'Not specified in the paper/project.',
-      trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      trainingTime: 'Original OmniJet-alpha: 30 epochs for VQ-VAE and 30 epochs for transformer; later NTP/MPM study: 1M pretraining steps',
+      batchSize: 'Later NTP/MPM study: 1000, or 100 for <=10k-jet fine-tuning; original batch not specified',
+      optimizer: 'Original: Adam for VQ-VAE/backbone at LR 1e-3 and AdamW for classifiers at max LR 5e-3, weight decay 0.01; later study: Ranger at LR 1e-3',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -1289,9 +1286,9 @@ export const models = [
     pretrainingResources: {
       hardware: 'Not specified in the paper/project.',
       gpu: 'Not specified in the paper/project.',
-      trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      trainingTime: '1,000,000 pretraining steps',
+      batchSize: '1000',
+      optimizer: 'AdamW, max LR 1e-3, weight decay 1e-5, 50k warmup, exponential decay half-life 100k steps',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -1308,7 +1305,7 @@ export const models = [
     ],
     short: 'Focused event-token SSL for dileptonic ttbar.',
     arch: 'BERT-style transformer',
-    title: 'Foundation model for particle physics discovery',
+    title: 'Bumblebee: Foundation Model for Particle Physics Discovery',
     classification: 'Focused event-level prototype; useful but limited/moderate FM evidence.',
     fmEvidence: {
       level: 'Partial',
@@ -1408,7 +1405,7 @@ export const models = [
       gpu: '2 V100',
       trainingTime: '~10 epochs',
       batchSize: '16',
-      optimizer: 'Not specified in the paper/project.',
+      optimizer: 'Adam, betas 0.9/0.999, epsilon 1e-8, weight decay 1e-3, dropout 0.05, peak LR about 1e-4 with 9000-iteration warmup and linear decay',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -1425,7 +1422,7 @@ export const models = [
     ],
     short: 'Resimulation-pair contrastive pretraining for robust jets.',
     arch: 'DynamicEdgeConv SSL',
-    title: 'Re-simulation-based self-supervised learning for pretraining foundation models',
+    title: 'Re-Simulation-based Self-Supervised Learning for Pre-Training Physics Foundation Models',
     classification: 'Robust jet-representation SSL with strong systematic/OOD evidence in a narrow scope.',
     fmEvidence: {
       level: 'Moderate',
@@ -1522,10 +1519,10 @@ export const models = [
       }
     ],
     pretrainingResources: {
-      hardware: 'Not specified in the paper/project.',
+      hardware: 'MIT Satori and subMIT clusters; exact GPU model not specified',
       gpu: 'Not specified in the paper/project.',
       trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
+      batchSize: '100 nominal jets plus 100 resimulated/augmented jets per minibatch',
       optimizer: 'Not specified in the paper/project.',
       distributedStrategy: 'Not specified in the paper/project.'
     }
@@ -1573,8 +1570,8 @@ export const models = [
       type: 'mixed Delphes pretraining + full simulation downstream',
       generator: 'OmniJet-alpha JetClass Delphes pretraining; full-simulation/reconstruction tau downstream dataset',
       size: 'Downstream scans from ~10^3 to 10^6 jets; key examples ~10^4 jets',
-      public: 'Official downstream dataset link not specified',
-      link: 'Not specified in the paper/project.',
+      public: 'Yes: Fuτure dataset and software DOIs are provided',
+      link: 'https://doi.org/10.5281/zenodo.12664634; https://doi.org/10.5281/zenodo.15005034',
       multipleDatasets: 'Yes: JetClass pretraining plus full-simulation tau downstream dataset',
       mixedSource: 'Yes: cross-process, cross-granularity, and cross-fidelity transfer'
     },
@@ -1643,9 +1640,9 @@ export const models = [
     pretrainingResources: {
       hardware: 'Not specified in the paper/project.',
       gpu: 'Not specified in the paper/project.',
-      trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      trainingTime: 'Backbone retrained for 7 epochs on 20M JetClass q/g and t->bqq jets; downstream tau models trained 100 epochs',
+      batchSize: '4096 jets per downstream batch; backbone batch not specified',
+      optimizer: 'Ranger for VQ-VAE and backbone; downstream optimizer not specified',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -1662,7 +1659,7 @@ export const models = [
     ],
     short: 'Latent-prediction SSL for jets; partial evidence.',
     arch: 'JEPA SSL',
-    title: 'HEP-JEPA latent-prediction self-supervision for particle jets',
+    title: 'HEP-JEPA: A foundation model for collider physics using joint embedding predictive architecture',
     classification: 'JEPA / latent-prediction SSL demonstrator with partial foundation-model evidence.',
     fmEvidence: {
       level: 'Partial',
@@ -1729,7 +1726,7 @@ export const models = [
       {
         task: 'JetClass few-shot classification',
         dataset: 'JetClass label fractions',
-        metrics: 'macro accuracy versus label fraction',
+        metrics: 'macro accuracy scratch -> HEP-JEPA: 0.505->0.564 at 0.05% labels, 0.586->0.624 at 0.5%, 0.668->0.669 at 2%, 0.683->0.685 at 10%, 0.698->0.698 at 100%',
         ood: 'No',
         fmEvidence: 'Moderate only at low labels',
         realData: 'No'
@@ -1737,7 +1734,7 @@ export const models = [
       {
         task: 'Top tagging transfer',
         dataset: 'TQTR top-tagging dataset',
-        metrics: 'accuracy; below ParticleNet/ParT baselines',
+        metrics: 'accuracy: scratch 0.927, HEP-JEPA frozen 0.928, HEP-JEPA fine-tuned 0.929; ParticleNet 0.940, ParT 0.944',
         ood: 'Partial: related TQTR jet dataset shift',
         fmEvidence: 'Partial',
         realData: 'No'
@@ -1745,7 +1742,7 @@ export const models = [
       {
         task: 'Quark/gluon transfer',
         dataset: 'Pythia8 no-detector q/g dataset',
-        metrics: 'accuracy; modest gains over scratch, below ParticleNet/ParT',
+        metrics: 'accuracy: scratch 0.819, HEP-JEPA frozen 0.821, supervised frozen 0.823; ParticleNet 0.840, ParT 0.843',
         ood: 'Partial: no-detector Pythia q/g dataset shift',
         fmEvidence: 'Partial',
         realData: 'No'
@@ -1763,7 +1760,7 @@ export const models = [
       hardware: 'RTX 2080Ti GPUs',
       gpu: 'Not specified in the paper/project.',
       trainingTime: '~320 GPU-hours',
-      batchSize: 'Not specified in the paper/project.',
+      batchSize: 'effective batch size 2048',
       optimizer: 'Not specified in the paper/project.',
       distributedStrategy: 'Not specified in the paper/project.'
     }
@@ -1780,8 +1777,7 @@ export const models = [
     ],
     short: 'Fine-tuning pretrained jet backbones for analysis objectives.',
     arch: 'ParT + DeepSets',
-    title: 'Finetuning foundation models for joint analysis optimization',
-    summarizedTitle: true,
+    title: 'Finetuning Foundation Models for Joint Analysis Optimization',
     classification: 'Method support for FM adaptation; not a new standalone foundation model.',
     fmEvidence: {
       level: 'Partial',
@@ -1812,7 +1808,7 @@ export const models = [
       generator: 'ParT weights from JetClass; downstream CMS Open Data simulated G->HH and QCD/Xbb-style full simulation/reconstruction',
       size: 'Xbb pretraining ~22M jets; event-level study up to 10M simulated events with mass points',
       public: 'CMS Open Data samples and modified analysis tool referenced',
-      link: 'CMS Open Data simulation references in paper',
+      link: 'https://github.com/cms-opendata-analyses/HiggsToBBNtupleProducerTool',
       multipleDatasets: 'Yes: JetClass and CMS Open Data simulation',
       mixedSource: 'Yes: JetClass to CMS event-level HH analysis'
     },
@@ -1847,7 +1843,7 @@ export const models = [
       {
         task: 'G->HH->4b event classification',
         dataset: 'CMS Open Data simulated HH/QCD samples',
-        metrics: 'background rejection at 90% signal efficiency, AUC/SIC in appendix',
+        metrics: 'background rejection at 90% signal efficiency: S+HLF frozen 350±10, fine-tuned 550±20, scratch 540±10; V+HLF frozen 390±10, fine-tuned 640±40, scratch 540±50; V-only frozen 170±20, fine-tuned 680±20, scratch 590±10',
         ood: 'Partial: JetClass ParT to CMS Open Data simulation',
         fmEvidence: 'Partial: adaptation evidence',
         realData: 'No'
@@ -1855,7 +1851,7 @@ export const models = [
       {
         task: 'Low-data/domain adaptation',
         dataset: 'same event-level HH study with reduced data',
-        metrics: 'background rejection and data-efficiency curves',
+        metrics: 'data-efficiency factors for fine-tuning: S+HLF 53, V+HLF 67, V-only 14',
         ood: 'Partial: same CMS simulation downstream with reduced data',
         fmEvidence: 'Moderate support for fine-tuning FMs',
         realData: 'No'
@@ -1873,8 +1869,8 @@ export const models = [
       hardware: 'Not specified in the paper/project.',
       gpu: 'Not specified in the paper/project.',
       trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      batchSize: '512 for Xbb backbone pretraining; 256 for end-to-end event training',
+      optimizer: 'Lookahead(k=6, alpha=0.5) with RAdam betas 0.95/0.999, epsilon 1e-5 for backbone/full pipeline; Adam for frozen head-only training',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -1890,8 +1886,7 @@ export const models = [
     ],
     short: 'Early top-multiplicity event-transformer methodology.',
     arch: 'preliminary transformer',
-    title: 'A methodology for developing foundational transformer models in collider analysis',
-    summarizedTitle: true,
+    title: 'A Methodology for Developing Foundational Transformer Models in Collider Physics Analysis',
     classification: 'Preliminary methodology/prototype, not mature FM evidence.',
     fmEvidence: {
       level: 'Preliminary',
@@ -1972,7 +1967,7 @@ export const models = [
       {
         task: 'Top-count classification',
         dataset: 'zero- to four-top Delphes classes',
-        metrics: 'ROC AUC; best mean around 0.91-0.92',
+        metrics: 'mean one-vs-rest ROC AUC: Small_1h 0.9128, Small_5h 0.9121, Large_1h 0.9172, Large_5h 0.9169',
         ood: 'No',
         fmEvidence: 'Preliminary',
         realData: 'No'
@@ -1991,7 +1986,7 @@ export const models = [
       gpu: 'Not specified in the paper/project.',
       trainingTime: 'Not specified in the paper/project.',
       batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      optimizer: 'AdamW, LR 1e-4, no weight decay',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -2008,7 +2003,6 @@ export const models = [
     short: 'Compact event-graph pretraining across SM processes.',
     arch: 'event GNN',
     title: 'Pretrained Event Classification Model for High Energy Physics Analysis',
-    summarizedTitle: true,
     classification: 'Moderate-to-good event-level pretraining evidence with explicit downstream transfer.',
     fmEvidence: {
       level: 'Moderate',
@@ -2036,7 +2030,7 @@ export const models = [
       ]
     },
     dataset: {
-      type: 'Delphes fast simulation + ATLAS Open Data downstream',
+      type: 'Delphes fast simulation + ATLAS Open Data full-simulation MC downstream',
       generator: 'MadGraph@NLO 2.7.3 at NLO QCD; MadSpin; PYTHIA 8.235; Delphes 3.4.2 ATLAS fast simulation',
       size: '~120M pretraining events across 12 SM processes',
       public: 'ATLAS Open Data downstream samples public; generated pretraining sample publicness not specified',
@@ -2083,7 +2077,7 @@ export const models = [
       {
         task: 'ATLAS Open Data Higgs production',
         dataset: 'ATLAS Open Data Higgs diphoton production',
-        metrics: 'accuracy/AUC',
+        metrics: 'baseline 71.17% accuracy / 90.11% AUC; multiclass pretraining +0.35 accuracy points / +0.41 AUC points; multilabel pretraining -1.65 / -0.26',
         ood: 'Yes: ATLAS Open Data downstream task',
         fmEvidence: 'Good',
         realData: 'No'
@@ -2091,7 +2085,7 @@ export const models = [
       {
         task: 'ATLAS Open Data triboson',
         dataset: 'ATLAS Open Data triboson dataset',
-        metrics: 'accuracy/AUC',
+        metrics: 'baseline 54.10% accuracy / 73.90% AUC; multiclass pretraining +5.02 accuracy points / +3.12 AUC points; multilabel pretraining -8.21 / -6.05',
         ood: 'Yes: ATLAS Open Data downstream task',
         fmEvidence: 'Good',
         realData: 'No'
@@ -2114,11 +2108,11 @@ export const models = [
       }
     ],
     pretrainingResources: {
-      hardware: 'Not specified in the paper/project.',
-      gpu: 'Not specified in the paper/project.',
-      trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      hardware: 'NERSC Perlmutter; single A100 also used for 400 GPU-hour hyperparameter sweep',
+      gpu: 'A100 for hyperparameter sweep; Perlmutter for pretraining',
+      trainingTime: '45.5 GPU-hours for multiclass pretraining; 60 GPU-hours for multilabel pretraining',
+      batchSize: '1024',
+      optimizer: 'initial LR 1e-4 with 0.99 epoch decay; exact optimizer name not specified',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -2126,7 +2120,7 @@ export const models = [
     id: 'event-diffusion',
     name: 'Heavy-ion diffusion',
     initials: 'ED',
-    level: 'jet',
+    level: 'event',
     color: '#a78bfa',
     rarity: 'epic',
     badges: [
@@ -2134,8 +2128,7 @@ export const models = [
     ],
     short: 'Heavy-ion point-cloud diffusion surrogate, toward FM.',
     arch: 'point-cloud diffusion',
-    title: 'Towards foundation models for heavy-ion collision experiments',
-    summarizedTitle: true,
+    title: 'Toward a foundation model for heavy-ion collision experiments based on point-cloud diffusion',
     cardSourceLimit: 4,
     classification: 'Generative surrogate supported; broad foundation-model transfer not yet shown.',
     fmEvidence: {
@@ -2339,7 +2332,7 @@ export const models = [
       gpu: 'Not specified in the paper/project.',
       trainingTime: 'early stopping used; exact time not specified',
       batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Adam with very small learning rate',
+      optimizer: 'Adam, LR 1e-6',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -2359,7 +2352,7 @@ export const models = [
     ],
     short: 'Event-level FM for discriminative and generative analysis tasks.',
     arch: 'Point-Edge Transformer',
-    title: 'A foundation model for particle collision data analysis',
+    title: 'EveNet: A Foundation Model for Particle Collision Data Analysis',
     classification: 'Strong event-level analysis foundation model with realistic downstream transfer caveats.',
     fmEvidence: {
       level: 'Strong',
@@ -2486,7 +2479,7 @@ export const models = [
     ],
     short: 'OmniLearned jet priors transferred to MINERvA neutrino tasks.',
     arch: 'PET2 transfer',
-    title: 'Cross-domain transfer with particle physics foundation models',
+    title: 'Cross-Domain Transfer with Particle Physics Foundation Models: From Jets to Neutrino Interactions',
     classification: 'Cross-domain transfer evidence; not a standalone neutrino-pretrained FM.',
     fmEvidence: {
       level: 'Moderate',
@@ -2584,7 +2577,7 @@ export const models = [
       {
         task: 'Compute efficiency',
         dataset: 'MINERvA validation tasks',
-        metrics: 'validation loss versus FLOPs and training steps',
+        metrics: 'validation loss versus FLOPs and steps; pretrained OmniLearned-small reaches Transformer-small validation loss in about 45% fewer steps for classification and 50% fewer steps for regression',
         ood: 'Yes: compute study on MINERvA downstream tasks',
         fmEvidence: 'Supporting foundation-model utility',
         realData: 'No'
@@ -2611,7 +2604,7 @@ export const models = [
     ],
     short: 'Jet-pretrained PET adapted to cosmological halo point clouds.',
     arch: 'OmniLearned transfer',
-    title: 'Transferring particle physics knowledge across the cosmos',
+    title: 'OmniCosmos: Transferring Particle Physics Knowledge Across the Cosmos',
     classification: 'Far-transfer evidence for point-cloud priors beyond collider physics.',
     fmEvidence: {
       level: 'Moderate',
@@ -2717,11 +2710,11 @@ export const models = [
       }
     ],
     pretrainingResources: {
-      hardware: 'Not specified in the paper/project.',
-      gpu: 'Not specified in the paper/project.',
-      trainingTime: 'Not specified in the paper/project.',
-      batchSize: 'Not specified in the paper/project.',
-      optimizer: 'Not specified in the paper/project.',
+      hardware: 'OmniLearned base trained on NERSC Perlmutter; OmniCosmos fine-tuning hardware not specified',
+      gpu: 'OmniLearned base: 32-512 A100 GPUs; OmniCosmos fine-tuning GPU count not specified',
+      trainingTime: 'OmniLearned base: three passes over the 1B-jet corpus; OmniCosmos fine-tuning time not specified',
+      batchSize: 'OmniLearned base: global batch 4096; OmniCosmos batch size scanned but final value not specified',
+      optimizer: 'OmniLearned base uses Lion; OmniCosmos optimizer not specified',
       distributedStrategy: 'Not specified in the paper/project.'
     }
   },
@@ -2737,7 +2730,7 @@ export const models = [
     ],
     short: 'Jet-pretrained PET adapted to molecular energy/force prediction.',
     arch: 'OmniLearned PET transfer',
-    title: 'Transferring particle physics knowledge to molecular dynamics',
+    title: 'OmniMol: Transferring Particle Physics Knowledge to Molecular Dynamics with Point-Edge Transformers',
     classification: 'Far-transfer evidence for point-edge priors; benefits strongest in low-data or low-compute settings.',
     fmEvidence: {
       level: 'Moderate',
@@ -2790,7 +2783,7 @@ export const models = [
       baseModel: 'OmniLearned jet-pretrained PET',
       structure: 'Molecular input encoders, bias MLP, per-atom force head, per-atom energy correction head, optional conservative/equivariant variant',
       objective: 'Energy and force regression for molecular learned interatomic potentials',
-      parameters: 'small/medium/large variants; exact counts not summarized in report',
+      parameters: 'small/medium/large direct variants reported as 2.2M/43.3M/306.3M parameters',
       trainableFrozen: 'LoRA rank 96 adapters freeze base body; full fine-tuning trains matching weights',
       fineTuning: 'LoRA or full fine-tuning on oMol training subsets; conservative variant derives forces from energy gradients'
     },
@@ -2805,7 +2798,7 @@ export const models = [
       {
         task: 'Energy and force regression',
         dataset: 'Val-Comp',
-        metrics: 'MAE in meV/atom and meV/A',
+        metrics: 'oMol-4M/Val-Comp MAE: OmniMol-m-d 1.341 meV/atom and 15.687 meV/A; OmniMol-l-d not reported in this table; eSEN-md-d 1.32/6.78 and AllScAIP-md-ft-cons 0.90/7.67',
         ood: 'Yes: jets to molecular-potential domain',
         fmEvidence: 'Moderate far-transfer support',
         realData: 'No'
@@ -2813,7 +2806,7 @@ export const models = [
       {
         task: 'oMol-4M full-data comparison',
         dataset: 'oMol-4M',
-        metrics: 'energy/force MAE versus eSEN, AllScAIP, Transformer-1B, TransIP',
+        metrics: 'oMol-4M/Val-Comp: OmniMol-s-d 2.939/35.748, s-d-pt 3.018/34.938, m-d 1.341/15.687, m-d-pt 1.441/16.980 meV/atom and meV/A',
         ood: 'Yes: jets to molecular-potential domain',
         fmEvidence: 'Partial: pretrained advantage reduced with enough data',
         realData: 'No'
@@ -2821,7 +2814,7 @@ export const models = [
       {
         task: 'oMol-100M/140M scaling',
         dataset: 'large oMol training sets',
-        metrics: 'energy/force MAE versus GNN/all-to-all transformer baselines',
+        metrics: 'oMol-100M/140M: OmniMol-m-d 1.263/14.47 and OmniMol-l-d 1.04/13.59 versus eSEN-md-d 0.84/4.76 and AllScAIP-md-d 0.64/5.24',
         ood: 'Yes: jets to molecular-potential domain',
         fmEvidence: 'Partial/moderate',
         realData: 'No'
@@ -2829,7 +2822,7 @@ export const models = [
       {
         task: '100k low-data subset',
         dataset: 'oMol 100k subset',
-        metrics: 'energy/force MAE improvements for small/medium direct and conservative variants',
+        metrics: '100k oMol subset: pretraining advantage +12.3%/+19.5% for OmniMol-s-d and +29.4%/+26.9% for OmniMol-m-d on energy/force MAE',
         ood: 'Yes: jets to molecular-potential domain',
         fmEvidence: 'Strongest support',
         realData: 'No'
@@ -2837,7 +2830,7 @@ export const models = [
       {
         task: 'Low-compute two-pass training',
         dataset: 'oMol-4M two-pass setup',
-        metrics: 'energy/force MAE gains, especially OmniMol-m-d',
+        metrics: 'two-pass oMol-4M: OmniMol-m-d-pt 28.31/128.57 vs scratch 62.34/298.63 meV/atom and meV/A; reported advantage +54.6%/+56.9%',
         ood: 'Yes: low-compute study in molecular domain',
         fmEvidence: 'Moderate',
         realData: 'No'
@@ -2845,7 +2838,7 @@ export const models = [
       {
         task: 'Inference speed',
         dataset: 'A100 O(100)-atom systems',
-        metrics: '~3x faster than comparable GNN baselines with moderate error tradeoff',
+        metrics: 'one A100-40GB, O(100)-atom systems: OmniMol-m-d 9.861 ms / 184.00 atom-ns/day vs eSEN-md-d 34.199 ms / 53.05 and AllScAIP-md-d 28.289 ms / 64.14',
         ood: 'No',
         fmEvidence: 'Utility evidence',
         realData: 'No'
@@ -2856,7 +2849,7 @@ export const models = [
       gpu: '32/128/512 A100-40GB for small/medium/large',
       trainingTime: '100 passes for oMol-4M; 15 passes for oMol-100M/140M',
       batchSize: 'Not specified in the paper/project.',
-      optimizer: 'AdamW with OneCycle learning rate',
+      optimizer: 'AdamW with OneCycle LR; LR 1e-3/3e-4/1e-4 for small/medium/large, betas 0.95/0.99, weight decay 1e-4',
       distributedStrategy: 'large multi-GPU training'
     }
   }
