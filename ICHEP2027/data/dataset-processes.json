@@ -1,0 +1,14 @@
+{
+  "processes": [
+    { "name": "QCD", "percentage": 3.47 },
+    { "name": "tt", "percentage": 12.87 },
+    { "name": "ttW", "percentage": 11.41 },
+    { "name": "ttZ", "percentage": 10.27 },
+    { "name": "W+jets", "percentage": 8.90 },
+    { "name": "Z+jets", "percentage": 9.75 },
+    { "name": "WW", "percentage": 11.93 },
+    { "name": "ZZ", "percentage": 6.48 },
+    { "name": "WZ", "percentage": 12.16 },
+    { "name": "HWW", "percentage": 12.75 }
+  ]
+}
