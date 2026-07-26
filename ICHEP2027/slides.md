@@ -51,10 +51,6 @@ src: ./slides/downstream-overview.md
 ---
 
 ---
-src: ./slides/grid-study-intro.md
----
-
----
 src: ./slides/grid-study-results.md
 ---
 
@@ -68,14 +64,6 @@ src: ./slides/preference-transition.md
 
 ---
 src: ./slides/preference-generation.md
----
-
----
-src: ./slides/preference-top-mass.md
----
-
----
-src: ./slides/preference-unfolding.md
 ---
 
 

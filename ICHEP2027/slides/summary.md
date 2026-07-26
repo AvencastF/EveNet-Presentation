@@ -71,7 +71,7 @@ transition: fade
         </div>
         <div>
           <span class="sub-icon i-carbon:presentation-file"></span>
-          <p>Public showcase: <span text="[#f0abfc]">LEP Z → ττ</span> full spin density matrix and quantum effects at <a href="https://indi.to/T232V" target="_blank" rel="noopener" class="talk-link">CHEP</a>, later <a href="https://indi.to/FXBv7" target="_blank" rel="noopener" class="talk-link">ICHEP</a>.</p>
+          <p>Public showcase: <span text="[#f0abfc]">LEP Z → ττ</span> full spin density matrix and quantum effects at <a href="https://indi.to/T232V" target="_blank" rel="noopener" class="talk-link">CHEP</a>, <a href="https://indico.cern.ch/event/1574970/contributions/7093548/" target="_blank" rel="noopener" class="talk-link">BOOST</a> and <a href="https://indi.to/FXBv7" target="_blank" rel="noopener" class="talk-link">ICHEP</a>.</p>
         </div>
       </div>
     </div>

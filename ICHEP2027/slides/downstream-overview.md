@@ -26,7 +26,7 @@ import LaTeX from '../components/LaTeX.vue'
         </div>
       </div>
       <!-- Task Details - Fixed Height -->
-      <div class="text-xs text-white/80 space-y-2 mb-2 h-task-details overflow-y-auto">
+      <div class="text-xs text-white/80 space-y-1 mb-1 h-task-details overflow-y-auto">
         <div>
           <div class="flex items-center gap-2">
             <div i-carbon:api class="text-green-300 shrink-0" />
@@ -61,11 +61,11 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- Results Card (Click 1) -->
         <div v-click="1" class="w-full flex flex-col justify-center result-card-reveal">
             <!-- Title -->
-            <div class="text-[14px] text-green-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
+            <div class="text-[13px] text-green-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
               Precision on D [%]
             </div>
             <!-- Chart bars -->
-            <div class="space-y-1 result-bars-container">
+            <div class="space-y-0.5 result-bars-container">
               <!-- Reference Paper -->
               <div class="result-row">
                 <div class="result-name result-name-ref">Ref.</div>
@@ -81,6 +81,15 @@ import LaTeX from '../components/LaTeX.vue'
                 <div class="result-bar-container">
                   <div class="result-bar result-bar-scratch" style="width: 31.2%;">
                     <span class="result-bar-text result-bar-text-scratch">1.64</span>
+                  </div>
+                </div>
+              </div>
+              <!-- EveNet-Cls -->
+              <div class="result-row">
+                <div class="result-name result-name-cls">Cls</div>
+                <div class="result-bar-container">
+                  <div class="result-bar result-bar-cls" style="width: 32.1%;">
+                    <span class="result-bar-text result-bar-text-cls">1.69</span>
                   </div>
                 </div>
               </div>
@@ -111,7 +120,7 @@ import LaTeX from '../components/LaTeX.vue'
               </div>
             </div>
             <!-- Citation -->
-            <div class="text-[9px] text-green-300/90 mt-2 pt-1.5 border-t border-white/5">
+            <div class="result-citation text-[9px] text-green-300/90 mt-2 pt-1.5 border-t border-white/5">
               Ref.: <a href="https://doi.org/10.1140/epjc/s10052-022-10245-9" target="_blank" class="underline hover:text-green-200 transition-colors">Eur. Phys. J. C (2022) 82:285</a>
             </div>
         </div>
@@ -130,7 +139,7 @@ import LaTeX from '../components/LaTeX.vue'
         </div>
       </div>
       <!-- Task Details - Fixed Height -->
-      <div class="text-xs text-white/80 space-y-2 mb-2 h-task-details overflow-y-auto">
+      <div class="text-xs text-white/80 space-y-1 mb-1 h-task-details overflow-y-auto">
         <div>
           <div class="flex items-center gap-2">
             <div i-carbon:api class="text-amber-300 shrink-0" />
@@ -164,11 +173,11 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- Results Card (Click 1) -->
         <div v-click="1" class="w-full flex flex-col justify-center result-card-reveal">
             <!-- Title -->
-            <div class="text-[14px] text-amber-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
+            <div class="text-[13px] text-amber-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
               Max SIC
             </div>
             <!-- Chart bars -->
-            <div class="space-y-1 result-bars-container">
+            <div class="space-y-0.5 result-bars-container">
               <!-- Reference: SPANet CLS -->
               <div class="result-row">
                 <div class="result-name result-name-ref">SPANet</div>
@@ -184,6 +193,15 @@ import LaTeX from '../components/LaTeX.vue'
                 <div class="result-bar-container">
                   <div class="result-bar result-bar-scratch" style="width: 21.3%;">
                     <span class="result-bar-text result-bar-text-scratch">1.6</span>
+                  </div>
+                </div>
+              </div>
+              <!-- EveNet-Cls -->
+              <div class="result-row">
+                <div class="result-name result-name-cls">Cls</div>
+                <div class="result-bar-container">
+                  <div class="result-bar result-bar-cls" style="width: 52.7%;">
+                    <span class="result-bar-text result-bar-text-cls">4.0</span>
                   </div>
                 </div>
               </div>
@@ -214,7 +232,7 @@ import LaTeX from '../components/LaTeX.vue'
               </div>
             </div>
             <!-- Citation -->
-            <div class="text-[9px] text-amber-300/90 mt-2 pt-1.5 border-t border-white/5">
+            <div class="result-citation text-[9px] text-amber-300/90 mt-2 pt-1.5 border-t border-white/5">
               SPANet: <a href="https://www.nature.com/articles/s42005-024-01627-4" target="_blank" class="underline hover:text-amber-200 transition-colors">Commun Phys 7, 139 (2024)</a>
             </div>
         </div>
@@ -233,7 +251,7 @@ import LaTeX from '../components/LaTeX.vue'
         </div>
       </div>
       <!-- Task Details - Fixed Height -->
-      <div class="text-xs text-white/80 space-y-2 mb-2 h-task-details overflow-y-auto">
+      <div class="text-xs text-white/80 space-y-1 mb-1 h-task-details overflow-y-auto">
         <div>
           <div class="flex items-center gap-2">
             <div i-carbon:api class="text-orange-300 shrink-0" />
@@ -261,12 +279,43 @@ import LaTeX from '../components/LaTeX.vue'
           Full simulation with pile-up
         </div>
       </div>
-      <!-- Illustration Placeholder - Fixed Height -->
+      <!-- Grid-study summary (Click 1) -->
       <div class="pt-2 border-t border-white/10 h-illustration">
-        <!-- New Result Badge (Click 1) -->
-        <div v-click="1" class="h-full flex items-center justify-center result-card-reveal">
-          <div class="new-result-badge rounded-lg px-4 py-2 bg-gradient-to-r from-orange-600/30 to-orange-500/30 border-2 border-orange-400/50 shadow-[0_0_12px_rgba(251,146,60,0.4)]">
-            <div class="text-sm font-bold text-orange-200" style="font-variant: small-caps;">Details Later!</div>
+        <div v-click="1" class="h-full flex flex-col justify-start gap-1 result-card-reveal">
+          <div class="text-[13px] text-orange-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
+            Avg. SIC Δ vs XGBoost
+          </div>
+          <div class="grid-improvement-rows">
+            <div class="grid-improvement-row">
+              <span class="grid-improvement-name grid-xgb">XGBoost</span>
+              <span class="grid-improvement-track"><span class="grid-improvement-zero" /></span>
+              <span class="grid-improvement-value grid-xgb">baseline</span>
+            </div>
+            <div class="grid-improvement-row">
+              <span class="grid-improvement-name result-name-scratch">Scratch</span>
+              <span class="grid-improvement-track"><span class="grid-improvement-delta grid-improvement-negative grid-scratch-fill" style="width: 39.2%;" /></span>
+              <span class="grid-improvement-value result-bar-text-scratch">−38.4%</span>
+            </div>
+            <div class="grid-improvement-row">
+              <span class="grid-improvement-name result-name-ssl"><span class="gradient-animated" style="font-variant: small-caps;">SSL</span></span>
+              <span class="grid-improvement-track"><span class="grid-improvement-delta grid-improvement-negative grid-ssl-fill" style="width: 9.6%;" /></span>
+              <span class="grid-improvement-value result-bar-text-ssl">−9.4%</span>
+            </div>
+            <div class="grid-improvement-row">
+              <span class="grid-improvement-name grid-tabpfn">TabPFN</span>
+              <span class="grid-improvement-track"><span class="grid-improvement-delta grid-improvement-positive grid-tabpfn-fill" style="width: 14.0%;" /></span>
+              <span class="grid-improvement-value grid-tabpfn">+13.7%</span>
+            </div>
+            <div class="grid-improvement-row">
+              <span class="grid-improvement-name grid-cls">Cls</span>
+              <span class="grid-improvement-track"><span class="grid-improvement-delta grid-improvement-positive grid-cls-fill" style="width: 30.1%;" /></span>
+              <span class="grid-improvement-value grid-cls">+29.5%</span>
+            </div>
+            <div class="grid-improvement-row">
+              <span class="grid-improvement-name result-name-full"><span class="gradient-animated" style="font-variant: small-caps;">Full</span></span>
+              <span class="grid-improvement-track"><span class="grid-improvement-delta grid-improvement-positive grid-full-fill" style="width: 50%;" /></span>
+              <span class="grid-improvement-value result-bar-text-full">+49.0%</span>
+            </div>
           </div>
         </div>
       </div>
@@ -284,7 +333,7 @@ import LaTeX from '../components/LaTeX.vue'
         </div>
       </div>
       <!-- Task Details - Fixed Height -->
-      <div class="text-xs text-white/80 space-y-2 mb-2 h-task-details overflow-y-auto">
+      <div class="text-xs text-white/80 space-y-1 mb-1 h-task-details overflow-y-auto">
         <div>
           <div class="flex items-center gap-2">
             <div i-carbon:api class="text-rose-300 shrink-0" />
@@ -317,11 +366,11 @@ import LaTeX from '../components/LaTeX.vue'
         <!-- Results Card (Click 1) -->
         <div v-click="1" class="w-full flex flex-col justify-center result-card-reveal">
             <!-- Title -->
-            <div class="text-[14px] text-rose-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
+            <div class="text-[13px] text-rose-300 font-bold mb-1 flex items-center gap-0.1 mt--1">
               Observed Significance
             </div>
             <!-- Chart bars -->
-            <div class="space-y-1 result-bars-container">
+            <div class="space-y-0.5 result-bars-container">
               <!-- Reference -->
               <div class="result-row">
                 <div class="result-name result-name-ref">Ref.</div>
@@ -344,6 +393,15 @@ import LaTeX from '../components/LaTeX.vue'
                     <div class="result-error-tick result-error-tick-left"></div>
                     <div class="result-error-tick result-error-tick-right"></div>
                   </div> -->
+                </div>
+              </div>
+              <!-- EveNet-Cls -->
+              <div class="result-row">
+                <div class="result-name result-name-cls">Cls</div>
+                <div class="result-bar-container">
+                  <div class="result-bar result-bar-cls" style="width: 13.5%;">
+                    <span class="result-bar-text result-bar-text-cls ml-4">1.9</span>
+                  </div>
                 </div>
               </div>
               <!-- SSL -->
@@ -385,7 +443,7 @@ import LaTeX from '../components/LaTeX.vue'
               </div>
             </div>
             <!-- Citation -->
-            <div class="text-[9px] text-rose-300/90 mt-2 pt-1.5 border-t border-white/5">
+            <div class="result-citation text-[9px] text-rose-300/90 mt-2 pt-1.5 border-t border-white/5">
               Ref.: <a href="https://journals.aps.org/prl/abstract/10.1103/vvv3-5kkl" target="_blank" class="underline hover:text-rose-200 transition-colors">Phys. Rev. Lett. 135, 021902</a>
             </div>
         </div>
@@ -400,15 +458,15 @@ import LaTeX from '../components/LaTeX.vue'
 }
 
 .h-dataset-badge {
-  height: 1.75rem; /* 88px - equivalent to h-22 */
+  height: 1.5rem;
 }
 
 .h-task-details {
-  height: 9.5rem; /* 80px - equivalent to h-20 */
+  height: 8.8rem;
 }
 
 .h-illustration {
-  height: 8.9rem; /* 80px - equivalent to h-20 */
+  height: 10.0rem;
 }
 
 /* Unified result display styles - 3 column layout */
@@ -416,16 +474,126 @@ import LaTeX from '../components/LaTeX.vue'
   /* Container for all result rows */
 }
 
+.result-citation {
+  line-height: 1.15;
+}
+
+/* Signed mean SIC change for the grid-study comparison */
+.grid-improvement-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.24rem;
+}
+
+.grid-improvement-row {
+  display: grid;
+  grid-template-columns: 0.60fr 1fr 0.60fr;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 1rem;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.grid-improvement-name {
+  font-weight: 600;
+}
+
+.grid-improvement-value {
+  text-align: right;
+  font-weight: 650;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.grid-improvement-track {
+  position: relative;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+  overflow: hidden;
+}
+
+.grid-improvement-track::before,
+.grid-improvement-zero {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.42);
+  transform: translateX(-0.5px);
+}
+
+.grid-improvement-delta {
+  position: absolute;
+  top: 0.12rem;
+  bottom: 0.12rem;
+  border-radius: 999px;
+}
+
+.grid-improvement-positive {
+  left: 50%;
+}
+
+.grid-improvement-negative {
+  right: 50%;
+}
+
+.grid-xgb {
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.grid-scratch-fill {
+  background: rgba(34, 197, 94, 0.32);
+  box-shadow: 0 0 5px rgba(34, 197, 94, 0.16);
+}
+
+.grid-ssl-fill {
+  background: rgba(34, 197, 94, 0.56);
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.24);
+}
+
+.grid-tabpfn {
+  color: rgba(196, 181, 253, 0.98);
+}
+
+.grid-tabpfn-fill {
+  background: rgba(167, 139, 250, 0.82);
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.32);
+}
+
+.grid-cls {
+  color: rgba(232, 121, 249, 0.98);
+}
+
+.grid-cls-fill {
+  background: rgba(217, 70, 239, 0.84);
+  box-shadow: 0 0 6px rgba(217, 70, 239, 0.34);
+}
+
+.grid-full {
+  color: rgba(134, 239, 172, 1);
+}
+
+.grid-full-fill {
+  background: rgba(34, 197, 94, 0.86);
+  box-shadow: 0 0 7px rgba(34, 197, 94, 0.38);
+}
+
+
 .result-row {
   display: grid;
   grid-template-columns: 0.33fr 1fr;
   gap: 0.375rem;
   align-items: center;
+  line-height: 1.25rem;
 }
 
 .result-name {
   text-align: left;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
 }
 
@@ -549,6 +717,22 @@ import LaTeX from '../components/LaTeX.vue'
 
 .result-bar-text-ssl {
   color: rgba(187, 247, 208, 0.85);
+}
+
+/* EveNet-Cls bar styles - classification-only control */
+.result-name-cls {
+  color: rgba(232, 121, 249, 0.95);
+}
+
+.result-bar-cls {
+  border: 1px solid rgba(217, 70, 239, 0.5);
+  background: rgba(192, 38, 211, 0.24);
+  box-shadow: 0 0 8px rgba(217, 70, 239, 0.18);
+  animation-delay: 0.55s;
+}
+
+.result-bar-text-cls {
+  color: rgba(250, 232, 255, 0.95);
 }
 
 .result-improvement-ssl {

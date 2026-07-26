@@ -25,10 +25,11 @@ transition: fade-out
   </div>
 
   <div v-click class="cinema-reveal">
-    <p class="cinema-line cinema-line--pre">Reinforcement Learning</p>
+    <p class="cinema-line cinema-line--pre">Reinforcement Learning with Preference Alignment</p>
     <p class="cinema-line cinema-line--hero">
-      <span class="gradient-animated">Preference Alignment</span>
+      <span class="gradient-animated cinema-brand">EveNet-Align</span>
     </p>
+    <p class="cinema-line cinema-line--detail">DGPO + CPO alignment</p>
   </div>
 </div>
 
@@ -146,7 +147,7 @@ transition: fade-out
 
 .cinema-reveal {
   z-index: 1;
-  gap: 0.55rem;
+  gap: 0.4rem;
 }
 
 .cinema-line {
@@ -160,7 +161,7 @@ transition: fade-out
   font-size: clamp(1.35rem, 2.8vw, 1.85rem);
   font-weight: 360;
   letter-spacing: 0.06em;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
   color: rgba(226, 232, 240, 0.52);
   animation-delay: 0.55s;
 }
@@ -171,13 +172,17 @@ transition: fade-out
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: rgba(255, 255, 255, 0.95);
-  animation-delay: 1.15s;
+  animation-delay: 1.05s;
 }
 
-.cinema-dash {
-  margin-right: 0.35em;
-  color: rgba(226, 232, 240, 0.38);
-  font-weight: 300;
+.cinema-line--detail {
+  margin-top: 0.08rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  font-weight: 420;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(165, 243, 252, 0.72);
+  animation-delay: 1.55s;
 }
 
 .cinema-bridge:has(.cinema-question.is-out) .cinema-glow {
