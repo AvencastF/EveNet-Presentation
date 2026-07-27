@@ -21,7 +21,7 @@ transition: fade
   </div>
   <div text-sm text="zinc-300" text-right flex flex-col gap-3 mt-3>
     <div>
-      Slides open sourced at <a href="https://github.com/AvencastF/EveNet-Presentation/tree/main/ICHEP2027"><div inline-block mr-1 translate-y-0.8 i-ri:github-fill />ICHEP 2027 @ Natal, Brazil</a>
+      Slides open sourced at <a href="https://github.com/AvencastF/EveNet-Presentation/tree/main/ICHEP2027"><div inline-block mr-1 translate-y-0.8 i-ri:github-fill />ICHEP 2026 @ Natal, Brazil</a>
     </div>
     <div>
       Slides built on top of <a href="https://sli.dev"><div inline-block mr-1 translate-y-0.8 i-logos:slidev />sli.dev</a>

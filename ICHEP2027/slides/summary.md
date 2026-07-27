@@ -57,23 +57,14 @@ transition: fade
     <div class="outlook-label">
       <span class="outlook-icon i-carbon:deploy"></span>
       <span>Next step</span>
-      <strong>Outlook: Real Physics Deployment</strong>
+      <strong>Outlook: Experimental deployment</strong>
     </div>
     <div class="outlook-flow">
       <div class="outlook-main">
         <span class="gradient-animated" style="font-variant: small-caps;">EveNet</span>
-        is being explored beyond benchmarks in <span class="key-emphasis key-emphasis--pink">experimental workflows</span>, including ongoing <span class="key-emphasis key-emphasis--pink">ATLAS</span> analyses and reconstruction studies.
+        is being investigated in <span class="key-emphasis key-emphasis--pink">ATLAS</span> and <span class="key-emphasis key-emphasis--pink">CMS</span> experimental analyses to quantify its impact on reconstruction and physics workflows.
       </div>
-      <div class="outlook-subgrid">
-        <div>
-          <span class="sub-icon i-carbon:locked"></span>
-          <p>Most ATLAS applications remain <span text="[#f0abfc]">internal and active</span>, serving as an early deployment testbed.</p>
-        </div>
-        <div>
-          <span class="sub-icon i-carbon:presentation-file"></span>
-          <p>Public showcase: <span text="[#f0abfc]">LEP Z → ττ</span> full spin density matrix and quantum effects at <a href="https://indi.to/T232V" target="_blank" rel="noopener" class="talk-link">CHEP</a>, <a href="https://indico.cern.ch/event/1574970/contributions/7093548/" target="_blank" rel="noopener" class="talk-link">BOOST</a> and <a href="https://indi.to/FXBv7" target="_blank" rel="noopener" class="talk-link">ICHEP</a>.</p>
-        </div>
-      </div>
+      <div class="outlook-result">Results are expected to be delivered over the next year.</div>
     </div>
   </div>
 </div>
@@ -122,8 +113,7 @@ transition: fade
 
 .model-icon,
 .card-icon,
-.outlook-icon,
-.sub-icon {
+.outlook-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -345,7 +335,8 @@ transition: fade
 .outlook-flow {
   display: flex;
   flex-direction: column;
-  gap: 0.52rem;
+  justify-content: center;
+  gap: 0.34rem;
 }
 
 .outlook-main {
@@ -358,40 +349,13 @@ transition: fade
   font-size: 1.09em;
 }
 
-.outlook-subgrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.58rem;
-}
-
-.outlook-subgrid > div {
-  display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
-  gap: 0.42rem;
-  align-items: start;
-  padding: 0.46rem 0.54rem;
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.065);
-}
-
-.sub-icon {
-  color: rgba(240, 171, 252, 0.80);
-  font-size: 18px;
-  margin-top: 0.06rem;
-}
-
-.outlook-subgrid p {
-  margin: 0;
-  color: rgba(226, 232, 240, 0.78);
-  font-size: 11.7px;
+.outlook-result {
+  margin-top: 0.08rem;
+  padding-top: 0.42rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(226, 232, 240, 0.58);
+  font-size: 11.5px;
   line-height: 1.28;
 }
 
-.talk-link {
-  color: #f0abfc;
-  font-weight: 750;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(240, 171, 252, 0.42);
-}
 </style>

@@ -9,7 +9,7 @@
   <div class="cover-divider neon-hr" />
 
   <section class="cover-meta">
-    <span>ICHEP 2027 @ Natal, Brazil</span>
+    <span>ICHEP 2026 @ Natal, Brazil</span>
     <span class="cover-dot" aria-hidden="true">·</span>
     <span>30 July 2026</span>
   </section>

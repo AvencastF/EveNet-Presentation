@@ -66,6 +66,9 @@ src: ./slides/preference-transition.md
 src: ./slides/preference-generation.md
 ---
 
+---
+src: ./slides/real-applications.md
+---
 
 ---
 src: ./slides/summary.md
