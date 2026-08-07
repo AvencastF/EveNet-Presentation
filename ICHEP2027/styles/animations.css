@@ -63,3 +63,13 @@
   color: transparent;
   animation: gradient-shift 4s ease infinite;
 }
+
+/* EveNet mark palette: detector blue flows into event gold. */
+.gradient-animated-logo-color {
+  background: linear-gradient(90deg, #3d659e 0%, #477fc5 38%, #d6a047 68%, #da9840 100%);
+  background-size: 160% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
