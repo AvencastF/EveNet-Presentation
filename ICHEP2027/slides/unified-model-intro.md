@@ -125,6 +125,8 @@ transition: fade-out
 .evenet-energy,
 .evenet-lock-flash {
   position: absolute;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 .evenet-turn,
 .evenet-half {
@@ -188,31 +190,31 @@ transition: fade-out
   animation: evenet-lock-flash var(--logo-motion-duration) both;
 }
 @keyframes evenet-left-arrive {
-  0% { opacity: 1; transform: translateX(-122%) rotate(-12deg) scale(0.9); animation-timing-function: cubic-bezier(0.18, 0.72, 0.28, 1); }
-  43% { transform: translateX(-10%) rotate(-2.5deg) scale(0.985); animation-timing-function: cubic-bezier(0.22, 0.88, 0.35, 1.08); }
-  60% { transform: translateX(1.3%) rotate(0.5deg) scale(1.004); animation-timing-function: cubic-bezier(0.25, 0.78, 0.39, 1); }
-  100% { transform: translateX(0) rotate(0) scale(1); }
+  0% { opacity: 0; transform: translateX(-112%) rotate(-9deg) scale(0.92); animation-timing-function: cubic-bezier(0.18, 0.72, 0.28, 1); }
+  12% { opacity: 1; transform: translateX(-78%) rotate(-6deg) scale(0.95); animation-timing-function: cubic-bezier(0.19, 0.76, 0.3, 1); }
+  58% { transform: translateX(-1.5%) rotate(-0.4deg) scale(0.998); animation-timing-function: cubic-bezier(0.22, 0.82, 0.36, 1); }
+  64%, 100% { transform: translateX(0) rotate(0) scale(1); }
 }
 @keyframes evenet-right-arrive {
-  0%, 8% { opacity: 0; transform: translateX(126%) rotate(13deg) scale(0.88); animation-timing-function: cubic-bezier(0.2, 0.75, 0.32, 1); }
-  18% { opacity: 1; transform: translateX(80%) rotate(9deg) scale(0.92); animation-timing-function: cubic-bezier(0.19, 0.75, 0.29, 1); }
-  53% { transform: translateX(8%) rotate(2deg) scale(0.99); animation-timing-function: cubic-bezier(0.22, 0.88, 0.35, 1.08); }
-  66% { transform: translateX(-1.1%) rotate(-0.4deg) scale(1.003); animation-timing-function: cubic-bezier(0.26, 0.77, 0.4, 1); }
-  100% { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
+  0% { opacity: 0; transform: translateX(114%) rotate(10deg) scale(0.91); animation-timing-function: cubic-bezier(0.2, 0.75, 0.32, 1); }
+  9% { opacity: 1; transform: translateX(82%) rotate(7deg) scale(0.94); animation-timing-function: cubic-bezier(0.19, 0.75, 0.29, 1); }
+  60% { transform: translateX(1.4%) rotate(0.35deg) scale(0.998); animation-timing-function: cubic-bezier(0.23, 0.8, 0.37, 1); }
+  66%, 100% { opacity: 1; transform: translateX(0) rotate(0) scale(1); }
 }
 @keyframes evenet-assemble-turn {
-  0%, 68% { transform: rotate(0deg) scale(1); animation-timing-function: cubic-bezier(0.19, 0.72, 0.33, 1); }
+  0%, 58% { transform: rotate(0deg) scale(1); }
+  58% { animation-timing-function: cubic-bezier(0.2, 0.74, 0.32, 1); }
   100% { transform: rotate(360deg) scale(1); }
 }
 @keyframes evenet-energy-orbit {
-  0%, 48% { opacity: 0; transform: scale(0.38) rotate(-45deg); }
-  68% { opacity: 0.86; transform: scale(1.08) rotate(96deg); }
+  0%, 50% { opacity: 0; transform: scale(0.45) rotate(-35deg); }
+  64% { opacity: 0.82; transform: scale(1.02) rotate(72deg); animation-timing-function: cubic-bezier(0.21, 0.74, 0.35, 1); }
   100% { opacity: 0; transform: scale(1.4) rotate(180deg); }
 }
 @keyframes evenet-lock-flash {
-  0%, 62% { opacity: 0; transform: scale(0.28); }
-  68% { opacity: 0.95; transform: scale(0.82); animation-timing-function: cubic-bezier(0.18, 0.8, 0.3, 1); }
-  78%, 100% { opacity: 0; transform: scale(1.8); }
+  0%, 54% { opacity: 0; transform: scale(0.3); }
+  62% { opacity: 0.92; transform: scale(0.78); animation-timing-function: cubic-bezier(0.18, 0.8, 0.3, 1); }
+  76%, 100% { opacity: 0; transform: scale(1.7); }
 }
 @media (prefers-reduced-motion: reduce) {
   .answer.is-assembled .evenet-half,
