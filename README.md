@@ -2,6 +2,8 @@
 
 Independent Slidev decks with one shared dependency installation and reusable infrastructure.
 
+For agents: read [AGENTS.md](AGENTS.md). For step-by-step creation, shared-component recipes, asset paths, and anti-duplication rules, read the [authoring guide](docs/authoring.md). The [shared directory guide](shared/README.md) explains ownership at a glance.
+
 ## Getting started
 
 Run commands from the repository root using a current Node.js LTS release.
