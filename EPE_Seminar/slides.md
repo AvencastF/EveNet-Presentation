@@ -1,4 +1,6 @@
 ---
+addons:
+  - slidev-addon-evenet
 highlighter: shiki
 css: unocss
 colorSchema: dark

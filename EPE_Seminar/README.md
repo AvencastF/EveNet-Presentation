@@ -4,16 +4,16 @@ AI+HEP Workshop Presentation
 
 ## Getting Started
 
-To start the slide show:
+Run from the repository root:
 
-- `npm install` (or `pnpm install` or `yarn install`)
-- `npm run dev` (or `pnpm dev` or `yarn dev`)
+```bash
+npm ci
+npm run dev -- EPE_Seminar
+npm run build -- EPE_Seminar
+npm run export -- EPE_Seminar
+```
 
-- visit http://localhost:3030
-
-Edit the [slides.md](./slides.md) to see the changes.
-
-Learn more about Slidev on [documentations](https://sli.dev/).
+Edit [slides.md](./slides.md) and the files in `slides/`. See the [repository guide](../README.md) for shared components, customization, and deployment.
 
 ## Template
 

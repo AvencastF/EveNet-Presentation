@@ -4,6 +4,9 @@ node_modules/
 
 # Build outputs
 dist/
+site/
+output/playwright/
+.playwright-cli/
 .slidev/
 .slidev/export/
 
