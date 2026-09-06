@@ -6,7 +6,7 @@ transition: fade
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# <span class="evenet-wordmark gradient-animated">EveNet</span> Grid Study Results
+# <span class="evenet-wordmark gradient-animated">EveNet</span> across a grid of new-particle masses
 
 <!-- Hidden img tags to ensure Vite includes these assets in the build -->
 <div style="display: none;">
@@ -21,27 +21,20 @@ import NJUPlot from '../components/NJUPlot.vue'
     />
   </div>
   <div class="stress-test-panel">
-    <div class="stress-test-title">X → YH<sub>SM</sub>: A demanding stress test</div>
+    <div class="stress-test-title"><LaTeX formula="X\to YH_{\mathrm{SM}}" />: 121 related searches</div>
     <div class="grid-statistics">
       <div class="stat-value">121</div>
-      <div class="stat-copy"><span class="stat-label">mass points</span><span class="stat-range"><i>m</i><sub>X</sub> = 240–1000 GeV &nbsp;·&nbsp; <i>m</i><sub>Y</sub> = 60–800 GeV</span></div>
+      <div class="stat-copy"><span class="stat-label">mass points</span><span class="stat-range"><LaTeX formula="m_X=240\text{–}1000\,\mathrm{GeV}" /> · <LaTeX formula="m_Y=60\text{–}800\,\mathrm{GeV}" /></span></div>
     </div>
     <div class="stress-feature">
       <span i-carbon:data-structured class="stress-icon stress-icon-cyan" />
-      <div><span class="stress-highlight-cyan">Sparse signal</span><span class="stress-detail"> → 2.1k–19.7k selected events per mass point</span></div>
+      <div><span class="stress-highlight-cyan">Sparse signal</span><span class="stress-detail"> · 2.1k–19.7k selected events per mass point</span></div>
     </div>
     <div class="stress-feature">
       <span i-carbon:chart-line-data class="stress-icon stress-icon-orange" />
-      <div><span class="stress-highlight-orange">Changing kinematics</span><span class="stress-detail"> → signal features vary strongly across the grid</span></div>
+      <div><span class="stress-highlight-orange">Changing kinematics</span><span class="stress-detail"> · signal features vary strongly across the grid</span></div>
     </div>
-    <div class="stress-feature">
-      <span i-carbon:warning-alt class="stress-icon stress-icon-violet" />
-      <div><span class="stress-highlight-violet">Background-dominated training</span><span class="stress-detail"> → difficult to converge quickly and stably</span></div>
-    </div>
-    <div class="stress-feature">
-      <span i-carbon:warning-alt class="stress-icon stress-icon-green" />
-      <div><span class="stress-highlight-green">Multi-parameter BSM models</span><span class="stress-detail"> → dense experimental grid scans</span></div>
-    </div>
+    <p class="grid-reading">SIC measures the gain in signal significance from selection; higher is better. TabPFN is a pretrained model for tabular data.</p>
   </div>
 </div>
 
@@ -49,27 +42,29 @@ import NJUPlot from '../components/NJUPlot.vue'
   <div class="result-item result-item-1">
     <span i-carbon:trophy class="icon-svg icon-svg-1" />
     <div class="result-content result-content-1">
-      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span> achieves the <span class="highlight-number">highest Max SIC</span> across nearly the full grid
+      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span> achieves the <span class="highlight-number">highest peak SIC</span> across nearly the full grid
     </div>
   </div>
 
   <div class="result-item result-item-2">
     <span i-carbon:chart-line class="icon-svg icon-svg-2" />
     <div class="result-content result-content-2">
-      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span><span class="result-highlight-2"> outperforms</span> TabPFN in the <span class="highlight-region">low-statistics region</span>
+      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span><span class="result-highlight-2"> outperforms</span> TabPFN in the <span class="highlight-region">region with few signal events</span>
     </div>
   </div>
 
   <div class="result-item result-item-3">
     <span i-carbon:time class="icon-svg icon-svg-3" />
     <div class="result-content result-content-3">
-      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span> converges <span class="highlight-speed">~3× faster</span> than scratch, and <span class="highlight-speed">~2x faster</span> than <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Cls</span>, with <span class="highlight-stable-3">stable sensitivity</span>
+      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span> converges <span class="highlight-speed"><LaTeX formula="\sim3\times" /> faster</span> than training from scratch, and <span class="highlight-speed"><LaTeX formula="\sim2\times" /> faster</span> than <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Cls</span>, with <span class="highlight-stable-3">stable sensitivity</span>
     </div>
   </div>
 
 </div>
 
 <style>
+.grid-reading{font-size:13px;line-height:1.5;color:var(--fg-1);margin-top:20px}
+
 .study-content {
   display: flex;
   gap: 1.5rem;

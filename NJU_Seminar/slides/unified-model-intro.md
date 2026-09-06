@@ -18,10 +18,10 @@ transition: fade-out
       class="q-block"
     >
       <div class="q-main">
-        A unified ML model
+        One shared event model
       </div>
       <div class="q-sub">
-        across detectors and tasks
+        adaptable to new tasks and detectors
       </div>
     </div>
     <!-- A: appears on first click, centered -->

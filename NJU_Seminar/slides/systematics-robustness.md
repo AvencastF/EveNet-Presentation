@@ -7,19 +7,19 @@ import LaTeX from 'slidev-addon-evenet/components/LaTeX.vue'
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# <span class="evenet-wordmark gradient-animated">EveNet</span> Systematic Robustness
+# <span class="evenet-wordmark gradient-animated">EveNet</span>: robustness to detector variations
 
 <div class="plots-container pt-4">
   <div class="plots-row">
     <div class="plot-wrapper">
-      <div class="plot-title">QC: JES variation → Precision on D</div>
+      <div class="plot-title">Top spin: jet-energy scale · uncertainty on <LaTeX formula="D" /></div>
       <NJUPlot 
         src="/qe_systematics_precision_jes_only_scatter.svg" 
         alt="QE Systematics JES Only"
       />
     </div>
     <div class="plot-wrapper">
-      <div class="plot-title">QC: MET variation → Precision on D</div>
+      <div class="plot-title">Top spin: missing momentum · uncertainty on <LaTeX formula="D" /></div>
       <NJUPlot 
         src="/qe_systematics_precision_met_only_scatter.svg" 
         alt="QE Systematics MET Only"
@@ -29,14 +29,14 @@ import NJUPlot from '../components/NJUPlot.vue'
   
   <div class="plots-row">
     <div class="plot-wrapper">
-      <div class="plot-title">Exotic: JES variation → Jet pairing efficiency</div>
+      <div class="plot-title">Exotic Higgs: jet-energy scale · pairing efficiency</div>
       <NJUPlot 
         src="/bsm_systematics_pair_scatter.svg" 
         alt="BSM Systematics Pair"
       />
     </div>
     <div class="plot-wrapper">
-      <div class="plot-title">Exotic: JES variation → Max SIC</div>
+      <div class="plot-title">Exotic Higgs: jet-energy scale · peak SIC</div>
       <NJUPlot 
         src="/bsm_systematics_sic_scatter.svg" 
         alt="BSM Systematics SIC"
@@ -45,30 +45,29 @@ import NJUPlot from '../components/NJUPlot.vue'
   </div>
 </div>
 
+<div class="systematics-key">Plot labels: JES = jet-energy scale; MET = missing transverse momentum. <LaTeX formula="D" /> probes spin correlations; SIC measures classification sensitivity.</div>
+
 <div class="results-container">
   <div class="result-item result-item-1">
     <span i-carbon:settings-adjust class="icon-svg icon-svg-1" />
     <div class="result-content result-content-1">
-      Models are <span class="result-highlight-1">evaluated directly</span> on systematically varied data <span class="result-highlight-1">without retraining</span>, showing robustness under the tested detector-level variations
+      Vary the detector response and evaluate the same trained models <span class="result-highlight-1">without retraining</span>.
     </div>
   </div>
 
   <div class="result-item result-item-2">
     <span i-carbon:desk-adjustable class="icon-svg icon-svg-2" />
     <div class="result-content result-content-2">
-      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span> is <span class="result-highlight-2">consistently more stable</span> than scratch training under the tested systematic variations
+      <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet-Full</span> shows <span class="result-highlight-2">smaller performance changes</span> than training from scratch under the tested variations.
     </div>
   </div>
 
-  <div class="result-item result-item-3">
-    <span i-carbon:chart-line class="icon-svg icon-svg-3" />
-    <div class="result-content result-content-3">
-      Systematic robustness represents a key advantage of <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet</span>, <span class="highlight-precision">supporting precision measurements in systematics-limited regimes</span>
-    </div>
-  </div>
+
 </div>
 
 <style>
+.systematics-key{font-size:12px;line-height:1.45;color:var(--fg-1);margin-top:12px}
+
 .plots-container {
   display: flex;
   flex-direction: column;

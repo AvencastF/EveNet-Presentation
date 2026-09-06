@@ -9,7 +9,7 @@ import NJUAlignLoop from '../components/NJUAlignLoop.vue'
 
 # <span class="evenet-wordmark gradient-animated">EveNet-Align</span>: learning which solutions to prefer
 
-<div class="dgpo-subtitle align-takeaway">Direct Group Preference Optimization (DGPO): favor above-average candidates.</div>
+<div class="dgpo-subtitle align-takeaway">Direct Group Preference Optimization (DGPO): favor candidates with higher rewards.</div>
 
 <NJUAlignLoop :step="$clicks" />
 

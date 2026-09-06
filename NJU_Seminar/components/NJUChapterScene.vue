@@ -156,7 +156,9 @@ function foundation(t:number){
   for(let k=0;k<28;k++){
     const stream=(u:number)=>{
       const spread=(k-13.5)*10
-      return [210+u*480,548-u*244+spread*(1-u)**1.7+Math.sin(u*7+k*.34)*22*Math.sin(Math.PI*u)]
+      // Share the exact junction with the outgoing heads; taper into its horizontal tangent.
+      const blend=u*u*(3-2*u)
+      return [210+u*(cx-210),548+(cy-548)*blend+spread*(1-u)**1.7+Math.sin(u*7+k*.34)*22*Math.sin(Math.PI*u)*(1-u)]
     }
     line2(Array.from({length:81},(_,i)=>stream(i/80)),`rgba(${palette[k%5]},.16)`,.75)
     const phase=(t*.095+k*.071)%1

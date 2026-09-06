@@ -25,13 +25,13 @@ class: nju-foundation-cover
 
   <footer class="cover-notes">
     <p class="cover-ref">
-      Based on
+      Paper:
       <a href="https://arxiv.org/abs/2601.17126" class="cover-link">
         <span inline-block translate-y-0.5 i-simple-icons:arxiv /><span class="evenet-wordmark gradient-animated">EveNet</span>
       </a>
       <span class="cover-ref-id">(arXiv:2601.17126)</span>
     </p>
-    <p class="cover-ref">Accepted in principle at <em>Nature Machine Intelligence</em></p>
+    <p class="cover-ref cover-acceptance">Accepted in principle at <em>Nature Machine Intelligence</em></p>
   </footer>
 </div>
 
@@ -131,6 +131,18 @@ class: nju-foundation-cover
   font-size: 15px;
   line-height: 1.45;
   color: rgba(226, 232, 240, 0.78);
+}
+
+.nju-foundation-cover .cover-acceptance {
+  margin-top: 5px;
+  padding: 5px 10px;
+  border-left: 2px solid rgba(240,195,110,.7);
+  background: linear-gradient(90deg,rgba(240,195,110,.08),rgba(240,195,110,0));
+  color: rgba(240,241,243,.9);
+}
+.nju-foundation-cover .cover-acceptance em {
+  color: #efd3a0;
+  font-weight: 550;
 }
 
 .cover-ref-id {

@@ -5,13 +5,13 @@ glow: right
 glowOpacity: 0.34
 ---
 
-# From Task-Specific ML to Foundation Models
+# From task-specific ML to foundation models
 
 <div class="paradigm-kicker">
-  <span v-if="$clicks === 0">Two major ML workflows in collider physics — each with many specialized use cases.</span>
-  <span v-else-if="$clicks === 1">Traditionally, <strong>one model per task</strong> — trained and deployed in isolation.</span>
-  <span v-else-if="$clicks === 2"><strong>One foundation model</strong> can reduce reliance on many task-specific models.</span>
-  <span v-else>A <strong>shared representation</strong> transfers across tasks.</span>
+  <span v-if="$clicks === 0">Machine learning: predict properties or generate samples.</span>
+  <span v-else-if="$clicks === 1">A common approach: train a separate model for each task.</span>
+  <span v-else-if="$clicks === 2">A <strong>foundation model</strong> is pretrained broadly, then adapted to different tasks.</span>
+  <span v-else>Reuse learned event features, then adapt the model to each task.</span>
 </div>
 
 <div
@@ -25,7 +25,7 @@ glowOpacity: 0.34
   <article class="paradigm-card paradigm-card--disc">
     <header class="paradigm-card__head">
       <div i-carbon:chart-network class="paradigm-card__icon" />
-      <h3>Discriminative ML</h3>
+      <h3>Discriminative</h3>
     </header>
     <div class="paradigm-card__viz">
       <ClassificationIllustration :width="168" :height="76" />
@@ -35,24 +35,24 @@ glowOpacity: 0.34
         <span class="task-pill">tagging</span>
         <span class="task-link"><i class="i-carbon:arrow-right" /></span>
         <span class="task-end">
-          <span class="model-chip">f₁</span>
-          <span class="gain-badge">↑</span>
+          <span class="model-chip"><LaTeX formula="f_1" /></span>
+          <span class="gain-badge"><LaTeX formula="\uparrow" /></span>
         </span>
       </div>
       <div class="task-row" style="--i: 1">
         <span class="task-pill">classification</span>
         <span class="task-link"><i class="i-carbon:arrow-right" /></span>
         <span class="task-end">
-          <span class="model-chip">f₂</span>
-          <span class="gain-badge">↑</span>
+          <span class="model-chip"><LaTeX formula="f_2" /></span>
+          <span class="gain-badge"><LaTeX formula="\uparrow" /></span>
         </span>
       </div>
       <div class="task-row" style="--i: 2">
         <span class="task-pill">regression</span>
         <span class="task-link"><i class="i-carbon:arrow-right" /></span>
         <span class="task-end">
-          <span class="model-chip">f₃</span>
-          <span class="gain-badge">↑</span>
+          <span class="model-chip"><LaTeX formula="f_3" /></span>
+          <span class="gain-badge"><LaTeX formula="\uparrow" /></span>
         </span>
       </div>
     </div>
@@ -63,15 +63,15 @@ glowOpacity: 0.34
       <div class="hub-ring" />
       <div class="hub-core">
         <div class="hub-text hub-text--before">
-          <span class="hub-count">5×</span>
+          <span class="hub-count"><LaTeX formula="5\times" /></span>
           <span>models</span>
         </div>
         <div class="hub-text hub-text--one">
-          <span class="hub-count">1×</span>
+          <span class="hub-count"><LaTeX formula="1\times" /></span>
           <span>foundation<br />model</span>
         </div>
         <div class="hub-text hub-text--after">
-          <span class="hub-z">z</span>
+          <span class="hub-z"><LaTeX formula="z" /></span>
           <span>shared<br />representation</span>
         </div>
       </div>
@@ -81,7 +81,7 @@ glowOpacity: 0.34
   <article class="paradigm-card paradigm-card--gen">
     <header class="paradigm-card__head">
       <div i-carbon:intent-request-scale-out class="paradigm-card__icon" />
-      <h3>Generative ML</h3>
+      <h3>Generative</h3>
     </header>
     <div class="paradigm-card__viz">
       <GenerativeIllustration :width="168" :height="76" />
@@ -91,16 +91,16 @@ glowOpacity: 0.34
         <span class="task-pill">simulation</span>
         <span class="task-link"><i class="i-carbon:arrow-right" /></span>
         <span class="task-end">
-          <span class="model-chip">g₁</span>
-          <span class="gain-badge">↑</span>
+          <span class="model-chip"><LaTeX formula="g_1" /></span>
+          <span class="gain-badge"><LaTeX formula="\uparrow" /></span>
         </span>
       </div>
       <div class="task-row" style="--i: 1">
         <span class="task-pill">generation</span>
         <span class="task-link"><i class="i-carbon:arrow-right" /></span>
         <span class="task-end">
-          <span class="model-chip">g₂</span>
-          <span class="gain-badge">↑</span>
+          <span class="model-chip"><LaTeX formula="g_2" /></span>
+          <span class="gain-badge"><LaTeX formula="\uparrow" /></span>
         </span>
       </div>
     </div>
@@ -111,15 +111,15 @@ glowOpacity: 0.34
   <div class="highlight-card" :class="{ active: $clicks === 2, done: $clicks === 3 }">
     <span class="highlight-num">1</span>
     <div class="highlight-body">
-      <div class="highlight-title">Many models → one</div>
-      <div class="highlight-desc">A single foundation model serves classification, generation, and related tasks.</div>
+      <div class="highlight-title">One shared starting point</div>
+      <div class="highlight-desc">Pretrain once; reuse the model for several tasks.</div>
     </div>
   </div>
   <div class="highlight-card" :class="{ active: $clicks === 3 }">
     <span class="highlight-num">2</span>
     <div class="highlight-body">
-      <div class="highlight-title">Shared representation helps every task</div>
-      <div class="highlight-desc">Pretrained <em>z</em> transfers knowledge: can improve downstream tasks when transfer is validated.</div>
+      <div class="highlight-title">Reuse learned event features</div>
+      <div class="highlight-desc">Adapt the pretrained features to a new task; test whether they help.</div>
     </div>
   </div>
 </div>

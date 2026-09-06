@@ -7,8 +7,8 @@ class: nju-chapter-bridge
 
 <div class="chapter-copy">
 <h1>Reconstruct the invisible.<br />Access the quantum state.</h1>
-<p><span class="evenet-wordmark">EveNet-Full</span> already generates neutrinos.<br />RL does it better.</p>
-<div class="chapter-context"><span class="evenet-wordmark">EveNet-Align</span><span class="context-rule"></span><span>Preference RL</span></div>
+<p><span class="evenet-wordmark">EveNet-Full</span> already generates neutrinos.<br />Learn to sample more accurate solutions.</p>
+<div class="chapter-context"><span class="evenet-wordmark">EveNet-Align</span><span class="context-rule"></span><span>Reinforcement learning (RL)</span></div>
 </div>
 
 <NJUChapter :active="2" />

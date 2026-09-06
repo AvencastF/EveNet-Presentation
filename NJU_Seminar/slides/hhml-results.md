@@ -7,9 +7,9 @@ class: nju-hhml
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# Gains across all three POIs.
+# Improved sensitivity to Higgs-pair production
 
-<div class="hhml-subtitle">ATLAS <LaTeX formula="HH" /> multilepton · <LaTeX formula="2\ell_{\mathrm{SC}}" /> · Reusing the <span class="evenet-wordmark">EveNet</span> backbone</div>
+<div class="hhml-subtitle">ATLAS · Two same-charge leptons (<LaTeX formula="2\ell_{\mathrm{SC}}" />) · Reuse the <span class="evenet-wordmark">EveNet</span> backbone</div>
 
 <div class="hhml-metrics">
   <div><strong><LaTeX formula="\sim22\%" /></strong><span>lower <LaTeX formula="\mu_{HH}" /> upper limit</span></div>
@@ -17,10 +17,11 @@ import NJUPlot from '../components/NJUPlot.vue'
   <div><strong><LaTeX formula="\sim47\%" /></strong><span>narrower <LaTeX formula="\kappa_{2V}" /> interval</span></div>
 </div>
 
-<div class="hhml-baseline">Expected sensitivity vs. inclusive XGB. Highlighted values use the red <span class="evenet-wordmark">EveNet</span> row.</div>
+<div class="hhml-symbols"><LaTeX formula="\mu_{HH}" />: signal rate relative to the Standard Model · <LaTeX formula="\kappa_\lambda" />: Higgs self-coupling · <LaTeX formula="\kappa_{2V}" />: coupling of two Higgs and two vector bosons.<br />The <LaTeX formula="\kappa" /> values are normalized to the Standard Model; all three are fit parameters (POIs).</div>
+<div class="hhml-baseline">Expected sensitivity vs. inclusive XGBoost (a tree-based classifier). Values use the red <span class="evenet-wordmark">EveNet</span> row.</div>
 <div class="hhml-plot"><NJUPlot src="/figures/hhml-poi-comparison.png" alt="Full source comparison of inclusive XGB, low/high XGB and EveNet configurations for the expected HH signal-strength upper limit and kappa lambda and kappa 2V intervals. Red EveNet row: 21.8%, 12.4% and 46.7% improvement relative to inclusive XGB for the 3 minimum background setting." /></div>
 <div class="hhml-stamp" aria-label="Internal, preliminary"><b>INTERNAL</b><span>PRELIMINARY</span></div>
-<div class="hhml-outlook">HHML is one example. <strong>More ATLAS applications are underway.</strong></div>
+<div class="hhml-outlook">This multilepton Higgs-pair analysis is one example. <strong>More ATLAS applications are underway.</strong></div>
 
 <!--
 Source: HHML_IHEP.pptx, slide 9, original embedded image33.png, preserved without cropping or recoloring.
@@ -31,8 +32,10 @@ Presenter framing: useful sensitivity gains come with reuse of the pretrained ba
 -->
 
 <style>
+.nju-hhml .hhml-symbols{font-size:11px;line-height:1.45;color:var(--fg-1);margin-top:10px}
+
 .slidev-layout.nju-hhml { padding:42px 56px 35px; }
-.nju-hhml h1 { margin:0!important; font-size:34px!important; }
+.nju-hhml h1 { margin:0!important; font-size:29px!important; max-width:730px; }
 .nju-hhml .hhml-subtitle { margin-top:9px; font-size:16px; color:var(--nju-amber); }
 .nju-hhml .hhml-metrics { display:grid; grid-template-columns:1fr 1fr 1fr; margin-top:20px; padding:10px 0 12px; border-top:1px solid var(--nju-line); border-bottom:1px solid var(--nju-line); }
 .nju-hhml .hhml-metrics > div { display:flex; align-items:center; gap:12px; }
@@ -40,7 +43,7 @@ Presenter framing: useful sensitivity gains come with reuse of the pretrained ba
 .nju-hhml .hhml-metrics strong { font-size:29px; color:var(--nju-amber); white-space:nowrap; }
 .nju-hhml .hhml-metrics > div > span { font-size:13px; line-height:1.4; max-width:120px; }
 .nju-hhml .hhml-baseline { font-size:11px; color:var(--fg-1); margin:10px 0 8px; }
-.nju-hhml .hhml-plot { height:270px; background:white; border-radius:3px; padding:5px; }
+.nju-hhml .hhml-plot { height:230px; background:white; border-radius:3px; padding:5px; }
 .nju-hhml .hhml-plot .zoomable-plot-container { height:100%!important; margin:0!important; }
 .nju-hhml .hhml-stamp { position:absolute; top:55px; right:35px; width:151px; padding:5px 7px 6px; border:3px double var(--nju-coral); color:var(--nju-coral); text-align:center; transform:rotate(7deg); background:rgba(23,25,28,.7); }
 .nju-hhml .hhml-stamp b { display:block; font-family:Georgia,serif; font-size:20px; font-weight:900; letter-spacing:1.6px; line-height:1; border-bottom:1px solid currentColor; padding-bottom:4px; margin-bottom:4px; }

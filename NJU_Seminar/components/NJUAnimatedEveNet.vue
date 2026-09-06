@@ -82,10 +82,10 @@ const perturbedIds = [2, 5, 8, 11, 14]
 const jetSignalY = (t: number) => 317*(1-t)**3 + 810*(1-t)**2*t + 810*(1-t)*t*t + 226*t**3
 
 const captions = {
-  core: ['A shared representation for event understanding and generation', 'Discriminative and Generative, in one model'],
+  core: ['A shared representation for event understanding and generation', 'Discriminative and generative tasks in one model'],
   classification: ['One probability per physics process'],
-  assignment: ['Object matching to a fixed decay hierarchy'],
-  segmentation: ['Resonance identity and particle membership'],
+  assignment: ['Match reconstructed objects to a specified decay chain'],
+  segmentation: ['Identify parent resonances and the particles belonging to each'],
   self: ['Generate new events or complete missing particle features'],
   supervised: ['Infer invisible event components from observed particles'],
 }
@@ -168,11 +168,10 @@ onBeforeUnmount(() => { transition?.cancel(); loop?.cancel(); media?.removeEvent
       <g v-if="scene === 'core'" :style="{opacity:unpack}">
         <text x="77" y="61" text-anchor="middle" class="label">PARTICLES</text>
         <text x="278" y="61" text-anchor="middle" class="strong">Particle features</text>
-        <text x="278" y="83" text-anchor="middle" class="tiny">Point-edge Transformer</text>
+        <text x="278" y="83" text-anchor="middle" class="tiny">Learns relations between particles</text>
         <text x="487" y="49" text-anchor="middle" class="strong">Event context</text>
-        <text x="487" y="71" text-anchor="middle" class="tiny">Object Encoder</text>
+        <text x="487" y="71" text-anchor="middle" class="tiny">Object encoder</text>
         <text x="278" y="253" text-anchor="middle" class="small">Local + global attention</text>
-        <text x="278" y="273" text-anchor="middle" class="tiny">Permutation equivariant</text>
         <text x="510" y="226" text-anchor="middle" class="small">Object context + event summary</text>
         <text x="87" y="358" text-anchor="middle" class="small">Global context</text>
       </g>
@@ -246,13 +245,13 @@ onBeforeUnmount(() => { transition?.cancel(); loop?.cancel(); media?.removeEvent
       </g>
 
       <g v-if="generation">
-        <text x="140" y="30" text-anchor="middle" class="label">{{ scene==='self'?'NOISED PARTICLE FEATURES':'OBSERVED EVENT' }}</text>
-        <text x="430" y="30" text-anchor="middle" class="label">{{ scene==='self'?'DENOISING':'CONDITIONAL DIFFUSION' }}</text>
+        <text x="140" y="30" text-anchor="middle" class="label">{{ scene==='self'?'FEATURES WITH ADDED NOISE':'OBSERVED EVENT' }}</text>
+        <text x="430" y="30" text-anchor="middle" class="label">{{ scene==='self'?'DENOISING':'GENERATE MISSING PARTICLES' }}</text>
         <text x="735" y="30" text-anchor="middle" class="label">{{ scene==='self'?'GENERATED FEATURES':'INVISIBLE COMPONENTS' }}</text>
         <template v-if="scene==='self'">
           <rect x="72" y="78" width="136" height="151" rx="10" class="housing" />
           <circle v-for="i in 18" :key="i" :cx="clean(i,140).x + (perturbedIds.includes(i) ? Math.cos(i)*19 : 0)" :cy="clean(i,140).y + (perturbedIds.includes(i) ? Math.sin(i)*19 : 0)" r="3.8" :fill="perturbedIds.includes(i)?colors[3]:'#d8e3ef'" class="input-particle" />
-          <text x="140" y="263" text-anchor="middle" class="small">Partial noising shown: event completion</text>
+          <text x="140" y="263" text-anchor="middle" class="small">Add noise to some features; learn to recover them</text>
         </template>
         <template v-else>
           <rect x="72" y="78" width="136" height="151" rx="10" class="housing" />
@@ -267,8 +266,8 @@ onBeforeUnmount(() => { transition?.cancel(); loop?.cancel(); media?.removeEvent
         <foreignObject x="380" y="118" width="100" height="28"><div xmlns="http://www.w3.org/1999/xhtml" class="evenet-wordmark gradient-animated njua-brand">EveNet</div></foreignObject>
         <text x="430" y="167" text-anchor="middle" class="strong" :fill="accent">Diffusion</text>
         <text x="430" y="191" text-anchor="middle" class="tiny">Particle + global context</text>
-        <text x="430" y="285" text-anchor="middle" class="strong" :fill="accent">{{ scene==='self' ? 'Unordered particle set' : 'Distinct invisible target slots' }}</text>
-        <text x="430" y="310" text-anchor="middle" class="small">{{ scene==='self' ? 'Particle count · no slot embeddings' : 'Learned slot embeddings · fixed visible context' }}</text>
+        <text x="430" y="285" text-anchor="middle" class="strong" :fill="accent">{{ scene==='self' ? 'Clean features provide the targets' : 'Simulation truth provides the targets' }}</text>
+        <text x="430" y="310" text-anchor="middle" class="small">{{ scene==='self' ? 'No external labels needed' : 'Truth is used for training, not inference' }}</text>
         <g v-if="scene==='self'" :style="{opacity:reveal(1)}">
           <rect x="662" y="78" width="146" height="151" rx="10" class="housing" />
           <circle v-for="i in 18" :key="`restored-${i}`" :cx="clean(i,735).x" :cy="clean(i,735).y" :r="3.6+kick(i)*.5" :fill="perturbedIds.includes(i)?colors[3]:'#d8e3ef'" />

@@ -3,7 +3,7 @@ transition: fade
 class: nju-delphi dp-intro
 ---
 
-# Reconstruct the pair’s spin quantum state.
+# Reconstruct the pair’s spin quantum state
 
 <div class="dp-subtitle">A decay product’s direction in the parent <LaTeX formula="\tau" /> rest frame carries information about its spin.</div>
 
@@ -15,7 +15,7 @@ class: nju-delphi dp-intro
 <div class="dp-lane"><h3>Traditional analysis</h3><div class="dp-steps"><span>Identify decay products</span><span class="dp-arrow"><LaTeX formula="\longrightarrow" /></span><span>Solve or fit the kinematics</span></div><small>Channel-dependent reconstruction</small></div>
 <div class="dp-lane"><h3><span class="evenet-wordmark">EveNet</span></h3><div class="dp-steps"><span>Identify both decays</span><span class="dp-arrow"><LaTeX formula="\longrightarrow" /></span><span>Generate missing kinematics</span></div><small>One strategy across decay channels</small></div>
 </div>
-<div class="dp-endpoint"><span class="dp-symbol"><LaTeX formula="\cos\theta" /></span><h2>Decay directions</h2><p>Single-particle angles<br />and two-particle products</p></div>
+<div class="dp-endpoint"><span class="dp-symbol"><LaTeX formula="\cos\theta" /></span><h2>Decay directions</h2><p>Single-particle angles<br />and products of their cosines</p></div>
 </div>
 <div class="dp-spin-primer">
 <div class="dp-rho-goal"><h3><LaTeX formula="\rho" /> · Full spin density matrix</h3><p>Encodes the pair’s complete spin quantum state.</p></div>

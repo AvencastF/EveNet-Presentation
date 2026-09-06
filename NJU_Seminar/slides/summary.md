@@ -2,72 +2,43 @@
 transition: fade
 ---
 
-# <span class="evenet-wordmark gradient-animated">EveNet</span>: event understanding and reconstruction
-
-<span>Summary of <span class="evenet-wordmark gradient-animated">EveNet</span></span>
+# <span class="evenet-wordmark">EveNet</span>: from shared features to physics results
 
 <div class="summary-stage">
   <div class="model-strip summary-reveal">
     <div class="model-icon i-carbon:network-4"></div>
-    <div class="model-main">
-      <span class="model-kicker">Foundation-model candidate</span>
-      <strong><span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet</span> encoder–decoder</strong>
-    </div>
-    <div class="model-metrics">
-      <span><b>500M</b> fast-sim events</span>
-      <span><b>5</b> task heads</span>
-    </div>
+    <div class="model-main"><span class="model-kicker">An event-level foundation model</span><strong>One shared network, adapted to each analysis</strong></div>
+    <div class="model-metrics"><span><b>500M</b> simulated events</span><span><b>5</b> task heads</span></div>
   </div>
   <div class="evidence-grid summary-reveal delay-1">
     <div class="evidence-card evidence-card--performance">
-      <div class="card-top">
-        <span class="card-icon i-carbon:chart-line"></span>
-        <span class="card-kicker">Evidence</span>
-      </div>
-      <h3>Performance</h3>
-      <p><span class="key-emphasis key-emphasis--cyan">Outperforms</span> <span text="[#67e8f9]">scratch</span>, <span text="[#67e8f9]">task-specific</span>, and <span text="[#67e8f9]">tabular FM</span> baselines.</p>
-      <div class="mini-note">Strong in low-statistics classification and generation.</div>
+      <div class="card-top"><span class="card-icon i-carbon:chart-line"></span><span class="card-kicker">Pretraining</span></div>
+      <h3>Reuse event features</h3>
+      <p>Learn from many collision processes, then adapt to classification and reconstruction.</p>
+      <div class="mini-note">Benchmarks show gains in sensitivity, data efficiency, and robustness to tested detector variations.</div>
     </div>
     <div class="evidence-card evidence-card--efficiency">
-      <div class="card-top">
-        <span class="card-icon i-carbon:time"></span>
-        <span class="card-kicker">Supporting evidence</span>
-      </div>
-      <h3>Efficiency</h3>
-      <p>Pretraining gives <span class="key-emphasis key-emphasis--amber">fast convergence</span> and reaches target performance up to <span class="key-emphasis key-emphasis--amber"><LaTeX formula="3\times" /> faster</span>.</p>
-      <div class="mini-note">A practical route to repeated downstream studies.</div>
+      <div class="card-top"><span class="card-icon i-carbon:renew"></span><span class="card-kicker">Alignment</span></div>
+      <h3>Improve what we sample</h3>
+      <p><span class="evenet-wordmark">EveNet-Align</span> learns to favor higher-reward neutrino reconstructions.</p>
+      <div class="mini-note">Better reconstruction reduces unfolding uncertainty in the demonstrated study.</div>
     </div>
     <div class="evidence-card evidence-card--transfer">
-      <div class="card-top">
-        <span class="card-icon i-carbon:flow"></span>
-        <span class="card-kicker">Transfer evidence</span>
-      </div>
-      <h3>Transfer</h3>
-      <p>Evidence across <span class="key-emphasis key-emphasis--green">4 tasks</span>, from in-distribution to <span class="key-emphasis key-emphasis--green">out-of-distribution</span> settings.</p>
-      <div class="tag-row">
-        <span>detectors</span>
-        <span>kinematics</span>
-        <span>pile-up</span>
-        <span>real data</span>
-        <span>systematics</span>
-      </div>
+      <div class="card-top"><span class="card-icon i-carbon:flow"></span><span class="card-kicker">Experimental applications</span></div>
+      <h3>Connect to physics</h3>
+      <p>DELPHI: reconstruct <LaTeX formula="\rho" />, the full spin density matrix of the <LaTeX formula="\tau^+\tau^-" /> system.</p>
+      <div class="mini-note"><LaTeX formula="10\text{–}40\%" /> smaller expected coefficient uncertainties; a preliminary ATLAS example also shows sensitivity gains.</div>
     </div>
   </div>
   <div class="outlook-panel summary-reveal delay-2">
-    <div class="outlook-label">
-      <span class="outlook-icon i-carbon:deploy"></span>
-      <span>Next step</span>
-      <strong>Outlook: Experimental deployment</strong>
-    </div>
-    <div class="outlook-flow">
-      <div class="outlook-main">
-        <span class="evenet-wordmark gradient-animated" style="font-variant: small-caps;">EveNet</span>
-        is being investigated in <span class="key-emphasis key-emphasis--pink">ATLAS</span> and <span class="key-emphasis key-emphasis--pink">CMS</span> experimental analyses to quantify its impact on reconstruction and physics workflows.
-      </div>
-      <div class="outlook-result">Results are expected to be delivered over the next year.</div>
-    </div>
+    <div class="outlook-label"><span class="outlook-icon i-carbon:deploy"></span><span>Next step</span><strong>Validate in each analysis</strong></div>
+    <div class="outlook-flow"><div class="outlook-main">A shared model provides a starting point. Calibration, uncertainty studies, and validation on experimental data remain essential.</div><div class="outlook-result">Ongoing applications in ATLAS and CMS, the two general-purpose LHC experiments.</div></div>
   </div>
 </div>
+
+<!--
+This seminar combines four earlier benchmarks, truth-reward alignment, the DELPHI expected-sensitivity study, and a supplied internal preliminary ATLAS HH multilepton example. Preserve the distinction between expected sensitivity and an observed quantum-entanglement result. The 10–40% claim refers to spin-coefficient uncertainties. Five task interfaces do not imply that all five heads are active in pretraining. No delivery date or deployment completion is claimed.
+-->
 
 <style>
 .summary-stage {

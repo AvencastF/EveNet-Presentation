@@ -7,7 +7,7 @@ class: nju-delphi dp-spin-fit
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# Recover the full spin density matrix.
+# Recover the full spin density matrix
 
 <div class="dp-subtitle"><LaTeX formula="\rho" /> encodes the complete spin quantum state of the <LaTeX formula="\tau^+\tau^-" /> pair; all 16 decay categories contribute to its reconstruction.</div>
 <div class="dp-fit">
@@ -16,7 +16,7 @@ import NJUPlot from '../components/NJUPlot.vue'
 <h2>15 spin coefficients determine <LaTeX formula="\rho" /></h2>
 <div class="dp-fit-definitions">
 <p><LaTeX formula="B_i^{\pm}" />: each particle’s average spin.<br /><LaTeX formula="C_{ij}" />: correlations between the two spins.</p>
-<p class="dp-state-message">Together, they specify the full spin quantum state.</p>
+
 <p>Plot labels: <LaTeX formula="A,B" /> = the two particles;<br /><LaTeX formula="i,j\in\{k,n,r\}" /> = the three spin axes.<br />For example, <LaTeX formula="C_{nn}" /> correlates their spins along <LaTeX formula="n" />.</p>
 </div>
 <p><strong>Forward folding:</strong> pass predicted angle distributions through the response maps from the previous slide, then compare with reconstructed distributions.</p>

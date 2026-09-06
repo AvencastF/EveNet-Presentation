@@ -16,7 +16,7 @@ transition: fade
       </div>
     </div>
     <div mt-10 text-base text="zinc-400">
-      For more information, please check our <a href="https://arxiv.org/abs/2601.17126" class="talk-link"><div inline-block mr-1 translate-y-0.5 i-simple-icons:arxiv />arXiv:2601.17126</a>, <a href="https://github.com/orgs/EveNet-HEP/repositories" class="talk-link"><div inline-block mr-1 translate-y-0.5 i-ri:github-fill />repository</a>, and <a href="https://evenet-hep.github.io/EveNet-Full/" class="talk-link">doc</a>.
+      Resources: <a href="https://arxiv.org/abs/2601.17126" class="talk-link"><div inline-block mr-1 translate-y-0.5 i-simple-icons:arxiv />Paper</a> · <a href="https://github.com/orgs/EveNet-HEP/repositories" class="talk-link"><div inline-block mr-1 translate-y-0.5 i-ri:github-fill />Code</a> · <a href="https://evenet-hep.github.io/EveNet-Full/" class="talk-link">Documentation</a>
     </div>
   </div>
   <div text-sm text="zinc-300" text-right flex flex-col gap-3 mt-3>
@@ -24,7 +24,7 @@ transition: fade
       <span class="evenet-wordmark gradient-animated">EveNet</span> · Nanjing University Seminar
     </div>
     <div>
-      Slides built on top of <a href="https://sli.dev"><div inline-block mr-1 translate-y-0.8 i-logos:slidev />sli.dev</a>
+      Slides made with <a href="https://sli.dev"><div inline-block mr-1 translate-y-0.8 i-logos:slidev />sli.dev</a>
     </div>
   </div>
 </div>
@@ -33,7 +33,7 @@ transition: fade
   <img src="/evenet-logo-gold.svg" alt="" class="thank-you-evenet-logo" />
   <div class="thank-you-evenet-text-col">
     <span class="evenet-wordmark thank-you-evenet-text gradient-animated">EveNet</span>
-    <span class="thank-you-evenet-sub">For HEP</span>
+    <span class="thank-you-evenet-sub">For particle physics</span>
   </div>
 </div>
 

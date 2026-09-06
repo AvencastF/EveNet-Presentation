@@ -5,7 +5,7 @@ class: nju-refined nju-architecture
 glowOpacity: 0.08
 ---
 
-# <span class="evenet-wordmark gradient-animated">EveNet</span> Architecture
+# <span class="evenet-wordmark gradient-animated">EveNet</span> architecture
 
 <NJUAnimatedEveNet scene="core" :step="$clicks" />
 
