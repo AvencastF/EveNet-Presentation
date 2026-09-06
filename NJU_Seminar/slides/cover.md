@@ -1,6 +1,15 @@
+---
+class: nju-foundation-cover
+---
+
+<NJUChapterScene scene="foundation" />
+
 <div class="cover">
   <header class="cover-hero">
-    <p class="evenet-wordmark cover-title gradient-animated">EveNet</p>
+    <div class="cover-identity">
+      <img src="/evenet-logo-gold.svg" class="cover-emblem" alt="EveNet emblem">
+      <p class="evenet-wordmark cover-title gradient-animated">EveNet</p>
+    </div>
     <p class="cover-lead">
       <span class="cover-tagline">From Event Understanding to Invisible-Particle Reconstruction</span>
     </p>
@@ -26,13 +35,12 @@
   </footer>
 </div>
 
-<div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
-  <div w-full flex items-center justify-end gap-4>
-    <img src="/evenet-logo-gold.svg" h-20 translate-y-4 alt="EveNet">
-  </div>
-</div>
-
 <style>
+.slidev-layout.nju-foundation-cover { background: #0c0d0f!important; }
+.slidev-layout.nju-foundation-cover::before { display: none; }
+.nju-foundation-cover .cover-identity { display:flex; align-items:center; gap:16px; }
+.nju-foundation-cover .cover-emblem { width:54px; height:54px; flex:none; }
+
 .cover {
   display: flex;
   flex-direction: column;

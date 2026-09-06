@@ -2,7 +2,7 @@
 import { computed, onMounted, onBeforeUnmount, ref, watch } from 'vue'
 import { useSlideContext } from '@slidev/client'
 
-const props = defineProps<{ scene: 'align' | 'lep' | 'higgs' }>()
+const props = defineProps<{ scene: 'align' | 'lep' | 'higgs' | 'foundation' }>()
 const canvas = ref<HTMLCanvasElement>()
 const { $nav, $page, $renderContext } = useSlideContext()
 const reduced = ref(false), hidden = ref(false)
@@ -93,9 +93,100 @@ function quantum(t:number){
   line2([[742,248],[798,304],[872,362]],'rgba(240,195,110,.6)',1.2)
   ctx.beginPath();ctx.arc(742,248,4,0,Math.PI*2);ctx.fillStyle='rgba(246,226,187,.65)';ctx.fill()
 }
+function foundation(t:number){
+  if(!ctx)return
+  // Many event streams -> one shared representation -> five task pathways.
+  // A decorative foundation-model metaphor, not a literal network architecture.
+  const cx=746,cy=276,turn=t*.065
+  const palette=['255,189,89','255,240,186','255,207,163','255,145,181','245,176,188']
+  const dot=(x:number,y:number,r:number,color:string)=>{
+    ctx!.beginPath();ctx!.arc(x,y,r,0,Math.PI*2);ctx!.fillStyle=color;ctx!.fill()
+  }
+  const glow=ctx.createRadialGradient(cx,cy,10,cx,cy,285)
+  glow.addColorStop(0,'rgba(240,195,110,.16)')
+  glow.addColorStop(.42,'rgba(255,145,181,.055)')
+  glow.addColorStop(1,'rgba(255,145,181,0)')
+  ctx.fillStyle=glow;ctx.fillRect(cx-285,cy-285,570,570)
+  // Fine orbital architecture gives the shared representation physical depth.
+  const sphere=(a:number,b:number,r=158)=>{
+    const x=r*Math.cos(b)*Math.cos(a+turn),z=r*Math.cos(b)*Math.sin(a+turn),y=r*Math.sin(b)
+    return [cx+x*.9+y*.32,cy+y*.9-x*.28+z*.23,z]
+  }
+  for(let k=0;k<19;k++){
+    const b=-Math.PI/2+(k+1)*Math.PI/20
+    line2(Array.from({length:101},(_,i)=>sphere(i/100*Math.PI*2,b)),`rgba(240,195,110,${.1+.13*Math.cos(b)})`,.65)
+  }
+  for(let k=0;k<30;k++){
+    line2(Array.from({length:81},(_,i)=>sphere(k/30*Math.PI*2,-Math.PI/2+i/80*Math.PI)), 'rgba(255,209,181,.16)',.65)
+  }
+  // Nested, tilted latent-space orbits, with slowly moving packets.
+  for(let k=0;k<6;k++){
+    const orbit=(a:number)=>{
+      const r=184+k*7,x=Math.cos(a)*r,y=Math.sin(a)*r*(.27+k*.025),tilt=-.48+k*.19
+      return [cx+x*Math.cos(tilt)-y*Math.sin(tilt),cy+x*Math.sin(tilt)+y*Math.cos(tilt)]
+    }
+    line2(Array.from({length:161},(_,i)=>orbit(i/160*Math.PI*2)),`rgba(${palette[k%5]},.17)`,.8)
+    const a=t*.17+k*1.1
+    line2(Array.from({length:15},(_,i)=>orbit(a-i*.012)),`rgba(${palette[k%5]},.65)`,1.4)
+    const p=orbit(a);dot(p[0],p[1],2,`rgba(${palette[k%5]},.9)`)
+  }
+  // Split champagne/rose rim and radial traces echo the emblem without copying it.
+  for(let half=0;half<2;half++){
+    const rim=Array.from({length:81},(_,i)=>{
+      const a=-Math.PI/2+.07+half*Math.PI+i/80*(Math.PI-.14)
+      return [cx+151*Math.cos(a),cy+146*Math.sin(a)]
+    })
+    line2(rim,`rgba(${half?'255,240,186':'255,145,181'},.38)`,1.5)
+  }
+  // Stable node identities: links rotate with the manifold instead of flickering.
+  const nodes=Array.from({length:90},(_,i)=>sphere(i*2.399963,Math.asin(-.96+i/89*1.92),156))
+  for(let i=0;i<nodes.length;i++){
+    const p=nodes[i]
+    if(i%2===0 && p[2]>-45){
+      const color=p[0]<cx?'255,240,186':'255,145,181'
+      line2([[cx,cy],p],`rgba(${color},${p[2]>0?.22:.08})`,.8)
+    }
+    for(let j=i+1;j<nodes.length;j++){
+      const q=nodes[j],distance=Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2])
+      if(distance<63)line2([p,q],`rgba(240,210,158,${p[2]>0?.19:.065})`,.7)
+    }
+    dot(p[0],p[1],p[2]>0?1.8:1,`rgba(255,224,170,${p[2]>0?.8:.25})`)
+  }
+  // Heterogeneous event traces enter from the lower left, below the cover copy.
+  for(let k=0;k<28;k++){
+    const stream=(u:number)=>{
+      const spread=(k-13.5)*10
+      return [210+u*480,548-u*244+spread*(1-u)**1.7+Math.sin(u*7+k*.34)*22*Math.sin(Math.PI*u)]
+    }
+    line2(Array.from({length:81},(_,i)=>stream(i/80)),`rgba(${palette[k%5]},.16)`,.75)
+    const phase=(t*.095+k*.071)%1
+    line2(Array.from({length:9},(_,i)=>stream(Math.max(0,phase-i*.006))),`rgba(${palette[k%5]},.65)`,1.2)
+    const p=stream(phase);dot(p[0],p[1],1.3,`rgba(${palette[k%5]},.8)`)
+  }
+  // Five task constellations use variations within the emblem's warm palette.
+  for(let k=0;k<5;k++){
+    const endY=75+k*95,endX=938-Math.abs(k-2)*12
+    const branch=(u:number)=>[cx+u*(endX-cx),cy+(endY-cy)*(u*u*(3-2*u))]
+    for(let strand=-2;strand<=2;strand++){
+      line2(Array.from({length:71},(_,i)=>{const u=i/70,p=branch(u);return [p[0],p[1]+strand*5*Math.sin(Math.PI*u)]}),`rgba(${palette[k]},.23)`,.8)
+    }
+    const phase=(t*.12+k*.18)%1,p=branch(phase)
+    dot(p[0],p[1],2,`rgba(${palette[k]},.85)`)
+    for(let j=0;j<7;j++){
+      const a=j*Math.PI*2/6,x=endX+Math.cos(a)*17,y=endY+Math.sin(a)*17
+      line2([[endX,endY],[x,y]],`rgba(${palette[k]},.4)`,.8)
+      dot(x,y,j===6?2.5:1.6,`rgba(${palette[k]},.75)`)
+    }
+    dot(endX,endY,3,`rgba(${palette[k]},.9)`)
+  }
+  const core=ctx.createRadialGradient(cx,cy,0,cx,cy,52)
+  core.addColorStop(0,'rgba(255,174,193,.55)');core.addColorStop(.18,'rgba(240,195,110,.12)');core.addColorStop(1,'rgba(240,195,110,0)')
+  ctx.fillStyle=core;ctx.fillRect(cx-52,cy-52,104,104)
+}
 function render(t:number){
   if(!ctx)return
   ctx.clearRect(0,0,980,551)
+  if(props.scene==='foundation'){foundation(t);return}
   if(props.scene==='align'){probability(t);return}
   if(props.scene==='lep'){quantum(t);return}
   // Perspective barrel: separated annular plates, ribs and recessed detector layers.
@@ -193,6 +284,7 @@ onBeforeUnmount(()=>{cancelAnimationFrame(frame);media?.removeEventListener('cha
 .chapter-scene{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#0c0d0f}
 .chapter-scene canvas{display:block;width:100%;height:100%;opacity:.87}
 .chapter-scene-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,13,15,.97) 0%,rgba(12,13,15,.8) 34%,rgba(12,13,15,.38) 65%,rgba(12,13,15,.05) 100%),linear-gradient(0deg,rgba(12,13,15,.96),transparent 22%,transparent 88%,rgba(12,13,15,.18))}
+.chapter-scene[data-scene="foundation"] .chapter-scene-shade{background:linear-gradient(90deg,#0c0d0f 0%,rgba(12,13,15,.94) 32%,rgba(12,13,15,.65) 50%,rgba(12,13,15,.06) 73%),linear-gradient(0deg,rgba(12,13,15,.6),transparent 18%,transparent 85%,rgba(12,13,15,.28))}
 .scene-notation{position:absolute;color:#d9bd8e;opacity:.5;font-size:28px;line-height:1;pointer-events:none}
 .probability-notation{left:77%;top:12%;font-size:32px}
 .tau-plus{left:60%;top:21%;color:#99cee9}.tau-minus{left:87%;top:65%}

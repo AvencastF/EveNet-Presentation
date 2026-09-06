@@ -97,6 +97,8 @@ Particle notation and formulas use LaTeX. The stated 10–40% gain is expected p
 
 ## Animated chapter backgrounds
 
+The title page uses the same component's `foundation` scene: event streams converge into a rotating, gold shared-representation lattice and fan out into five warm-colored task constellations. This is a decorative foundation-model metaphor, not a literal architecture or measured event display. The amber–champagne–rose palette, split rim and radial traces echo the approved emblem; the emblem sits beside the title in clear space. The existing cover copy and approved wordmark are preserved. It follows the same activity and reduced-motion rules as the chapter scenes, with no added clicks.
+
 `components/NJUChapterScene.vue` draws three distinct decorative scenes on transitions 14, 18 and 23, preserving foreground copy and layout. RL uses a multimodal probability surface that concentrates smoothly; LEP uses two linked state-space spheres with a central Z vertex and tau labels; Higgs retains the perspective detector with two H branches and daughter pairs. Background notation uses LaTeX. These are illustrative motifs, not measured distributions, a factorization of the two-particle density matrix, accurate detector models, simulated events or internal ATLAS material.
 
 Rendering is capped near 30 fps and device pixel ratio 2. Only the active audience slide animates; hidden pages, inactive slides, presenter/overview and reduced-motion views retain a still composition. The canvas is decorative and excluded from accessibility text. No extra clicks or dependencies are introduced.
