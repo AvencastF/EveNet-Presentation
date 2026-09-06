@@ -1,0 +1,395 @@
+/* NJU-only Graphite & Gold. Scientific plot assets and series are untouched. */
+:root { --bg-0:#17191c; --bg-1:#23262b; --fg-0:#f0f1f3; --fg-1:#bcc2cb; --fg-2:#aeb6c1; --nju-accent:#77c9ff; --nju-blue:#77c9ff; --nju-amber:#f0c36e; --nju-violet:#baa5ff; --nju-mint:#70dcb2; --nju-coral:#f69cab; --nju-line:rgba(190,201,214,.18); --c-cyan:#77c9ff; --c-magenta:#f69cab; --c-violet:#baa5ff; --card-bg:rgba(201,210,221,.045); --card-border:var(--nju-line); --accent:linear-gradient(90deg,#ffbd59 0%,#fff0ba 32%,#ff91b5 68%,#ffbd59 100%); }
+.slidev-layout { background:#17191c!important; isolation:isolate; font-family:'DM Sans',sans-serif; color:var(--fg-0); }
+.slidev-layout::before { content:''; position:absolute; inset:-18%; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 75% 25%,rgba(94,159,222,.15),transparent 58%),radial-gradient(ellipse at 15% 85%,rgba(163,132,203,.09),transparent 55%); animation:nju-graphite-drift 28s ease-in-out infinite alternate; }
+@keyframes nju-graphite-drift { from{transform:translate3d(-2%,-1%,0) scale(1)} to{transform:translate3d(3%,2%,0) scale(1.04)} }
+.slidev-layout h1 { font-size:36px!important; line-height:1.14!important; font-weight:550!important; letter-spacing:-.035em!important; color:var(--fg-0)!important; }
+.slidev-layout.nju-architecture h1 { font-size:36px!important; }
+.slidev-layout :is(h2,h3,strong,.font-bold,.font-extrabold) { font-weight:600; }
+
+.slidev-layout :is(.evenet-power,.glow-border,.glow-border-magenta) { background:rgba(201,210,221,.045)!important; box-shadow:none!important; border-color:var(--nju-line)!important; }
+.slidev-layout :is(.evenet-power,.model-name-highlight)::before,.slidev-layout .evenet-power::after { display:none!important; }
+.slidev-layout :is(.nju-source,.nju-caption,.njua-note) { color:var(--fg-1)!important; opacity:1!important; }
+.slidev-layout .nju-takeaway { border-left:1px solid var(--nju-line); }
+.slidev-layout .njua svg .housing,.slidev-layout .njua svg .socket { fill:#23262b!important; stroke:#9aa7b8; }
+.slidev-layout .njua svg :is(.small,.tiny,.label) { fill:var(--fg-1); }
+.slidev-layout .njua svg .strong { fill:var(--fg-0); }
+.slidev-layout .njua-footer { border-color:var(--nju-line); }
+@media(prefers-reduced-motion:reduce) { .slidev-layout::before,.slidev-layout .gradient-animated,.slidev-layout .gradient-animated-logo-color,.slidev-layout .model-name-highlight{animation:none!important;} }
+@media print { .slidev-layout::before{animation:none!important;} }
+.slidev-layout [class*="bg-cyan-"],
+.slidev-layout [bg*="cyan-"],
+.slidev-layout [class*="bg-sky-"],
+.slidev-layout [bg*="sky-"],
+.slidev-layout [class*="bg-blue-"],
+.slidev-layout [bg*="blue-"],
+.slidev-layout [class*="bg-teal-"],
+.slidev-layout [bg*="teal-"],
+.slidev-layout [class*="bg-emerald-"],
+.slidev-layout [bg*="emerald-"],
+.slidev-layout [class*="bg-green-"],
+.slidev-layout [bg*="green-"],
+.slidev-layout [class*="bg-violet-"],
+.slidev-layout [bg*="violet-"],
+.slidev-layout [class*="bg-purple-"],
+.slidev-layout [bg*="purple-"],
+.slidev-layout [class*="bg-fuchsia-"],
+.slidev-layout [bg*="fuchsia-"],
+.slidev-layout [class*="bg-pink-"],
+.slidev-layout [bg*="pink-"],
+.slidev-layout [class*="bg-rose-"],
+.slidev-layout [bg*="rose-"],
+.slidev-layout [class*="bg-amber-"],
+.slidev-layout [bg*="amber-"],
+.slidev-layout [class*="bg-orange-"],
+.slidev-layout [bg*="orange-"],
+.slidev-layout [class*="bg-yellow-"],
+.slidev-layout [bg*="yellow-"],
+.slidev-layout [class*="bg-red-"],
+.slidev-layout [bg*="red-"],
+.slidev-layout [class*="bg-indigo-"],
+.slidev-layout [bg*="indigo-"] { background:rgba(201,210,221,.045)!important; }
+.slidev-layout [class*="border-cyan-"],
+.slidev-layout [border*="cyan-"],
+.slidev-layout [class*="border-sky-"],
+.slidev-layout [border*="sky-"],
+.slidev-layout [class*="border-blue-"],
+.slidev-layout [border*="blue-"],
+.slidev-layout [class*="border-teal-"],
+.slidev-layout [border*="teal-"],
+.slidev-layout [class*="border-emerald-"],
+.slidev-layout [border*="emerald-"],
+.slidev-layout [class*="border-green-"],
+.slidev-layout [border*="green-"],
+.slidev-layout [class*="border-violet-"],
+.slidev-layout [border*="violet-"],
+.slidev-layout [class*="border-purple-"],
+.slidev-layout [border*="purple-"],
+.slidev-layout [class*="border-fuchsia-"],
+.slidev-layout [border*="fuchsia-"],
+.slidev-layout [class*="border-pink-"],
+.slidev-layout [border*="pink-"],
+.slidev-layout [class*="border-rose-"],
+.slidev-layout [border*="rose-"],
+.slidev-layout [class*="border-amber-"],
+.slidev-layout [border*="amber-"],
+.slidev-layout [class*="border-orange-"],
+.slidev-layout [border*="orange-"],
+.slidev-layout [class*="border-yellow-"],
+.slidev-layout [border*="yellow-"],
+.slidev-layout [class*="border-red-"],
+.slidev-layout [border*="red-"],
+.slidev-layout [class*="border-indigo-"],
+.slidev-layout [border*="indigo-"] { border-color:var(--nju-line)!important; }
+.slidev-layout [class*="border-2"] { border-width:1px!important; }
+.slidev-layout .cover-notes,
+.slidev-layout .method-canvas,
+.slidev-layout .candidate-group,
+.slidev-layout .align-node,
+.slidev-layout .top-mass-plot,
+.slidev-layout .mini-note,
+.slidev-layout .outlook-result,
+.slidev-layout .paradigm-card__viz { border-top:1px solid var(--nju-line)!important; }
+.slidev-layout .result-improvement-ssl .result-improvement-badge,
+.slidev-layout .result-improvement-badge,
+.slidev-layout .result-error-line,
+.slidev-layout .result-error-tick,
+.slidev-layout .result-error-bar-scratch .result-error-line,
+.slidev-layout .result-error-bar-scratch .result-error-tick,
+.slidev-layout .result-error-bar-ssl .result-error-line,
+.slidev-layout .result-error-bar-ssl .result-error-tick,
+.slidev-layout .result-error-bar-full .result-error-line,
+.slidev-layout .result-error-bar-full .result-error-tick,
+.slidev-layout .result-item,
+.slidev-layout .result-item-1,
+.slidev-layout .result-item-2,
+.slidev-layout .result-item-3,
+.slidev-layout .ambient--cyan,
+.slidev-layout .ambient--violet,
+.slidev-layout .stage-guide i,
+.slidev-layout .truth-dot,
+.slidev-layout .sample-dot,
+.slidev-layout .candidate-group,
+.slidev-layout .group-good,
+.slidev-layout .truth-anchor,
+.slidev-layout .group-bad .group-dot,
+.slidev-layout .group-good .group-dot,
+.slidev-layout .reward-chip--bad,
+.slidev-layout .reward-chip--good,
+.slidev-layout .batch-card,
+.slidev-layout .latent-card,
+.slidev-layout .mini-cloud i,
+.slidev-layout .batch-card--pred .mini-cloud i,
+.slidev-layout .ad-network,
+.slidev-layout .ad-network i,
+.slidev-layout .latent-card--truth,
+.slidev-layout .latent-card--pred,
+.slidev-layout .latent,
+.slidev-layout .latent-card--pred .latent,
+.slidev-layout .swd-strip,
+.slidev-layout .cpo-repair-strip,
+.slidev-layout .align-node,
+.slidev-layout .align-output,
+.slidev-layout .coming-soon-banner,
+.slidev-layout .top-mass-plot,
+.slidev-layout .slidev-layout.cinema-bridge-layout,
+.slidev-layout .cinema-bridge,
+.slidev-layout .model-strip,
+.slidev-layout .model-metrics span,
+.slidev-layout .tag-row span,
+.slidev-layout .school-logo,
+.slidev-layout .school-logo:hover,
+.slidev-layout .paradigm-card--disc,
+.slidev-layout .paradigm-card--gen,
+.slidev-layout .task-pill,
+.slidev-layout .model-chip,
+.slidev-layout .gain-badge,
+.slidev-layout .hub-core,
+.slidev-layout .highlight-card,
+.slidev-layout .highlight-card.active,
+.slidev-layout .highlight-card:last-child.active,
+.slidev-layout .highlight-num,
+.slidev-layout .highlight-card.active .highlight-num,
+.slidev-layout .highlight-card:last-child.active .highlight-num { background:rgba(201,210,221,.045)!important; }
+.slidev-layout .result-improvement-ssl .result-improvement-badge,
+.slidev-layout .result-improvement-badge,
+.slidev-layout .truth-dot,
+.slidev-layout .sample-dot,
+.slidev-layout .truth-anchor,
+.slidev-layout .group-bad .group-dot,
+.slidev-layout .group-good .group-dot,
+.slidev-layout .ad-network i,
+.slidev-layout .latent,
+.slidev-layout .latent-card--pred .latent,
+.slidev-layout .top-mass-plot,
+.slidev-layout .metric-card,
+.slidev-layout .evidence-card--performance,
+.slidev-layout .evidence-card--efficiency,
+.slidev-layout .evidence-card--transfer,
+.slidev-layout .school-logo:hover,
+.slidev-layout .paradigm-card--disc,
+.slidev-layout .paradigm-card--gen { box-shadow:none!important; }
+.slidev-layout .result-value-ref,
+.slidev-layout .result-bar-text-ref,
+.slidev-layout .stress-test-title,
+.slidev-layout .stat-label,
+.slidev-layout .result-content,
+.slidev-layout .panel-header h2,
+.slidev-layout .state-label strong,
+.slidev-layout .group-head strong,
+.slidev-layout .batch-card strong,
+.slidev-layout .latent-card strong,
+.slidev-layout .align-node strong,
+.slidev-layout .metric-title strong,
+.slidev-layout .metric-table td,
+.slidev-layout .cinema-q-line,
+.slidev-layout .cinema-line--hero,
+.slidev-layout .model-main strong,
+.slidev-layout .evidence-card h3,
+.slidev-layout .outlook-main,
+.slidev-layout .thank-you-evenet-text,
+.slidev-layout .paradigm-kicker strong,
+.slidev-layout .paradigm-card__head h3,
+.slidev-layout .hub-count,
+.slidev-layout .highlight-title,
+.slidev-layout .q-main,
+.slidev-layout .answer,
+.slidev-layout .team-label { color:var(--fg-0)!important; }
+.slidev-layout .result-improvement-ssl .result-improvement-badge,
+.slidev-layout .result-improvement-badge,
+.slidev-layout .state-label > span,
+.slidev-layout .event-badge,
+.slidev-layout .ad-network,
+.slidev-layout .align-output,
+.slidev-layout .coming-soon-banner,
+.slidev-layout .model-strip,
+.slidev-layout .model-metrics span,
+.slidev-layout .evidence-card,
+.slidev-layout .tag-row span,
+.slidev-layout .outlook-panel,
+.slidev-layout .school-logo,
+.slidev-layout .paradigm-card,
+.slidev-layout .task-pill,
+.slidev-layout .model-chip,
+.slidev-layout .gain-badge,
+.slidev-layout .hub-core,
+.slidev-layout .highlight-card,
+.slidev-layout .highlight-num { border:1px solid var(--nju-line)!important; }
+.slidev-layout .result-name-scratch,
+.slidev-layout .coming-soon-banner span { color:var(--fg-1)!important; }
+.slidev-layout .stress-test-panel,
+.slidev-layout .result-item,
+.slidev-layout .batch-card--truth,
+.slidev-layout .batch-card--pred,
+.slidev-layout .swd-strip,
+.slidev-layout .cpo-repair-strip { border-left:1px solid var(--nju-line)!important; }
+.slidev-layout .grid-statistics,
+.slidev-layout .nature-link,
+.slidev-layout .method-canvas,
+.slidev-layout .metric-table td,
+.slidev-layout .preferred-row td { border-bottom:1px solid var(--nju-line)!important; }
+.slidev-layout .stat-value,
+.slidev-layout .highlight-number,
+.slidev-layout .highlight-speed,
+.slidev-layout .panel-kicker,
+.slidev-layout .state-label > span,
+.slidev-layout .reward-chip,
+.slidev-layout .ad-flow-label,
+.slidev-layout .ad-network span,
+.slidev-layout .metric-table th,
+.slidev-layout .preferred-row td,
+.slidev-layout .model-kicker,
+.slidev-layout .card-kicker,
+.slidev-layout .key-emphasis,
+.slidev-layout .outlook-label span:not(.outlook-icon),
+.slidev-layout .highlight-precision,
+.slidev-layout .paradigm-kicker strong,
+.slidev-layout .paradigm-card__head h3,
+.slidev-layout .model-chip,
+.slidev-layout .gain-badge,
+.slidev-layout .hub-text,
+.slidev-layout .highlight-num,
+.slidev-layout .highlight-title,
+.slidev-layout .highlight-desc em,
+.slidev-layout .team-label { font-weight:600!important; }
+.slidev-layout .highlight-number,
+.slidev-layout .highlight-region,
+.slidev-layout .highlight-speed,
+.slidev-layout .method-canvas,
+.slidev-layout .metric-card::before,
+.slidev-layout .evidence-card,
+.slidev-layout .outlook-panel,
+.slidev-layout .hub-ring { background:linear-gradient(125deg, rgba(201,210,221,.055), rgba(201,210,221,.015))!important; }
+.slidev-layout .method-panel { border-right:1px solid var(--nju-line)!important; }
+.slidev-layout .group-bad,
+.slidev-layout .group-good,
+.slidev-layout .align-node--dgpo,
+.slidev-layout .align-node--cpo,
+.slidev-layout .school-logo:hover,
+.slidev-layout .paradigm-card--disc,
+.slidev-layout .paradigm-card--gen,
+.slidev-layout .task-lane--disc .task-pill,
+.slidev-layout .task-lane--gen .task-pill,
+.slidev-layout .phase-shared .gain-badge,
+.slidev-layout .highlight-card.active,
+.slidev-layout .highlight-card:last-child.active,
+.slidev-layout .highlight-card.active .highlight-num,
+.slidev-layout .highlight-card:last-child.active .highlight-num { border-color:var(--nju-line)!important; }
+
+/* Consistent secondary text and section hierarchy. */
+.slidev-layout .text-2xl { font-size:24px; }
+.slidev-layout :is([class*="text-white/3"],[class*="text-white/4"],[class*="text-white/5"]) { color:var(--fg-1)!important; }
+.slidev-layout .result-item { background:transparent!important; border:0!important; border-radius:0!important; }
+.slidev-layout :is(.highlight-number,.highlight-region,.highlight-speed,.highlight-stable-3) { background:none!important; color:var(--nju-accent)!important; }
+
+/* Final brand precedence and remaining legacy decorations. */
+.slidev-layout { max-width:none!important; }
+
+.slidev-layout .neon-hr { background:linear-gradient(90deg,transparent,rgba(195,206,218,.5),transparent)!important; filter:none; }
+.slidev-layout .rough-annotation path { stroke:var(--nju-accent)!important; }
+.slidev-layout .evenet-energy { background:conic-gradient(from 210deg,transparent 0 16%,rgba(195,206,218,.7) 22%,transparent 31% 58%,rgba(240,243,246,.8) 69%,transparent 77%)!important; }
+.slidev-layout .evenet-lock-flash { background:radial-gradient(circle,rgba(240,243,246,.9) 0 4%,rgba(195,206,218,.7) 16%,rgba(150,163,180,.3) 43%,transparent 73%)!important; }
+.slidev-layout.cinema-bridge-layout { background:#17191c!important; }
+.slidev-layout .cinema-bridge { background:transparent!important; }
+.slidev-layout .cinema-bg { display:none; }
+
+/* Chromatic roles: graphite canvas, gold identity, purposeful scientific accents. */
+.slidev-layout .stat-value,
+.slidev-layout .highlight-number,
+.slidev-layout .highlight-region,
+.slidev-layout .key-emphasis--cyan,
+.slidev-layout .panel-icon--cyan,
+.slidev-layout .state-label,
+.slidev-layout .highlight-precision,
+.slidev-layout .result-highlight-1,
+.slidev-layout .stress-highlight-cyan,
+.slidev-layout .stress-icon-cyan,
+.slidev-layout .evidence-card--performance .card-icon,
+.slidev-layout .evidence-card--performance h3,
+.slidev-layout .paradigm-card--disc .paradigm-card__icon,
+.slidev-layout .phase-shared .task-link,
+.slidev-layout .nature-link,
+.slidev-layout .talk-link,
+.slidev-layout [class*="text-cyan-"],
+.slidev-layout [text*="cyan-"],
+.slidev-layout [class*="text-sky-"],
+.slidev-layout [text*="sky-"],
+.slidev-layout [class*="text-blue-"],
+.slidev-layout [text*="blue-"],
+.slidev-layout [class*="text-teal-"],
+.slidev-layout [text*="teal-"] { color:var(--nju-blue)!important; }
+.slidev-layout .highlight-speed,
+.slidev-layout .key-emphasis--amber,
+.slidev-layout .panel-icon--amber,
+.slidev-layout .panel-kicker--amber,
+.slidev-layout .state-label--amber,
+.slidev-layout .stress-highlight-orange,
+.slidev-layout .stress-icon-orange,
+.slidev-layout .evidence-card--efficiency .card-icon,
+.slidev-layout .evidence-card--efficiency h3,
+.slidev-layout .highlight-card:last-child.active .highlight-num,
+.slidev-layout [class*="text-amber-"],
+.slidev-layout [text*="amber-"],
+.slidev-layout [class*="text-orange-"],
+.slidev-layout [text*="orange-"],
+.slidev-layout [class*="text-yellow-"],
+.slidev-layout [text*="yellow-"] { color:var(--nju-amber)!important; }
+.slidev-layout .key-emphasis--pink,
+.slidev-layout .state-label--violet,
+.slidev-layout .stress-highlight-violet,
+.slidev-layout .stress-icon-violet,
+.slidev-layout .highlight-card.active .highlight-num,
+.slidev-layout [class*="text-violet-"],
+.slidev-layout [text*="violet-"],
+.slidev-layout [class*="text-purple-"],
+.slidev-layout [text*="purple-"],
+.slidev-layout [class*="text-indigo-"],
+.slidev-layout [text*="indigo-"] { color:var(--nju-violet)!important; }
+.slidev-layout .highlight-stable-3,
+.slidev-layout .key-emphasis--green,
+.slidev-layout .state-label--green,
+.slidev-layout .state-foot--green,
+.slidev-layout .stress-highlight-green,
+.slidev-layout .stress-icon-green,
+.slidev-layout .evidence-card--transfer .card-icon,
+.slidev-layout .evidence-card--transfer h3,
+.slidev-layout .reward-chip--good,
+.slidev-layout .preferred-row td,
+.slidev-layout [class*="text-green-"],
+.slidev-layout [text*="green-"],
+.slidev-layout [class*="text-emerald-"],
+.slidev-layout [text*="emerald-"] { color:var(--nju-mint)!important; }
+.slidev-layout .reward-chip--bad,
+.slidev-layout .paradigm-card--gen .paradigm-card__icon,
+.slidev-layout [class*="text-pink-"],
+.slidev-layout [text*="pink-"],
+.slidev-layout [class*="text-rose-"],
+.slidev-layout [text*="rose-"],
+.slidev-layout [class*="text-red-"],
+.slidev-layout [text*="red-"],
+.slidev-layout [class*="text-fuchsia-"],
+.slidev-layout [text*="fuchsia-"] { color:var(--nju-coral)!important; }
+.slidev-layout .paradigm-card--disc,.slidev-layout .evidence-card--performance,.slidev-layout .align-node--dgpo { background:linear-gradient(135deg,color-mix(in srgb,var(--nju-blue) 10%,#1b1e23),#1b1e23)!important; border-color:color-mix(in srgb,var(--nju-blue) 32%,transparent)!important; }
+.slidev-layout .evidence-card--efficiency { background:linear-gradient(135deg,color-mix(in srgb,var(--nju-amber) 10%,#1b1e23),#1b1e23)!important; border-color:color-mix(in srgb,var(--nju-amber) 32%,transparent)!important; }
+.slidev-layout .evidence-card--transfer,.slidev-layout .group-good { background:linear-gradient(135deg,color-mix(in srgb,var(--nju-mint) 10%,#1b1e23),#1b1e23)!important; border-color:color-mix(in srgb,var(--nju-mint) 32%,transparent)!important; }
+.slidev-layout .paradigm-card--gen,.slidev-layout .group-bad { background:linear-gradient(135deg,color-mix(in srgb,var(--nju-coral) 10%,#1b1e23),#1b1e23)!important; border-color:color-mix(in srgb,var(--nju-coral) 32%,transparent)!important; }
+.slidev-layout .align-node--cpo { background:linear-gradient(135deg,color-mix(in srgb,var(--nju-violet) 10%,#1b1e23),#1b1e23)!important; border-color:color-mix(in srgb,var(--nju-violet) 32%,transparent)!important; }
+.slidev-layout .task-lane--disc .task-pill { color:var(--nju-blue)!important; border-color:rgba(119,201,255,.35)!important; }
+.slidev-layout .task-lane--gen .task-pill { color:var(--nju-coral)!important; border-color:rgba(246,156,171,.35)!important; }
+.slidev-layout .nju-takeaway { border-color:var(--nju-blue); }
+.slidev-layout ::selection { background:#77c9ff; color:#17191c; }
+.slidev-layout :focus-visible { outline:2px solid var(--nju-blue); outline-offset:4px; }
+/* Keep EveNet branding gold even when nested in an accent-colored phrase. */
+
+
+/* Semantic marks must remain opaque: they encode candidates, truth and populations. */
+.slidev-layout .sample-dot { background:var(--nju-violet)!important; }
+.slidev-layout .truth-dot,.slidev-layout .truth-anchor,.slidev-layout .mini-cloud i,.slidev-layout .latent { background:var(--nju-amber)!important; }
+.slidev-layout .group-bad .group-dot { background:var(--nju-coral)!important; }
+.slidev-layout .group-good .group-dot { background:var(--nju-mint)!important; }
+.slidev-layout .batch-card--pred .mini-cloud i,.slidev-layout .latent-card--pred .latent { background:var(--nju-blue)!important; }
+.slidev-layout .ad-network i { background:var(--nju-violet)!important; }
+.slidev-layout .truth-dot,.slidev-layout .truth-anchor { outline:1px solid #fff0ba; outline-offset:3px; }
+.slidev-layout .align-subtitle { color:var(--fg-1)!important; }
+
+.slidev-layout .hub-z { background:none!important; color:var(--nju-blue)!important; -webkit-text-fill-color:var(--nju-blue); font-style:italic; }

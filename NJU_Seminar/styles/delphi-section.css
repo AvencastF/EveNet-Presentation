@@ -1,0 +1,55 @@
+/* DELPHI section: native diagrams, source plots, and a shared evidence hierarchy. */
+.slidev-layout.nju-delphi { padding:42px 56px 35px; }
+.nju-delphi h1 { margin:0!important; font-size:34px!important; }
+.nju-delphi .dp-subtitle { margin-top:9px; font-size:16px; color:var(--nju-amber); line-height:1.4; }
+.nju-delphi .dp-source { position:absolute; bottom:12px; left:56px; color:var(--fg-1); font-size:10px; }
+.nju-delphi .dp-note { display:flex; gap:16px; align-items:baseline; border-top:1px solid var(--nju-line); padding-top:12px; margin-top:14px; color:var(--fg-1); font-size:14px; line-height:1.4; }
+.nju-delphi .dp-note strong { color:var(--nju-amber); white-space:nowrap; font-weight:550; }
+.nju-delphi .dp-meta { display:flex; align-items:center; gap:24px; padding:16px 0; margin-top:15px; border-top:1px solid var(--nju-line); border-bottom:1px solid var(--nju-line); font-size:15px; color:var(--fg-1); }
+.nju-delphi .dp-meta > span + span { border-left:1px solid var(--nju-line); padding-left:24px; }
+.nju-delphi .dp-meta b { color:var(--fg-0); font-weight:550; }
+.nju-delphi .dp-workflow { display:grid; grid-template-columns:145px 1fr 158px; gap:28px; align-items:center; height:235px; margin-top:10px; }
+.nju-delphi .dp-endpoint { text-align:center; }
+.nju-delphi .dp-endpoint h2 { font-size:20px; margin:0 0 9px; font-weight:550; }
+.nju-delphi .dp-endpoint p { font-size:12px; color:var(--fg-1); line-height:1.5; margin:0; opacity:1; }
+.nju-delphi .dp-endpoint .dp-symbol { display:block; font-size:33px; color:var(--nju-amber); margin-bottom:12px; }
+.nju-delphi .dp-lanes { display:grid; gap:22px; position:relative; }
+.nju-delphi .dp-lane { position:relative; border:1px solid var(--nju-line); padding:13px 16px; background:rgba(201,210,221,.035); }
+.nju-delphi .dp-lane::before,.nju-delphi .dp-lane::after { content:''; position:absolute; top:50%; width:29px; border-top:1px solid var(--nju-line); }
+.nju-delphi .dp-lane::before { right:100%; }.nju-delphi .dp-lane::after { left:100%; }
+.nju-delphi .dp-lane h3 { margin:0 0 10px; font-size:17px; color:var(--nju-blue); font-weight:550; }
+.nju-delphi .dp-steps { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--fg-0); }
+.nju-delphi .dp-steps > span:not(.dp-arrow) { flex:1; }
+.nju-delphi .dp-arrow { color:var(--fg-1); }
+.nju-delphi .dp-lane small { display:block; margin-top:8px; font-size:11px; color:var(--fg-1); }
+.nju-delphi .dp-evidence-heading { display:flex; justify-content:space-between; align-items:baseline; margin:20px 0 11px; gap:20px; font-size:15px; }
+.nju-delphi .dp-evidence-heading span { color:var(--fg-1); font-size:12px; }
+.nju-delphi .dp-plot { background:#fff; padding:7px; border-radius:3px; overflow:hidden; }
+.nju-delphi .dp-plot .zoomable-plot-container { margin:0!important; height:100%!important; width:100%!important; max-height:none!important; min-height:0!important; }
+.nju-delphi .dp-plot .zoomable-plot-image { width:100%!important; height:100%!important; max-height:none!important; object-fit:contain!important; }
+.nju-delphi .dp-classification { height:303px; }
+.nju-delphi .dp-reco-method { display:flex; align-items:center; gap:22px; margin:20px 0 16px; padding:13px 0; border-top:1px solid var(--nju-line); border-bottom:1px solid var(--nju-line); }
+.nju-delphi .dp-reco-method > div { flex:1; font-size:14px; line-height:1.4; }
+.nju-delphi .dp-reco-method strong { display:block; font-size:13px; color:var(--fg-1); font-weight:500; margin-bottom:5px; }
+.nju-delphi .dp-reco-method .dp-targets { color:var(--nju-amber); font-size:18px; }
+.nju-delphi .dp-comparison { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.nju-delphi .dp-comparison h2 { font-size:17px; margin:0 0 9px; font-weight:550; }
+.nju-delphi .dp-comparison .dp-plot { height:196px; }
+.nju-delphi .dp-axis-note { font-size:11px; color:var(--fg-1); margin-top:7px; text-align:right; }
+.nju-delphi .dp-fit { display:grid; grid-template-columns:1.07fr 1fr; gap:30px; margin-top:20px; }
+.nju-delphi .dp-fit .dp-plot { height:340px; }
+.nju-delphi .dp-fit-copy h2 { font-size:23px; line-height:1.22; margin:2px 0 14px; font-weight:550; }
+.nju-delphi .dp-fit-copy p { font-size:15px; color:var(--fg-1); line-height:1.5; opacity:1; margin:0; }
+.nju-delphi .dp-result { margin:21px 0; padding:15px 0; border-top:1px solid var(--nju-line); border-bottom:1px solid var(--nju-line); }
+.nju-delphi .dp-result strong { font-size:34px; font-weight:550; color:var(--nju-amber); }
+.nju-delphi .dp-result p { font-size:16px; margin-top:4px; color:var(--fg-0); }
+.nju-delphi .dp-coefficients { display:flex; gap:25px; align-items:center; margin-top:14px; font-size:14px; color:var(--nju-blue); }
+.nju-delphi .dp-limit { font-size:12px!important; margin-top:17px!important; }
+.nju-delphi .katex { font-size:1.05em; }
+.nju-delphi .dp-endpoint h2 { line-height:1.2!important; margin:0 0 9px!important; }
+.nju-delphi .dp-endpoint .dp-symbol { white-space:nowrap; font-size:26px; }
+.nju-delphi .dp-lane { height:98px; box-sizing:border-box; }
+.nju-delphi .dp-lane h3 { line-height:1.15!important; margin:0 0 8px!important; }
+.nju-delphi .dp-steps { line-height:1.3; }
+.nju-delphi .dp-comparison h2 { line-height:1.2!important; margin:0 0 9px!important; }
+.nju-delphi .dp-comparison .dp-plot { height:170px; }

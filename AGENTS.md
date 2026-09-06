@@ -38,6 +38,18 @@ npm run export -- My_Talk                # When an export is requested
 - Global layers are additive, not same-name overrides. Do not copy addon global layers into a deck; it would render both.
 - Shared changes affect all consumers. Preserve existing defaults and backwards-compatible props. If a requested change would alter historical presentations, explain the impact and get direction before widening the scope.
 
+## Mathematics and particle notation
+
+- Use LaTeX by default for all audience-visible mathematical symbols, formulas, particle names, and decay/reaction notation, including slide titles, prose, captions, and diagram labels. Use another representation only when the user explicitly requests it.
+- Use Slidev inline/block math in Markdown and the existing [LaTeX.vue](shared/slidev-addon-evenet/components/LaTeX.vue) component in HTML/Vue layouts. For example: `<LaTeX formula="\nu" />`, `<LaTeX formula="\bar{\nu}" />`, and `<LaTeX formula="Z \to \tau^{+}\tau^{-}" />`. The component accepts a `formula` string and an optional `block` boolean.
+- Do not substitute Unicode or HTML entities for mathematical/particle symbols, or construct notation with HTML `<sub>`/`<sup>`. In SVG diagrams, use an HTML `foreignObject` with the LaTeX component when adding editable notation. Preserve labels embedded in existing scientific figure assets.
+
+## EveNet name styling
+
+- Every audience-visible occurrence of **EveNet**, including names such as EveNet-Full and EveNet-Align, must use the deck’s approved, consistent animated wordmark gradient. NJU uses the user-approved Graphite & Gold amber–champagne–rose gradient; other decks retain their existing cyan–magenta–cyan palette. This is a persistent brand rule for all slide authoring and refinement, including text inside diagrams; do not replace it with plain text or another palette during visual cleanup.
+- NJU uses the approved Option C wordmark from [shared/brand/evenet/evenet.css](shared/brand/evenet/evenet.css). Import it after the deck theme and wrap the complete name in `<span class="evenet-wordmark">EveNet-Align</span>` (likewise EveNet, EveNet-Full, EveNet-Cls and other variants). Font geometry and gradient/motion must be edited only in this shared brand module; see its [README](shared/brand/evenet/README.md). Do not recreate the wordmark with per-slide fonts or paths.
+- For SVG diagrams, use an HTML `foreignObject` with the same class. NJU retains its matching `NJU_Seminar/public/evenet-logo-gold.svg` emblem. Other decks retain their existing identity until explicitly migrated. Source identifiers, paths, speaker notes, alt text, and non-rendered references remain plain text. Preserve labels embedded in scientific figure assets.
+
 ## Dependencies, output, and deployment
 
 - Install and manage dependencies at the repository root only. Check for an existing dependency first; do not upgrade or regenerate the lockfile just to create a talk.
