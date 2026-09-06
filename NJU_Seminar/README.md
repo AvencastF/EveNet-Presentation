@@ -34,8 +34,9 @@ npm run build -- NJU_Seminar
 21. [delphi-reconstruction](slides/delphi-reconstruction.md)
 22. [delphi-physics](slides/delphi-physics.md)
 23. [higgs-outlook](slides/higgs-outlook.md)
-24. [summary](slides/summary.md)
-25. [thank-you](slides/thank-you.md)
+24. [hhml-results](slides/hhml-results.md)
+25. [summary](slides/summary.md)
+26. [thank-you](slides/thank-you.md)
 
 ## Sources and editing
 
@@ -45,7 +46,7 @@ npm run build -- NJU_Seminar
 - Figures are cropped PDF renders, preserving plotted values and original legends. Text and layout are editable in each Markdown file. The complete source PDFs remain outside the deck.
 - `components/NJUPlot.vue` is the existing ICHEP plot viewer copied under a deck-specific name. Shared math, charts and illustrations are consumed directly from the addon.
 - `styles/local.css` contains only the ICHEP-specific logo gradient and NJU slide layouts.
-- Higgs is a requested placeholder. No ATLAS internal results are included.
+- Slide 24 adds the supplied internal preliminary HHML result from `HHML_IHEP.pptx`, slide 9. The original plot is preserved, with rounded gains from a single configuration relative to inclusive XGB. This local addition has not been published.
 - Listed on the GitHub Pages landing page. The root Pages workflow builds this deck together with the other presentations and publishes it at `/EveNet-Presentation/NJU_Seminar/` on pushes to `main`.
 
 ## Architecture and task sequence
@@ -84,9 +85,9 @@ Slides 14–17 share `styles/align-section.css`: a static chapter bridge, an ora
 
 ## Chapter transitions
 
-Transition slides alone use the deck-local `components/NJUChapter.vue` and `styles/chapters.css`. Full-width chapter rails locate the static bridges at 14 (alignment), 18 (LHC-to-LEP adaptation) and 23 (ATLAS outlook). Their darker, animated detector scenes distinguish them from content slides. Architecture remains at slide 4 and its five task slides remain at 5–9. Content slides have no chapter labels. Slide 24 restores the original paper summary for later presenter edits.
+Transition slides alone use the deck-local `components/NJUChapter.vue` and `styles/chapters.css`. Full-width chapter rails locate the static bridges at 14 (alignment), 18 (LHC-to-LEP adaptation) and 23 (ATLAS outlook). Their darker, animated detector scenes distinguish them from content slides. Architecture remains at slide 4 and its five task slides remain at 5–9. Content slides have no chapter labels. Slide 25 retains the original paper summary for later presenter edits.
 
-The alignment bridge connects invisible kinematics to quantum-state access as a motivation, not a claim that DGPO alone determines the state. The LEP bridge explicitly describes adaptation; DELPHI is not presented as an EveNet-Align application or zero-shot transfer. The ATLAS credentials line is a joke on a static outlook slide, with no internal results or access control. Scientific figures and result slides are unchanged.
+The alignment bridge connects invisible kinematics to quantum-state access as a motivation, not a claim that DGPO alone determines the state. The LEP bridge explicitly describes adaptation; DELPHI is not presented as an EveNet-Align application or zero-shot transfer. The ATLAS credentials line is a joke on a static outlook slide, with no access control. The following slide now contains the supplied internal preliminary HHML result. Scientific figures and result slides are unchanged.
 
 ## DELPHI evidence sequence (slides 18–22)
 
