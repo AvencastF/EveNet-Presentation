@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, lstatSync, mkdirSync, rmSync } from 'node:fs'
+import { cpSync, existsSync, lstatSync, mkdirSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { discoverDecks, repoRoot, runDeck } from './lib/decks.mjs'
@@ -28,7 +28,8 @@ export async function buildAll({ root = repoRoot, base = '/EveNet-Presentation/'
     if (code !== 0) return code
     console.log(`${deck}: ${((performance.now() - started) / 1000).toFixed(1)}s`)
   }
-  copyFileSync(join(root, 'gh-pages/index.html'), join(site, 'index.html'))
+  // Landing page plus local assets (brand font, emblem, anime.js).
+  cpSync(join(root, 'gh-pages'), site, { recursive: true })
   return 0
 }
 

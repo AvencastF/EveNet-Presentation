@@ -70,7 +70,7 @@ npm run build:all -- --base /EveNet-Presentation/
 
 `build:all` recreates the generated `site/` directory and sequentially builds every top-level folder containing `slides.md`. It stops at the first failure. Treat `site/` as disposable; keep source files and exports elsewhere.
 
-The default URL prefix comes from `GITHUB_REPOSITORY` in Actions, otherwise `/EveNet-Presentation/`. Each output remains at `site/<deck>/`, published as `/<repository>/<deck>/`. The existing `gh-pages/index.html` is copied unchanged.
+The default URL prefix comes from `GITHUB_REPOSITORY` in Actions, otherwise `/EveNet-Presentation/`. Each output remains at `site/<deck>/`, published as `/<repository>/<deck>/`. The `gh-pages/` landing tree (HTML plus assets) is copied into `site/`.
 
 GitHub Actions runs one root `npm ci`, caches npm's package downloads using the root lockfile, builds every deck, and uploads the complete Pages artifact. Existing main-branch and manual deployment triggers are unchanged. No deck-output caching or parallel builds are used.
 

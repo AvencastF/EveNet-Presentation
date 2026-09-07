@@ -54,7 +54,7 @@ npm run export -- My_Talk                # When an export is requested
 
 - Install and manage dependencies at the repository root only. Check for an existing dependency first; do not upgrade or regenerate the lockfile just to create a talk.
 - Preserve the current pinned Slidev CLI/client `52.11.3` and default theme `0.25.0` unless a dependency change is explicitly requested. Update the root manifest and lockfile together when an authorized change requires it.
-- A single build writes `<deck>/dist/`. `npm run build:all` recreates `site/`, builds every deck sequentially, and copies `gh-pages/index.html` unchanged.
+- A single build writes `<deck>/dist/`. `npm run build:all` recreates `site/`, builds every deck sequentially, and copies the `gh-pages/` landing tree (HTML plus local assets) into `site/`.
 - Keep existing deck folder names, `/<repository>/<deck>/` bases, hash routes, public asset paths, HTML injections, slide order, and settings unchanged during infrastructure-only work.
 - CI uses one root `npm ci` with npm download caching. Do not restore per-deck installs, output caching, or parallel builds as incidental changes.
 - Do not edit generated `site/`, `dist/`, or `node_modules/` as source. Do not remove unrelated exports. Do not push, merge, or deploy unless requested.

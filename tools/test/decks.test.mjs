@@ -63,13 +63,15 @@ test('wrapper uses root CLI, deck cwd, and preserves failure codes', async t => 
 test('all-deck builds preserve paths and landing page, and stop on failure', async t => {
   const root = fixture(t)
   createDeck('B', root); createDeck('A', root)
-  mkdirSync(join(root, 'gh-pages'))
+  mkdirSync(join(root, 'gh-pages/assets'), { recursive: true })
   writeFileSync(join(root, 'gh-pages/index.html'), 'unchanged landing')
+  writeFileSync(join(root, 'gh-pages/assets/mark.txt'), 'asset')
   const calls = []
   assert.equal(await buildAll({ root, base: '/repo', run: async (...args) => { calls.push(args); return 0 } }), 0)
   assert.deepEqual(calls.map(args => args[1]), ['A', 'B'])
   assert.deepEqual(calls[0][2], ['--base', '/repo/A/', '--out', join(root, 'site/A')])
   assert.equal(readFileSync(join(root, 'site/index.html'), 'utf8'), 'unchanged landing')
+  assert.equal(readFileSync(join(root, 'site/assets/mark.txt'), 'utf8'), 'asset')
   calls.length = 0
   assert.equal(await buildAll({ root, run: async (...args) => { calls.push(args); return 7 } }), 7)
   assert.equal(calls.length, 1)
