@@ -31,7 +31,7 @@ class: nju-foundation-cover
       </a>
       <span class="cover-ref-id">(arXiv:2601.17126)</span>
     </p>
-    <p class="cover-ref cover-acceptance">Accepted in principle at <em>Nature Machine Intelligence</em></p>
+    <p class="cover-ref cover-acceptance">Accepted at <em>Nature Machine Intelligence</em></p>
   </footer>
 </div>
 
