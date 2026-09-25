@@ -39,7 +39,7 @@ Static GitHub Pages site. `build:all` copies the `gh-pages/` landing tree (HTML 
 
 ## Evidence on Hand
 
-- Existing talks and paths: NJU_Seminar, AI_LHC_2026, AI_HEP_Japan, EPE_Seminar, HWW_QE_lvlv, ICHEP2027 (titles as currently listed on the landing page / deck headmatter).
+- Existing talks and paths: NJU_Seminar, CCNU_Seminar, AI_LHC_2026, AI_HEP_Japan, EPE_Seminar, HWW_QE_lvlv, ICHEP2027 (titles as currently listed on the landing page / deck headmatter).
 - Brand assets: `shared/brand/evenet/` (Option C wordmark CSS + font), `NJU_Seminar/public/evenet-logo-gold.svg`.
 - NJU cover composition and motion language as the approved title-page reference.
 - Do not fabricate talk dates, abstracts, or attendance figures until supplied.
