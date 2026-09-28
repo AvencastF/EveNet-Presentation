@@ -78,11 +78,15 @@ src: ./slides/delphi-transfer.md
 ---
 
 ---
-src: ./slides/delphi-classification.md
+src: ./slides/delphi-confusion.md
 ---
 
 ---
-src: ./slides/delphi-reconstruction.md
+src: ./slides/delphi-scaling.md
+---
+
+---
+src: ./slides/delphi-classification.md
 ---
 
 ---

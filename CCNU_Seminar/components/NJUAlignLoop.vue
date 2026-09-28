@@ -25,8 +25,8 @@ const cy = (s: typeof samples[number]) => mix(s.y, mix(90, 78, reveal(2)), revea
 const end = (s: typeof samples[number]) => mix(126 + s.d * 11, 173 - s.a * 30, reveal(2))
 const baseline = computed(() => mix(126, 173, reveal(2)))
 const math = (formula: string) => katex.renderToString(formula, { throwOnError: true })
-const titles = [`Sample ${math('K')} solutions for one event`, 'Score candidates with a chosen reward', 'Compare each reward with its event mean', 'Update the model to favor higher-reward solutions']
-const captions = [`One observed event ${math(String.raw`\to K`)} candidate solutions (${math('K = 8')} shown)`, `Higher reward ${math(String.raw`\to`)} stronger preference. Reward design is under study.`, 'Above-average reward: increase probability. Below-average: decrease it.', `Train the model to generate above-average solutions more often.`]
+const titles = [`Sample ${math('K')} solutions for one event`, 'Score candidates with a chosen reward', 'Compare each reward with its event mean', 'Update so the better candidates are sampled more often']
+const captions = [`One observed event ${math(String.raw`\to K`)} candidate solutions (${math('K = 8')} shown)`, 'Higher reward, higher probability. The reward used in the results is distance to simulation truth.', 'Above-average reward: increase probability. Below-average: decrease it.', 'Raise the probability of the better candidates in this event.']
 const stage = computed(() => Math.min(props.step, 3))
 const equations = [
   String.raw`\{(\nu,\bar\nu)_{k,e}\}_{k=1}^{K}\sim\pi_{\rm rollout}(\cdot\mid x_e)`,
@@ -69,7 +69,7 @@ onBeforeUnmount(() => { transition?.cancel(); loop?.cancel(); media?.removeEvent
       <foreignObject x="36" y="112" width="150" height="28"><div xmlns="http://www.w3.org/1999/xhtml" class="evenet-wordmark al-wordmark gradient-animated">{{ stage >= 3 ? 'EveNet-Align' : 'EveNet-Full' }}</div></foreignObject>
       <foreignObject x="28" y="139" width="166" height="26"><div xmlns="http://www.w3.org/1999/xhtml" class="al-policy">sampling model <span v-html="math(String.raw`\pi_\theta`)" /></div></foreignObject>
       <text x="111" y="179" text-anchor="middle" class="al-small">jets · leptons · MET</text>
-      <text x="111" y="221" text-anchor="middle" class="al-small">Reuse the learned event features</text>
+      <text x="111" y="221" text-anchor="middle" class="al-small">Event features stay frozen</text>
       <g v-for="(s, i) in samples" :key="i">
         <path :d="`M200 144 C235 144 244 ${cy(s)} ${s.x} ${cy(s)}`" fill="none" stroke="#77c9ff" :stroke-opacity=".25 * (1 - reveal(1))" />
         <path :d="`M200 144 C235 144 244 ${cy(s)} ${s.x} ${cy(s)}`" fill="none" stroke="#cdeaff" pathLength="100" stroke-dasharray="3 97" :stroke-dashoffset="-100*((motion.cycle+i*.09)%1)" :opacity="running ? .8*(1-reveal(1)) : 0" />
@@ -98,9 +98,9 @@ onBeforeUnmount(() => { transition?.cancel(); loop?.cancel(); media?.removeEvent
     </svg>
     <div class="al-equation">
       <div class="al-math" v-html="equation" />
-      <p><span v-html="captions[stage]" /><small v-if="stage === 1">Current results: negative normalized squared distance to truth.</small><small v-if="stage === 0"><span v-html="math('x_e')" />: observed event · <span v-html="math('k')" />: candidate index.</small><small v-if="stage >= 2"><span v-html="math(String.raw`\mu_e,\sigma_e`)" />: mean and spread of rewards for this event.</small></p>
+      <p><span v-html="captions[stage]" /><small v-if="stage === 0"><span v-html="math('x_e')" />: observed event · <span v-html="math('k')" />: candidate index.</small><small v-if="stage >= 2"><span v-html="math(String.raw`\mu_e,\sigma_e`)" />: mean and spread of rewards for this event.</small></p>
     </div>
-    <div class="al-caveat"><strong>{{ stage >= 3 ? 'Distribution safeguard' : 'Training-truth reward' }}</strong><span>{{ stage >= 3 ? 'A constraint limits changes to the overall distribution. Simplifying this safeguard is ongoing work.' : 'Uses simulation truth during training. Favoring one solution can reduce the diversity of other plausible solutions.' }}</span></div>
+    <div class="al-caveat"><strong>{{ stage >= 3 ? 'Distribution safeguard' : 'Training-truth reward' }}</strong><span>{{ stage >= 3 ? 'A constraint keeps the distribution from moving too far. We want to remove it.' : 'Training uses simulation truth. Distance to that one truth can suppress the other good solutions.' }}</span></div>
     <div class="al-footer" aria-label="Sample, then reward, then relative advantage, then DGPO update">
       <template v-for="(label, i) in ['Sample', 'Reward', 'Relative advantage', 'DGPO update']" :key="label">
         <svg v-if="i" class="al-step-arrow" viewBox="0 0 24 12" aria-hidden="true"><path d="M1 6 H22 M17 1 L22 6 L17 11" /></svg>
@@ -112,11 +112,11 @@ onBeforeUnmount(() => { transition?.cancel(); loop?.cancel(); media?.removeEvent
 </template>
 
 <style scoped>
-.align-loop{color:#f0f1f3;margin-top:10px;display:grid;grid-template-rows:30px 254px 64px 38px 22px}
+.align-loop{color:#f0f1f3;margin-top:6px;display:grid;grid-template-rows:30px 230px 64px 38px 22px}
 .al-heading{display:flex;align-items:center;justify-content:space-between}
 .al-heading h2{font-size:21px!important;font-weight:550;margin:0!important;letter-spacing:-.02em}
 .al-heading>span{font-size:12px;color:#f0c36e;font-variant-numeric:tabular-nums}
-.align-loop>svg{width:100%;height:254px;display:block;overflow:visible}
+.align-loop>svg{width:100%;height:230px;display:block;overflow:visible}
 .al-rule{stroke:#bcc2cb;stroke-opacity:.2}
 .al-small{font-size:12px;fill:#bcc2cb;letter-spacing:.015em}
 .al-policy{font-size:15px;color:#f0f1f3;text-align:center;line-height:24px}

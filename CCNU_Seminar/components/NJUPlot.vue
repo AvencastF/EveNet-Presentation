@@ -169,9 +169,9 @@ onUnmounted(() => {
 
 .fullscreen-content {
   position: relative;
-  width: min(96vw, 1680px);
-  height: min(94vh, 1120px);
-  padding: clamp(16px, 2vw, 28px);
+  width: min(84vw, 1320px);
+  height: min(80vh, 880px);
+  padding: 76px 84px 28px 32px;
   display: flex;
   align-items: center;
   justify-content: center;

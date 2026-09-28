@@ -268,7 +268,7 @@ onBeforeUnmount(()=>{cancelAnimationFrame(frame);media?.removeEventListener('cha
 <template>
   <div class="chapter-scene" :data-scene="scene" :data-animated="active" aria-hidden="true">
     <canvas ref="canvas" />
-    <div v-if="scene === 'align'" class="scene-notation probability-notation"><LaTeX formula="p_\theta(\nu,\bar{\nu}\mid x)" /></div>
+    <div v-if="scene === 'align'" class="scene-notation probability-notation"><LaTeX formula="p_\theta(z \mid x)" /></div>
     <template v-if="scene === 'lep'">
       <div class="scene-notation tau-plus"><LaTeX formula="\tau^+" /></div>
       <div class="scene-notation tau-minus"><LaTeX formula="\tau^-" /></div>

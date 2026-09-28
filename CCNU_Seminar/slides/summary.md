@@ -27,7 +27,7 @@ transition: fade
       <div class="card-top"><span class="card-icon i-carbon:flow"></span><span class="card-kicker">Experimental applications</span></div>
       <h3>Connect to physics</h3>
       <p>DELPHI: reconstruct <LaTeX formula="\rho" />, the full spin density matrix of the <LaTeX formula="\tau^+\tau^-" /> system.</p>
-      <div class="mini-note"><LaTeX formula="10\text{–}40\%" /> smaller expected coefficient uncertainties; a preliminary ATLAS example also shows sensitivity gains.</div>
+      <div class="mini-note">Asimov uncertainties shrink: Bell nonlocality <LaTeX formula="1.1\sigma \to 1.4\sigma" />, concurrence <LaTeX formula="3.1\sigma \to 4.1\sigma" />. A preliminary ATLAS example also shows sensitivity gains.</div>
     </div>
   </div>
   <div class="outlook-panel summary-reveal delay-2">
@@ -37,7 +37,7 @@ transition: fade
 </div>
 
 <!--
-This seminar combines four earlier benchmarks, truth-reward alignment, the DELPHI expected-sensitivity study, and a supplied internal preliminary ATLAS HH multilepton example. Preserve the distinction between expected sensitivity and an observed quantum-entanglement result. The 10–40% claim refers to spin-coefficient uncertainties. Five task interfaces do not imply that all five heads are active in pretraining. No delivery date or deployment completion is claimed.
+This seminar combines four earlier benchmarks, truth-reward alignment, the DELPHI expected-sensitivity study, and a supplied internal preliminary ATLAS HH multilepton example. Preserve the distinction between expected sensitivity and an observed quantum-entanglement result. The quoted significances are the ML4Jets Asimov comparison: Bell nonlocality 1.1σ to 1.4σ and concurrence 3.1σ to 4.1σ, with unchanged central values. Five task interfaces do not imply that all five heads are active in pretraining. No delivery date or deployment completion is claimed.
 -->
 
 <style>

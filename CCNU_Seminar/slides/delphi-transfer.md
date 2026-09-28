@@ -23,7 +23,7 @@ class: nju-delphi dp-intro
 <div><h3><LaTeX formula="C_{ij}" /> · 9 spin correlations</h3><p>How the two spins are related, for each pair of axes.</p></div>
 </div>
 <div class="dp-note"><strong>The route</strong><span>Identify decays <LaTeX formula="\longrightarrow" /> recover directions <LaTeX formula="\longrightarrow" /> fit 15 coefficients to reconstruct <LaTeX formula="\rho" />.</span></div>
-<div class="dp-source">Cen Mo et al. · ICHEP 2026 · pp. 2–6</div>
+<div class="dp-source">Chen-Hua et al. · ML4Jets · 2026.09.16</div>
 
 <!--
 Native schematic condensed from source p. 5: scale/smearing, common preselection, traditional vs EveNet classification and reconstruction, decay angles, forward folding, quantum observables. ID corrections and kinematic calibration are summarized rather than drawn as extra branches. Dataset from p. 6. Full SDM is the analysis target (pp. 2–3). This is adaptation from LHC training, not zero-shot transfer and not an EveNet-Align application. Acknowledge the Electron-Positron Alliance, DELPHI Collaboration, preservation team, Dietrich Liko and Ulrich Schwickerath.

@@ -7,9 +7,9 @@ transition: fade
 import NJUAlignLoop from '../components/NJUAlignLoop.vue'
 </script>
 
-# <span class="evenet-wordmark gradient-animated">EveNet-Align</span>: learning which solutions to prefer
+# <span class="evenet-wordmark gradient-animated">EveNet-Align</span>: which <LaTeX formula="\nu" /> answers to keep
 
-<div class="dgpo-subtitle align-takeaway">Direct Group Preference Optimization (DGPO): favor candidates with higher rewards.</div>
+<div class="dgpo-subtitle align-takeaway">Direct Group Preference Optimization (DGPO): raise the probability of the candidates with higher reward.</div>
 
 <NJUAlignLoop :step="$clicks" />
 

@@ -7,14 +7,14 @@ class: nju-align-section nju-results-page
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# <span class="evenet-wordmark gradient-animated">EveNet-Align</span>: better reconstruction and precision
+# <span class="evenet-wordmark gradient-animated">EveNet-Align</span>: sharper top mass, smaller unfolding uncertainty
 
-<div class="as-subtitle align-takeaway">Better reconstruction reduces uncertainty when correcting for detector effects (unfolding).</div>
+<div class="as-subtitle align-takeaway">A sharper top-mass response gives a smaller unfolding uncertainty.</div>
 
 <div class="as-results">
   <div class="as-results-figures">
     <section class="as-mass"><h2>Top-mass reconstruction</h2><div class="as-result-plot"><NJUPlot src="/RL/top_mass.svg" alt="Held-out top-mass response for truth, EveNet-Full and EveNet-Align" /></div></section>
-    <section class="as-unfold"><h2>Impact on unfolding uncertainty</h2><div class="as-result-plot"><NJUPlot src="/figures/rl-unfolding.png" alt="Relative unfolding uncertainty for top-pair rapidity, retaining all four top-pair mass regions and the improvement versus nu2flow panel" /></div></section>
+    <section class="as-unfold"><h2>Unfolding uncertainty</h2><div class="as-result-plot"><NJUPlot src="/figures/rl-unfolding.png" alt="Relative unfolding uncertainty for top-pair rapidity, retaining all four top-pair mass regions and the improvement versus nu2flow panel" /></div></section>
   </div>
   <div class="as-metric-band">
     <div class="as-metric-caption"><strong>Top-mass metrics</strong><span>55,472 held-out events</span></div>
@@ -24,19 +24,19 @@ import NJUPlot from '../components/NJUPlot.vue'
     </tbody></table>
   </div>
   <div class="rl-metric-key"><LaTeX formula="W_1" />: distribution distance · MAE: mean absolute error · RMSE: root mean squared error (all in GeV). Correlation is dimensionless.</div>
-  <div class="as-results-note"><strong>Current results</strong><span>Uses a truth-based reward and a distribution safeguard; alternative rewards are under study.</span></div>
+  <div class="as-results-note"><span>Reward is distance to simulation truth, with a constraint on the distribution. Other rewards are being tried.</span></div>
 </div>
 
 <style>
 .slidev-layout.nju-results-page{padding-bottom:18px}
-.nju-results-page .as-results{grid-template-rows:260px auto auto auto;gap:8px}
+.nju-results-page .as-results{grid-template-rows:220px auto auto auto;gap:6px}
 .nju-results-page .as-metric-band{padding:6px 0;min-height:90px;box-sizing:border-box}
 .nju-results-page .as-metric-band table{margin:0!important;border-collapse:collapse}
 .nju-results-page .as-metric-band :is(th,td){padding:4px 8px;border:0!important}
 .nju-results-page .as-metric-band thead tr{border-bottom:1px solid #ffffff20}
 .nju-results-page .as-metric-band tbody tr{border:0!important}
 .nju-results-page .as-metric-band tbody tr+tr{border-top:1px solid #ffffff16!important}
-.nju-align-section .as-result-plot{height:224px}
+.nju-align-section .as-result-plot{height:184px}
 .nju-align-section .as-results-note{font-size:11px}
 
 .nju-results-page .rl-metric-key{font-size:10px;color:var(--fg-1);line-height:1.35;margin-top:0}
