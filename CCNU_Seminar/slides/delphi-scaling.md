@@ -7,7 +7,7 @@ class: nju-delphi dp-scaling
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# Error falls as a power of the training-set size
+# Scaling test
 
 <div class="dp-subtitle">Top-1 error versus the number of DELPHI training events. FM is the LHC-pretrained model; scratch starts from random weights.</div>
 <div class="dp-split">

@@ -7,13 +7,13 @@ class: nju-delphi dp-confusion
 import NJUPlot from '../components/NJUPlot.vue'
 </script>
 
-# Where the 17 channels get confused
+# Confusion among the 17 channels
 
 <div class="dp-subtitle">Fraction of true events assigned to each predicted channel. The diagonal is a correct assignment.</div>
 <div class="dp-split">
 <div class="dp-plot"><NJUPlot src="/figures/delphi-confusion.png" alt="17-way confusion matrix for tau-pair decay channels, with true channel on the vertical axis and predicted channel on the horizontal axis" /></div>
 <div class="dp-callouts">
-<div><h3><LaTeX formula="\pi\rho" /></h3><p>Pion–rho swaps are the clearest mix-up beside the diagonal.</p></div>
+<div><h3><LaTeX formula="\pi\rho" /></h3><p>The largest off-diagonal is <LaTeX formula="\pi \leftrightarrow \rho" />.</p></div>
 <div><h3><LaTeX formula="\rho\rho" /></h3><p>The rho–rho channel is the weakest diagonal entry in the hadronic block.</p></div>
 <div><h3>Leptonic pairs</h3><p><LaTeX formula="ee" />, <LaTeX formula="\mu\mu" />, and the mixed lepton channels stay sharply diagonal.</p></div>
 </div>

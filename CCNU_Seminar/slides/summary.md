@@ -7,32 +7,32 @@ transition: fade
 <div class="summary-stage">
   <div class="model-strip summary-reveal">
     <div class="model-icon i-carbon:network-4"></div>
-    <div class="model-main"><span class="model-kicker">An event-level foundation model</span><strong>One shared network, adapted to each analysis</strong></div>
+    <div class="model-main"><span class="model-kicker">An event-level foundation model</span><strong>One event model for classification and reconstruction</strong></div>
     <div class="model-metrics"><span><b>500M</b> simulated events</span><span><b>5</b> task heads</span></div>
   </div>
   <div class="evidence-grid summary-reveal delay-1">
     <div class="evidence-card evidence-card--performance">
       <div class="card-top"><span class="card-icon i-carbon:chart-line"></span><span class="card-kicker">Pretraining</span></div>
-      <h3>Reuse event features</h3>
-      <p>Learn from many collision processes, then adapt to classification and reconstruction.</p>
-      <div class="mini-note">Benchmarks show gains in sensitivity, data efficiency, and robustness to tested detector variations.</div>
+      <h3>Pretraining across processes</h3>
+      <p>Better sensitivity with fewer training events.</p>
+      <div class="mini-note">More robust to the detector variations tested.</div>
     </div>
     <div class="evidence-card evidence-card--efficiency">
       <div class="card-top"><span class="card-icon i-carbon:renew"></span><span class="card-kicker">Alignment</span></div>
-      <h3>Improve what we sample</h3>
-      <p><span class="evenet-wordmark">EveNet-Align</span> learns to favor higher-reward neutrino reconstructions.</p>
-      <div class="mini-note">Better reconstruction reduces unfolding uncertainty in the demonstrated study.</div>
+      <h3>Reinforcement learning for reconstruction</h3>
+      <p>More accurate neutrino momenta and a sharper top-mass response.</p>
+      <div class="mini-note">Smaller unfolding uncertainties in the study shown.</div>
     </div>
     <div class="evidence-card evidence-card--transfer">
       <div class="card-top"><span class="card-icon i-carbon:flow"></span><span class="card-kicker">Experimental applications</span></div>
-      <h3>Connect to physics</h3>
-      <p>DELPHI: reconstruct <LaTeX formula="\rho" />, the full spin density matrix of the <LaTeX formula="\tau^+\tau^-" /> system.</p>
-      <div class="mini-note">Asimov uncertainties shrink: Bell nonlocality <LaTeX formula="1.1\sigma \to 1.4\sigma" />, concurrence <LaTeX formula="3.1\sigma \to 4.1\sigma" />. A preliminary ATLAS example also shows sensitivity gains.</div>
+      <h3>From LHC simulation to DELPHI</h3>
+      <p>Reconstruct the full <LaTeX formula="\tau^+\tau^-" /> spin density matrix.</p>
+      <div class="mini-note">Expected significance: Bell nonlocality <LaTeX formula="1.1\sigma \to 1.4\sigma" />; concurrence <LaTeX formula="3.1\sigma \to 4.1\sigma" />.</div>
     </div>
   </div>
   <div class="outlook-panel summary-reveal delay-2">
-    <div class="outlook-label"><span class="outlook-icon i-carbon:deploy"></span><span>Next step</span><strong>Validate in each analysis</strong></div>
-    <div class="outlook-flow"><div class="outlook-main">A shared model provides a starting point. Calibration, uncertainty studies, and validation on experimental data remain essential.</div><div class="outlook-result">Ongoing applications in ATLAS and CMS, the two general-purpose LHC experiments.</div></div>
+    <div class="outlook-label"><span class="outlook-icon i-carbon:deploy"></span><span>Next step</span><strong>ATLAS and CMS analyses</strong></div>
+    <div class="outlook-flow"><div class="outlook-main">Preliminary ATLAS results show sensitivity gains.</div><div class="outlook-result">Further work: calibration, systematic uncertainties, and validation on data.</div></div>
   </div>
 </div>
 

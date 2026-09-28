@@ -7,9 +7,9 @@ class: nju-delphi dp-asimov
 import DelphiSpinMatrices from '../components/DelphiSpinMatrices.vue'
 </script>
 
-# The same spin matrix, read more precisely
+# Forward-folded full Spin Density Matrix
 
-<div class="dp-subtitle">Asimov fit of the combined <LaTeX formula="\tau^+\tau^-" /> spin density matrix. Central values agree; the ML uncertainties are smaller.</div>
+<div class="dp-subtitle">Asimov fit of the combined <LaTeX formula="\tau^+\tau^-" /> spin density matrix.</div>
 <DelphiSpinMatrices />
 <div class="dp-note"><strong>Asimov</strong><span>Expected counts, not an observed entanglement result.</span></div>
 <div class="dp-source">Chen-Hua et al. · ML4Jets · 2026.09.16</div>

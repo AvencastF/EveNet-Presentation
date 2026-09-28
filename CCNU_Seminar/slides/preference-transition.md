@@ -6,8 +6,8 @@ class: nju-chapter-bridge
 <NJUChapterScene scene="align" />
 
 <div class="chapter-copy">
-<h1>Sample many answers.<br />Keep the better ones.</h1>
-<p>The reward can score whatever the model generates.<br /><span class="evenet-wordmark">EveNet-Align</span> does this for <LaTeX formula="\nu" /> momenta: one event, many solutions.</p>
+<h1>Good reconstruction.<br />Can we do better?</h1>
+<p>Use reinforcement learning to refine the generator.<br />Start with <LaTeX formula="\nu" /> momenta; extend to other problems with multiple solutions.</p>
 <div class="chapter-context"><span class="evenet-wordmark">EveNet-Align</span><span class="context-rule"></span><span>Reinforcement learning</span></div>
 </div>
 

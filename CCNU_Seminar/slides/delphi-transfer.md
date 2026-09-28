@@ -13,16 +13,16 @@ class: nju-delphi dp-intro
 <div class="dp-endpoint"><span class="dp-symbol"><LaTeX formula="Z\to\tau^+\tau^-" /></span><h2>Selected events</h2><p>Common preselection<br />Data and simulation</p></div>
 <div class="dp-lanes">
 <div class="dp-lane"><h3>Traditional analysis</h3><div class="dp-steps"><span>Identify decay products</span><span class="dp-arrow"><LaTeX formula="\longrightarrow" /></span><span>Solve or fit the kinematics</span></div><small>Channel-dependent reconstruction</small></div>
-<div class="dp-lane"><h3><span class="evenet-wordmark">EveNet</span></h3><div class="dp-steps"><span>Identify both decays</span><span class="dp-arrow"><LaTeX formula="\longrightarrow" /></span><span>Generate missing kinematics</span></div><small>One strategy across decay channels</small></div>
+<div class="dp-lane"><h3><span class="evenet-wordmark">EveNet</span></h3><div class="dp-steps"><span>Identify both decays</span><span class="dp-arrow"><LaTeX formula="\longrightarrow" /></span><span>Generate missing kinematics</span></div><small>Same network for every channel</small></div>
 </div>
 <div class="dp-endpoint"><span class="dp-symbol"><LaTeX formula="\cos\theta" /></span><h2>Decay directions</h2><p>Single-particle angles<br />and products of their cosines</p></div>
 </div>
 <div class="dp-spin-primer">
-<div class="dp-rho-goal"><h3><LaTeX formula="\rho" /> · Full spin density matrix</h3><p>Encodes the pair’s complete spin quantum state.</p></div>
+<div class="dp-rho-goal"><h3><LaTeX formula="\rho" /> · Full spin density matrix</h3><p>The spin state of the pair.</p></div>
 <div><h3><LaTeX formula="B_i^{\pm}" /> · 6 polarization components</h3><p>Each particle’s average spin along three axes.</p></div>
 <div><h3><LaTeX formula="C_{ij}" /> · 9 spin correlations</h3><p>How the two spins are related, for each pair of axes.</p></div>
 </div>
-<div class="dp-note"><strong>The route</strong><span>Identify decays <LaTeX formula="\longrightarrow" /> recover directions <LaTeX formula="\longrightarrow" /> fit 15 coefficients to reconstruct <LaTeX formula="\rho" />.</span></div>
+<div class="dp-note"><span>Identify the decays, recover the directions, then fit the 15 coefficients of <LaTeX formula="\rho" />.</span></div>
 <div class="dp-source">Chen-Hua et al. · ML4Jets · 2026.09.16</div>
 
 <!--
