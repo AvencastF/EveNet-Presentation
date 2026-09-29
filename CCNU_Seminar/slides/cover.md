@@ -18,7 +18,7 @@ class: nju-foundation-cover
   <div class="cover-divider neon-hr" />
 
   <section class="cover-meta">
-    <span>CCNU · Physics Seminar</span>
+    <span>Wuhan</span>
   </section>
 
   <p class="cover-author">Yulei Zhang</p>
