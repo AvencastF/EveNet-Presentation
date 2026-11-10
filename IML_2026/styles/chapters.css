@@ -1,0 +1,18 @@
+.nju-chapter-rail { position:absolute; bottom:30px; left:56px; right:56px; display:flex; gap:24px; border-top:1px solid var(--nju-line); padding-top:15px; }
+.nju-chapter-rail > span { display:flex; align-items:baseline; gap:9px; color:var(--fg-1); font-size:12px; flex:1; white-space:nowrap; }
+.nju-chapter-rail b { font-size:11px; font-weight:500; }
+.nju-chapter-rail .current { color:var(--nju-amber); }
+.slidev-layout.nju-chapter-bridge { padding:64px 56px 90px; }
+.slidev-layout.nju-chapter-bridge h1 { font-size:62px!important; line-height:1.04!important; letter-spacing:-.035em!important; font-weight:500!important; margin:0 0 24px!important; }
+.nju-chapter-bridge .chapter-copy { max-width:770px; margin-top:30px; }
+.nju-chapter-bridge .chapter-copy p { font-size:21px; line-height:1.5; color:var(--fg-1); max-width:650px; margin:0; }
+.nju-chapter-bridge .chapter-context { display:flex; gap:20px; align-items:center; color:var(--nju-amber); font-size:17px; margin-top:34px; }
+.nju-chapter-bridge .chapter-context .context-rule { width:58px; height:1px; background:var(--nju-amber); }
+.nju-chapter-bridge .access-note { display:inline-flex; gap:10px; align-items:center; margin-top:33px; border:1px solid var(--nju-line); padding:10px 15px; color:var(--nju-amber); font-size:14px; }
+.nju-chapter-bridge .access-note svg { width:16px; height:16px; }
+.nju-chapter-bridge .chapter-copy p { opacity:1; }
+/* A distinct, still interlude between the animated graphite content slides. */
+.slidev-layout.nju-chapter-bridge { background:#0c0d0f!important; }
+.slidev-layout.nju-chapter-bridge::before { inset:0; background:linear-gradient(115deg,transparent 48%,rgba(240,195,110,.035) 100%); animation:none; transform:none; }
+
+.slidev-layout.nju-chapter-bridge::before { display:none; }

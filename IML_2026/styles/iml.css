@@ -1,0 +1,183 @@
+.slidev-layout.iml-content h1 { font-size:32px!important; line-height:1.18!important; letter-spacing:-.025em!important; font-weight:550; }
+.iml-lead { color:var(--fg-1); font-size:18px; line-height:1.4; margin:12px 0 23px; }
+.iml-content h2 { font-size:21px; font-weight:550; color:#efd3a0; margin:0 0 12px; }
+.iml-content p { line-height:1.42; }
+.iml-bottom { position:absolute; left:56px; right:48px; bottom:48px; border-left:3px solid #dfb86f; padding:8px 0 8px 15px; color:#eee9de; font-size:18px; line-height:1.35; }
+.iml-result-grid { display:grid; grid-template-columns:1.55fr 1fr; gap:25px; align-items:center; }
+.iml-result-grid .zoomable-plot-container { padding:5px; height:268px; margin:0; background:white; }
+.iml-result-grid .zoomable-plot-image { width:100%; max-height:100%; object-fit:contain; }
+.iml-result-copy p { font-size:17px; margin:10px 0 16px; }
+.iml-content .iml-small { font-size:13px; color:var(--fg-1); line-height:1.4; }
+.iml-metric { color:#efd3a0; font-size:29px; margin:16px 0 8px; }
+.iml-ablation-grid { display:grid; grid-template-columns:1.5fr 1fr; gap:25px; align-items:center; }
+.iml-ablation-grid .zoomable-plot-container { height:292px; margin:0; padding:4px; background:white; }
+.iml-ablation-grid .zoomable-plot-image { width:100%; max-height:100%; object-fit:contain; }
+.iml-discussion-rows { margin-top:28px; }
+.iml-discussion-rows section { display:grid; grid-template-columns:185px 1fr; gap:24px; padding:17px 0; border-bottom:1px solid #ffffff20; }
+.iml-discussion-rows h2 { font-size:21px; padding-top:3px; }
+.iml-discussion-rows p { font-size:18px; margin:0 0 8px; }
+.iml-discussion-rows .iml-small { font-size:14px; }
+.iml-conclusion-rows { margin-top:24px; }
+.iml-conclusion-rows section { display:grid; grid-template-columns:38px 1fr; gap:16px; padding:9px 0; border-bottom:1px solid #ffffff18; }
+.iml-conclusion-rows section>span { color:#dfb86f; font-size:20px; padding-top:2px; }
+.iml-conclusion-rows p { font-size:17px; margin:0; color:var(--fg-1); }
+.iml-conclusion-rows strong { color:#eee9de; font-size:19px; font-weight:550; }
+.iml-conclusions .iml-bottom { font-size:17px; }
+.iml-cms-label { color:#efd3a0; font-size:14px; margin:0 0 10px; }
+
+/* IML evidence slides: shared proportions, original vector figures. */
+.iml-content .iml-lead { color:#b9c1cc; margin:13px 0 22px; font-size:17px; }
+.benchmark-map { display:grid; grid-template-columns:1fr 1fr; gap:26px 38px; margin-top:32px; }
+.benchmark-map section { border-top:1px solid #ffffff25; padding-top:15px; }
+.benchmark-map h2 { font-size:19px; margin-bottom:14px; }
+.benchmark-process { font-size:24px; color:#ece8df; margin-bottom:14px; }
+.benchmark-map p { font-size:17px; margin:8px 0; }
+.benchmark-map .benchmark-data { color:#aeb7c3; font-size:15px; }
+.evidence-split { display:grid; grid-template-columns:1.5fr 1fr; gap:30px; align-items:center; }
+.evidence-split .zoomable-plot-container { height:330px; padding:0; margin:0; }
+.evidence-split .zoomable-plot-image { width:100%; height:100%; object-fit:contain; }
+.evidence-split h2 { font-size:20px; margin:20px 0 8px; }
+.evidence-split p { font-size:17px; margin:0 0 16px; color:#d8dce2; }
+.resonance-plots { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.resonance-plots h2,.systematics-grid h2 { font-size:17px; margin:0 0 8px; }
+.resonance-plots .zoomable-plot-container { height:290px; padding:0; margin:0; }
+.resonance-plots .zoomable-plot-image { height:100%; width:100%; object-fit:contain; }
+.iml-content .evidence-conclusion { font-size:17px; line-height:1.45; color:#e8e6e0; border-top:1px solid #ffffff25; padding-top:14px; margin-top:18px; }
+.systematics-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px 22px; }
+.systematics-grid .zoomable-plot-container { height:112px; padding:0; margin:0; }
+.systematics-grid .zoomable-plot-image { height:100%; width:100%; object-fit:contain; }
+.slidev-layout.iml-content .iml-lead { opacity:1!important; color:#b9c1cc!important; }
+.slidev-layout.iml-content .evidence-split .zoomable-plot-container { height:330px!important; min-height:0!important; margin:0!important; padding:0!important; }
+.slidev-layout.iml-content .resonance-plots .zoomable-plot-container { height:278px!important; min-height:0!important; margin:0!important; padding:0!important; }
+.slidev-layout.iml-content .systematics-grid .zoomable-plot-container { height:112px!important; min-height:0!important; margin:0!important; padding:0!important; }
+.slidev-layout.iml-content :is(.evidence-split,.resonance-plots,.systematics-grid) .zoomable-plot-image { width:100%!important; height:100%!important; max-height:100%!important; object-fit:contain!important; }
+
+/* Rich evidence treatment, following the Wuhan overview and mass-grid panels. */
+.iml-rich .rich-panel { border:1px solid #ffffff25; border-radius:9px; background:#ffffff03; padding:12px; min-width:0; }
+.iml-rich .rich-panel h2 { display:flex; align-items:center; gap:8px; font-size:16px; margin:0 0 12px; color:#e9c78a; }
+.iml-rich .rich-panel h2>span { width:17px; height:17px; color:#7dcced; }
+.rich-ad-layout { display:grid; grid-template-columns:1fr 210px; gap:20px; align-items:stretch; }
+.rich-plot-pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.slidev-layout.iml-rich .rich-plot-pair .zoomable-plot-container { height:220px!important; padding:0!important; margin:0!important; }
+.slidev-layout.iml-rich :is(.rich-plot-pair,.rich-ablation-plot) .zoomable-plot-image { width:100%!important; height:100%!important; object-fit:contain!important; }
+.rich-panel-label { text-align:center; color:#b9c4d2; font-size:13px; margin-top:10px; }
+.rich-comparison { border-left:1px solid #ffffff25; padding-left:20px; }
+.iml-rich .rich-comparison h2 { font-size:19px; margin:5px 0 20px; }
+.rich-score { display:flex; flex-direction:column; gap:7px; padding:13px 0; color:#8bdabb; font-size:25px; border-bottom:1px solid #ffffff17; }
+.rich-score>span:first-child { font-size:16px; }
+.rich-score.scratch { color:#c5cbd3; font-size:22px; }
+.rich-method { display:flex; gap:9px; align-items:center; margin-top:20px; color:#83cbed; }
+.rich-method>span { width:20px; height:20px; flex-shrink:0; }
+.iml-rich .rich-method p { font-size:14px; line-height:1.5; margin:0; }
+.iml-rich .rich-takeaway { display:flex; align-items:center; gap:12px; padding:15px 0 0; border-top:1px solid #ffffff25; margin-top:20px; }
+.rich-takeaway>span { width:21px; height:21px; flex-shrink:0; color:#8bdabb; }
+.iml-rich .rich-takeaway p { font-size:17px; line-height:1.45; margin:0; }
+.rich-takeaway strong { color:#8bdabb; font-weight:600; }
+.rich-ablation-layout { display:grid; grid-template-columns:1.35fr 1fr; gap:30px; align-items:center; }
+.slidev-layout.iml-rich .rich-ablation-plot .zoomable-plot-container { height:308px!important; padding:0!important; margin:0!important; }
+.rich-ablation-copy { display:flex; flex-direction:column; gap:16px; }
+.iml-rich .rich-ablation-copy .rich-panel { padding:16px; }
+.iml-rich .rich-ablation-copy h2 { font-size:20px; }
+.iml-rich .rich-ablation-copy p { font-size:17px; margin:0; color:#d8dee5; }
+.rich-ablation-copy strong { color:#f1c98b; }
+.rich-pretrained strong { color:#8bdabb; }
+.rich-head-key { display:flex; gap:9px; color:#b9c4d2; font-size:13px; }
+.rich-head-key span { padding:4px 9px; border-radius:5px; border:1px solid #ffffff25; }
+.iml-rich .rich-systematics { gap:14px 20px; }
+.iml-rich .rich-systematics .rich-panel { padding:10px 12px; }
+.slidev-layout.iml-rich .rich-systematics .zoomable-plot-container { height:90px!important; }
+.iml-rich .rich-systematics h2 { font-size:16px; margin-bottom:8px; }
+
+/* Paper-led, high-density result compositions (slides 10–12). */
+.slidev-layout.iml-paper h1 { font-size:29px!important; }
+.iml-paper .paper-sub { font-size:14px; color:#b8c3d0; margin:10px 0 16px; }
+.iml-paper h2 { font-size:16px!important; color:#e9c78a; margin:0 0 9px!important; line-height:1.3; }
+.iml-paper h3 { font-size:13px; color:#b9cbd8; margin:0 0 5px; font-weight:500; }
+.ad-evidence { display:grid; grid-template-columns:1.35fr 1fr; gap:22px; }
+.ad-evidence>section+section,.ablation-evidence>section+section { border-left:1px solid #ffffff25; padding-left:20px; }
+.slidev-layout.iml-paper .zoomable-plot-container { padding:0!important; margin:0!important; min-height:0!important; }
+.slidev-layout.iml-paper .zoomable-plot-image { width:100%!important; height:100%!important; max-height:100%!important; object-fit:contain!important; }
+.slidev-layout.iml-paper .ad-significance .zoomable-plot-container { height:230px!important; }
+.ad-spectra { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.slidev-layout.iml-paper .ad-spectra .zoomable-plot-container { height:145px!important; }
+.ad-spectra b { display:block; text-align:center; font-size:12px; color:#b9cbd8; margin:3px 0 7px; }
+.iml-paper .paper-guide { font-size:12px; line-height:1.5; color:#bfcbd7; margin:9px 0; }
+.paper-guide b { color:#8ad8c0; }
+.paper-flow { font-size:12px; line-height:1.65; background:#77c9ff0b; border:1px solid #77c9ff25; padding:9px 11px; margin-top:10px; border-radius:5px; }
+.paper-flow b { color:#82ccec; }
+.iml-paper .paper-table { width:100%; border-collapse:collapse; font-size:13px; line-height:1.3; margin:8px 0; }
+.iml-paper .paper-table :is(td,th) { padding:6px 7px; border-bottom:1px solid #ffffff1c; text-align:right; }
+.iml-paper .paper-table :is(td,th):first-child { text-align:left; }
+.paper-table th { color:#aabac9; font-weight:500; }
+.paper-table tbody tr:first-child { background:#8ad8c00b; }
+.iml-paper .paper-note { font-size:11px; line-height:1.4; color:#b9c3cf; margin:8px 0 0; }
+.paper-result { display:flex; align-items:center; gap:12px; font-size:14px; line-height:1.45; margin-top:14px; padding-top:12px; border-top:1px solid #ffffff25; }
+.paper-result>span { width:21px; height:21px; flex-shrink:0; color:#8ad8c0; }
+.paper-result b { color:#8ad8c0; }
+.ablation-evidence { display:grid; grid-template-columns:1.35fr 1fr; gap:24px; }
+.slidev-layout.iml-paper .ablation-main .zoomable-plot-container { height:315px!important; }
+.iml-paper .paper-heads p { font-size:13px; line-height:1.45; margin:5px 0; }
+.paper-heads b { color:#82ccec; }
+.paper-insight { margin-top:13px; border-top:1px solid #ffffff20; padding-top:10px; font-size:14px; }
+.paper-insight>b { color:#e9c78a; }
+.iml-paper .paper-insight p { font-size:13px; line-height:1.5; margin:4px 0 0; }
+.syst-evidence>section { border:1px solid #ffffff20; border-radius:6px; padding:9px 12px 7px; margin-bottom:10px; background:#ffffff02; }
+.syst-evidence h2 { display:flex; justify-content:space-between; }
+.syst-evidence h2 span { font-size:12px; color:#b7c5d2; font-weight:400; }
+.syst-pair { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+.slidev-layout.iml-paper .syst-pair .zoomable-plot-container { height:auto!important; width:100%!important; display:block!important; }
+.slidev-layout.iml-paper .syst-pair .zoomable-plot-image { height:auto!important; width:100%!important; display:block!important; max-height:none!important; }
+.iml-paper .axis-guide { font-size:11px; line-height:1.4; color:#bfcbd7; margin:6px 0 0; }
+.syst-bottom { display:grid; grid-template-columns:1.15fr 1fr; gap:30px; margin-top:7px; }
+.syst-bottom .paper-guide { margin:0; }
+.syst-interval { font-size:12px; color:#e9c78a; }
+.syst-interval .paper-table { margin:3px 0; font-size:12px; color:#d8e0e6; }
+.syst-interval .paper-table :is(td,th) { padding:3px 7px; }
+/* Compact typesetting and a dedicated reading rail keep evidence on one slide. */
+.slidev-layout.iml-paper .paper-table :is(td,th) { padding:4px 6px!important; font-size:12px!important; line-height:1.3!important; }
+.slidev-layout.iml-paper .ad-significance .zoomable-plot-container { height:195px!important; }
+.slidev-layout.iml-paper .ad-spectra .zoomable-plot-container { height:125px!important; }
+.iml-paper .paper-insight { margin-top:8px; padding-top:7px; }
+.iml-paper .paper-insight p { font-size:12px; line-height:1.4; }
+.iml-paper .paper-heads p { font-size:12px; margin:3px 0!important; }
+.iml-paper .paper-result { font-size:13px; margin-top:10px; padding-top:9px; }
+.iml-paper .syst-evidence { width:70%; float:left; }
+.iml-paper .syst-bottom { width:27%; float:right; display:block; margin-top:0; }
+.iml-paper .syst-pair { gap:14px; }
+.iml-paper .syst-evidence h2 { font-size:14px!important; margin-bottom:5px!important; }
+.iml-paper .syst-evidence h2 span { font-size:10px; }
+.iml-paper .syst-evidence h3 { font-size:11px!important; margin:0 0 4px!important; line-height:1.25!important; }
+.iml-paper .syst-evidence>section { padding:8px; }
+.iml-paper .syst-bottom .paper-guide { font-size:13px; line-height:1.7; padding:12px; border:1px solid #ffffff25; border-radius:6px; }
+.iml-paper .syst-interval { margin-top:20px; font-size:14px; }
+
+/* Closing pair: inherit the Wuhan model/evidence/deployment composition. */
+.slidev-layout.iml-closing h1 { font-size:30px!important; }
+.iml-closing .summary-stage { margin-top:24px; gap:15px; }
+.iml-closing .model-strip { padding:14px 16px; }
+.closing-secondary { font-size:13px; color:#bfcbd7; margin-top:6px; }
+.iml-closing .evidence-card { min-height:212px; padding:16px; }
+.iml-closing .evidence-card h3 { font-size:19px; line-height:1.2; margin:12px 0; }
+.iml-closing .evidence-card p { font-size:14px; line-height:1.45; }
+.closing-detail { margin-top:13px; font-size:13px; color:#bbc6d2; line-height:1.45; }
+.closing-proof { margin-top:14px; padding-top:10px; border-top:1px solid #ffffff20; font-size:12px; color:#e8cb94; }
+.iml-closing .outlook-panel { padding:14px 16px; grid-template-columns:220px 1fr; }
+.iml-closing .outlook-result { font-size:12px; }
+.closing-statement { font-size:14px; line-height:1.5; color:#c4ced8; }
+.closing-statement b { color:#e9d29f; }
+.discussion-matrix { margin-top:27px; }
+.discussion-labels,.discussion-band { display:grid; grid-template-columns:150px 1fr 1fr; gap:23px; }
+.discussion-labels { color:#a8b9c9; font-size:12px; margin-bottom:10px; padding:0 15px; }
+.discussion-band { padding:18px 15px; border:1px solid #ffffff20; border-radius:7px; background:#ffffff03; margin-bottom:12px; }
+.iml-closing .discussion-band h2 { font-size:18px; line-height:1.25; margin:0; color:#e8c88e; }
+.discussion-band h2>span { display:block; width:22px; height:22px; margin-bottom:8px; color:#82ccec; }
+.discussion-band strong { font-size:15px; color:#dfebf3; font-weight:550; }
+.discussion-band>div:last-child strong { color:#8bd7be; }
+.iml-closing .discussion-band p { font-size:13px; line-height:1.45; margin:8px 0 0; color:#bdc8d3; }
+.discussion-question { display:flex; gap:14px; align-items:center; padding:12px 15px; border-top:1px solid #ffffff25; margin-top:15px; }
+.discussion-question>span { width:24px; height:24px; color:#8bd7be; flex-shrink:0; }
+.discussion-question b { font-size:17px; color:#e8d3ad; }
+.iml-closing .discussion-question p { font-size:13px; margin:5px 0 0; color:#bdc8d3; }
+.iml-closing .discussion-band { padding:12px 15px; margin-bottom:10px; }
+.iml-closing .discussion-band h2>span { margin-bottom:5px; width:19px; height:19px; }
+.iml-closing .discussion-question { margin-top:10px; padding-top:10px; }
