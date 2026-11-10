@@ -39,8 +39,8 @@ transition: fade
 </v-clicks>
 
 <div class="iml-strategy-close" v-after>
-<div><b>A proof of concept for CERN’s physics foundation model programme.</b><br/>Next: investigate scaling, broader detector transfer and analysis validation.</div>
-<a href="https://cio.web.cern.ch/artificial-intelligence" target="_blank" rel="noopener noreferrer">CERN AI strategy · LH-07</a>
+<div><b>An independent proof of concept aligned with the foundation-model goals in CERN’s AI strategy.</b><br/>Next: investigate scaling, broader detector transfer and analysis validation.</div>
+<a href="https://cio.web.cern.ch/artificial-intelligence" target="_blank" rel="noopener noreferrer">Related: CERN AI strategy · LH-07</a>
 </div>
 
 <!--
@@ -55,10 +55,10 @@ The closing outlook explicitly connects to the supplied IML 2.pdf (pages 5 and 1
 .iml-keyword-summary .iml-summary-subtitle {
   color: var(--fg-1, #a6a6af);
   font-size: 17px;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 .iml-keyword-summary .iml-summary-intro {
-  margin-top: 15px;
+  margin-top: 9px;
   padding-left: 18px;
   position: relative;
   font-size: 16px;
@@ -75,8 +75,8 @@ The closing outlook explicitly connects to the supplied IML 2.pdf (pages 5 and 1
 .iml-keyword-summary .iml-summary-rows {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 8px;
+  margin-top: 9px;
 }
 .iml-keyword-summary .iml-summary-row {
   display: grid;
@@ -98,10 +98,10 @@ The closing outlook explicitly connects to the supplied IML 2.pdf (pages 5 and 1
   padding-left: 17px;
   position: relative;
   font-size: 15px;
-  line-height: 1.45;
+  line-height: 1.35;
   color: #dedee5;
 }
-.iml-keyword-summary .iml-summary-row p + p { margin-top: 5px; }
+.iml-keyword-summary .iml-summary-row p + p { margin-top: 3px; }
 .iml-keyword-summary .iml-summary-row p::before {
   content: '—';
   position: absolute;
@@ -116,7 +116,7 @@ The closing outlook explicitly connects to the supplied IML 2.pdf (pages 5 and 1
 .iml-summary-outlook { --row-color: #84d3a2; }
 .iml-keyword-summary .iml-application-row {
   border-top: 1px solid rgba(237, 186, 131, .25);
-  padding-top: 12px;
+  padding-top: 9px;
 }
 .iml-keyword-summary .iml-application-label {
   display: block;
@@ -130,14 +130,14 @@ The closing outlook explicitly connects to the supplied IML 2.pdf (pages 5 and 1
   gap: 12px;
   align-items: center;
 }
-.iml-keyword-summary .iml-deployment-step { display: flex; align-items: center; gap: 10px; }
+.iml-keyword-summary .iml-deployment-step { display: flex; align-items: center; gap: 8px; }
 .iml-keyword-summary .iml-flow-logo { width:36px; height:36px; object-fit:contain; flex-shrink:0; }
 .iml-keyword-summary .iml-flow-icon { font-size: 29px; flex-shrink: 0; color: #edba83; }
 .iml-keyword-summary .iml-deployment-step strong { display: block; font-size: 16px; font-weight: 600; color: #edba83; }
 .iml-keyword-summary .iml-deployment-step small { display: block; margin-top: 3px; font-size: 12px; color: #ded2c4; }
 .iml-keyword-summary .iml-flow-arrow { width: 32px; fill: none; stroke: #b9936d; stroke-width: 1.5; }
 .iml-keyword-summary .iml-deployment-validation { margin-top: 9px; font-size: 14px; color: #dedee5; }
-.iml-keyword-summary .iml-strategy-close { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:16px; padding-top:10px; border-top:1px solid #ffffff25; color:#c7c7d0; font-size:12px; line-height:1.5; }
+.iml-keyword-summary .iml-strategy-close { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:12px; padding-top:8px; border-top:1px solid #ffffff25; color:#c7c7d0; font-size:12px; line-height:1.5; }
 .iml-keyword-summary .iml-strategy-close b { color:#e6c38e; font-weight:600; }
 .iml-keyword-summary .iml-strategy-close a { flex:none; color:#aaaab8; font-size:10px; text-decoration:underline; }
 </style>
